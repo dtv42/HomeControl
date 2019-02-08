@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BControlApp": {
+      "commandName": "Project",
+      "commandLineArgs": "read -b"
+    }
+  }
+}

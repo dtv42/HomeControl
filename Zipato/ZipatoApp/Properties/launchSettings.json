@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ZipatoApp": {
+      "commandName": "Project",
+      "commandLineArgs": "sensors temperature --name \"Thermostat 1 Hvac\""
+    }
+  }
+}

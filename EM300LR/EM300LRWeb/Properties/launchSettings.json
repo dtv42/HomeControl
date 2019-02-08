@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:60637",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "Project",
+      "commandLineArgs": "--AppSettings:BaseAddress http://10.0.1.10 --AppSettings:Password Yellow31 --AppSettings:SerialNumber 72130511 --urls \"http://localhost:8010\"",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "EM300LRWeb": {
+      "commandName": "Project",
+      "commandLineArgs": "--urls http://localhost:8010 --AppSettings:BaseAddress http://10.0.1.10 --AppSettings:Password Yellow31 --AppSettings:SerialNumber 72130511",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5000"
+    }
+  }
+}

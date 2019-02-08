@@ -1,0 +1,75 @@
+﻿@page
+@model Report100Model
+@{
+    ViewData["Title"] = "Monitor Wallbox";
+    ViewData["Header"] = "Report 100 Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="ID"><td id="name">ID</td><td id="value"></td></tr>
+            <tr id="SessionID"><td id="name">SessionID</td><td id="value"></td></tr>
+            <tr id="CurrentHW"><td id="name">CurrentHW</td><td id="value"></td></tr>
+            <tr id="EnergyConsumption"><td id="name">EnergyConsumption</td><td id="value"></td></tr>
+            <tr id="EnergyTransferred"><td id="name">EnergyTransferred</td><td id="value"></td></tr>
+            <tr id="StartedSeconds"><td id="name">StartedSeconds</td><td id="value"></td></tr>
+            <tr id="EndedSeconds"><td id="name">EndedSeconds</td><td id="value"></td></tr>
+            <tr id="Started"><td id="name">Started</td><td id="value"></td></tr>
+            <tr id="Ended"><td id="name">Ended</td><td id="value"></td></tr>
+            <tr id="Reason"><td id="name">Reason</td><td id="value"></td></tr>
+            <tr id="TimeQ"><td id="name">TimeQ</td><td id="value"></td></tr>
+            <tr id="RFID"><td id="name">RFID</td><td id="value"></td></tr>
+            <tr id="Serial"><td id="name">Serial</td><td id="value"></td></tr>
+            <tr id="Seconds"><td id="name">Seconds</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateReport100', function (data) {
+            $("table#DataTable tr[id='ID']").find("#value").html(data.id);
+            $("table#DataTable tr[id='SessionID']").find("#value").html(data.sessionID);
+            $("table#DataTable tr[id='CurrentHW']").find("#value").html(data.currentHW);
+            $("table#DataTable tr[id='EnergyConsumption']").find("#value").html(data.energyConsumption);
+            $("table#DataTable tr[id='EnergyTransferred']").find("#value").html(data.energyTransferred);
+            $("table#DataTable tr[id='StartedSeconds']").find("#value").html(data.startedSeconds);
+            $("table#DataTable tr[id='EndedSeconds']").find("#value").html(data.endedSeconds);
+            $("table#DataTable tr[id='Started']").find("#value").html(data.started);
+            $("table#DataTable tr[id='Ended']").find("#value").html(data.ended);
+            $("table#DataTable tr[id='Reason']").find("#value").html(data.reason);
+            $("table#DataTable tr[id='TimeQ']").find("#value").html(data.timeQ);
+            $("table#DataTable tr[id='RFID']").find("#value").html(data.rfid);
+            $("table#DataTable tr[id='Serial']").find("#value").html(data.serial);
+            $("table#DataTable tr[id='Seconds']").find("#value").html(data.seconds);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateReport100')
+                    .catch(error => {
+                        console.log('Invocation of UpdateReport100 failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

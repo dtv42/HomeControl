@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SYMO823MApp": {
+      "commandName": "Project",
+      "commandLineArgs": "read"
+    }
+  }
+}

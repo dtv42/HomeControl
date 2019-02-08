@@ -1,0 +1,79 @@
+﻿@page
+@model ZipatoModel
+@{
+    ViewData["Title"] = "Monitor Zipato";
+    ViewData["Header"] = "Thermostat Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<tr id=""><td id="name"></td><td id="value"></td></tr>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="Data"><td id="name">Data</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+<style type="text/css">
+
+    pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }
+</style>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateData', function (data) {
+            var json = renderjson.set_icons('+', '-').set_show_to_level(1)(data.thermostats);
+            $("table#DataTable tr[id='Data']").find("#value").html(json);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateData')
+                    .catch(error => {
+                        console.log('Invocation of UpdateData failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    })
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

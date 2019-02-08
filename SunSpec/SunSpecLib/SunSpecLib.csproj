@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Version>2.0.0</Version>
+    <Authors>Dr. Peter Trimmel</Authors>
+    <Copyright>Copyright (c) 2018 Dr. Peter Trimmel</Copyright>
+    <Company />
+    <Description>SunSpec data type support library.</Description>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>SunSpec types modbus</PackageTags>
+    <PackageId>SunSpecLib</PackageId>
+    <PackageVersion>2.0.0</PackageVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Release using .Net Core 2.2</PackageReleaseNotes>
+    <PackageOutputPath>C:\Program Files (x86)\NuGet Server\server\Packages</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NModbus\NModbusLib\NModbusLib.csproj" />
+  </ItemGroup>
+
+</Project>

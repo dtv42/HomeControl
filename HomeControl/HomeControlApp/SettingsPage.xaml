@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="HomeControlApp.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HomeControlApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel Margin="40">
+            <TextBlock Text="Home Control" Margin="0, 40, 0, 0" FontSize="24" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="Application Version:" FontSize="20" FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind Version}" FontSize="20">1.0.0.0</TextBlock>
+            </StackPanel>
+            <TextBlock Text="Web Service URI" Margin="0, 40, 0, 0" FontSize="24" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock  Width="200" Text="HomeData:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.HomeData, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="Netatmo:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.Netatmo, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="ETAPU11:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.ETAPU11, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="KWLEC200:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.KWLEC200, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="Fronius:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.Fronius, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="EM300LR-1:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.EM300LR1, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="EM300LR-2:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.EM300LR2, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="Wallbox:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.Wallbox, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 10, 0, 10">
+                <TextBlock Width="200" Text="Zipato:" FontSize="20" FontWeight="Bold"/>
+                <TextBox Width="300" Text="{x:Bind Settings.Zipato, Mode=TwoWay}" FontSize="20"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

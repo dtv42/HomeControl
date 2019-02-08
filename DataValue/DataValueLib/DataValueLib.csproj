@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Version>2.2.5</Version>
+    <Authors>Dr. Peter Trimmel</Authors>
+    <Copyright>Copyright (c) 2018 Dr. Peter Trimmel</Copyright>
+    <Company />
+    <Description>Data value and property helper library.</Description>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>properties data values</PackageTags>
+    <PackageId>DataValueLib</PackageId>
+    <PackageVersion>2.2.5</PackageVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Release using .Net Core 2.2</PackageReleaseNotes>
+    <PackageOutputPath>C:\Program Files (x86)\NuGet Server\server\Packages</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>

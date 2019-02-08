@@ -1,0 +1,91 @@
+﻿@page
+@model Report2Model
+@{
+    ViewData["Title"] = "Monitor Wallbox";
+    ViewData["Header"] = "Report 2 Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="ID"><td id="name">ID</td><td id="value"></td></tr>
+            <tr id="State"><td id="name">State</td><td id="value"></td></tr>
+            <tr id="Error1"><td id="name">Error1</td><td id="value"></td></tr>
+            <tr id="Error2"><td id="name">Error2</td><td id="value"></td></tr>
+            <tr id="Plug"><td id="name">Plug</td><td id="value"></td></tr>
+            <tr id="AuthON"><td id="name">AuthON</td><td id="value"></td></tr>
+            <tr id="AuthRequired"><td id="name">AuthRequired</td><td id="value"></td></tr>
+            <tr id="EnableSystem"><td id="name">EnableSystem</td><td id="value"></td></tr>
+            <tr id="EnableUser"><td id="name">EnableUser</td><td id="value"></td></tr>
+            <tr id="MaxCurrent"><td id="name">MaxCurrent</td><td id="value"></td></tr>
+            <tr id="DutyCycle"><td id="name">DutyCycle</td><td id="value"></td></tr>
+            <tr id="CurrentHW"><td id="name">CurrentHW</td><td id="value"></td></tr>
+            <tr id="CurrentUser"><td id="name">CurrentUser</td><td id="value"></td></tr>
+            <tr id="CurrentFS"><td id="name">CurrentFS</td><td id="value"></td></tr>
+            <tr id="TimeoutFS"><td id="name">TimeoutFS</td><td id="value"></td></tr>
+            <tr id="CurrentTimer"><td id="name">CurrentTimer</td><td id="value"></td></tr>
+            <tr id="TimeoutCT"><td id="name">TimeoutCT</td><td id="value"></td></tr>
+            <tr id="SetEnergy"><td id="name">SetEnergy</td><td id="value"></td></tr>
+            <tr id="Output"><td id="name">Output</td><td id="value"></td></tr>
+            <tr id="Input"><td id="name">Input</td><td id="value"></td></tr>
+            <tr id="Serial"><td id="name">Serial</td><td id="value"></td></tr>
+            <tr id="Seconds"><td id="name">Seconds</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateReport2', function (data) {
+            $("table#DataTable tr[id='ID']").find("#value").html(data.id);
+            $("table#DataTable tr[id='State']").find("#value").html(data.state);
+            $("table#DataTable tr[id='Error1']").find("#value").html(data.error1);
+            $("table#DataTable tr[id='Error2']").find("#value").html(data.error2);
+            $("table#DataTable tr[id='Plug']").find("#value").html(data.plug);
+            $("table#DataTable tr[id='AuthON']").find("#value").html(data.authON);
+            $("table#DataTable tr[id='AuthRequired']").find("#value").html(data.authRequired);
+            $("table#DataTable tr[id='EnableSystem']").find("#value").html(data.enableSystem);
+            $("table#DataTable tr[id='EnableUser']").find("#value").html(data.enableUser);
+            $("table#DataTable tr[id='MaxCurrent']").find("#value").html(data.maxCurrent);
+            $("table#DataTable tr[id='DutyCycle']").find("#value").html(data.dutyCycle);
+            $("table#DataTable tr[id='CurrentHW']").find("#value").html(data.currentHW);
+            $("table#DataTable tr[id='CurrentUser']").find("#value").html(data.currentUser);
+            $("table#DataTable tr[id='CurrentFS']").find("#value").html(data.currentFS);
+            $("table#DataTable tr[id='TimeoutFS']").find("#value").html(data.timeoutFS);
+            $("table#DataTable tr[id='CurrentTimer']").find("#value").html(data.currentTimer);
+            $("table#DataTable tr[id='TimeoutCT']").find("#value").html(data.timeoutCT);
+            $("table#DataTable tr[id='SetEnergy']").find("#value").html(data.setEnergy);
+            $("table#DataTable tr[id='Output']").find("#value").html(data.output);
+            $("table#DataTable tr[id='Input']").find("#value").html(data.input);
+            $("table#DataTable tr[id='Serial']").find("#value").html(data.serial);
+            $("table#DataTable tr[id='Seconds']").find("#value").html(data.seconds);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateReport2')
+                    .catch(error => {
+                        console.log('Invocation of UpdateReport2 failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

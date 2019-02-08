@@ -1,0 +1,69 @@
+﻿@page
+@model StorageModel
+@{
+    ViewData["Title"] = "Monitor ETAPU11";
+    ViewData["Header"] = "Storage Data";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="DischargeScrewDemand"><td id="name">DischargeScrewDemand</td><td id="value"></td></tr>
+            <tr id="DischargeScrewState"><td id="name">DischargeScrewState</td><td id="value"></td></tr>
+            <tr id="DischargeScrewMotorCurr"><td id="name">DischargeScrewMotorCurr</td><td id="value"></td></tr>
+            <tr id="ConveyingSystem"><td id="name">ConveyingSystem</td><td id="value"></td></tr>
+            <tr id="Stock"><td id="name">Stock</td><td id="value"></td></tr>
+            <tr id="StockWarningLimit"><td id="name">StockWarningLimit</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateStorage', function (data) {
+            DischargeScrewDemand = data.DischargeScrewDemand;
+            DischargeScrewState = data.DischargeScrewState;
+            DischargeScrewMotorCurr = data.DischargeScrewMotorCurr;
+            ConveyingSystem = data.ConveyingSystem;
+            Stock = data.Stock;
+            StockWarningLimit = data.StockWarningLimit;
+
+            $("table#DataTable tr[id='DischargeScrewDemand']").find("#value").html(data.dischargeScrewDemand);
+            $("table#DataTable tr[id='DischargeScrewState']").find("#value").html(data.dischargeScrewState);
+            $("table#DataTable tr[id='DischargeScrewMotorCurr']").find("#value").html(data.dischargeScrewMotorCurr);
+            $("table#DataTable tr[id='ConveyingSystem']").find("#value").html(data.conveyingSystem);
+            $("table#DataTable tr[id='Stock']").find("#value").html(data.stock);
+            $("table#DataTable tr[id='StockWarningLimit']").find("#value").html(data.stockWarningLimit);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateStorage')
+                    .catch(error => {
+                        console.log('Invocation of UpdateStorage failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

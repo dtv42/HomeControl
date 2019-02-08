@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="HomeControlApp.Controls.CircularGauge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HomeControlApp.Controls"
+    xmlns:gauges="using:Syncfusion.UI.Xaml.Gauges"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="500"
+    d:DesignWidth="400">
+
+    <StackPanel Padding="20">
+        <TextBlock Text="{x:Bind Title}"
+                   Padding="0,0,0,20"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   FontWeight="SemiBold">Title</TextBlock>
+        <gauges:SfCircularGauge x:Name="Gauge">
+            <gauges:SfCircularGauge.Annotations>
+                <gauges:GaugeAnnotation Angle="90" Offset="0.8">
+                    <Border Background="LightGray">
+                        <TextBlock x:Name="Annotation"
+                                   HorizontalTextAlignment="Center"
+                                   Padding="10,0,10,0"
+                                   FontSize="24"/>
+                    </Border>
+                </gauges:GaugeAnnotation>
+            </gauges:SfCircularGauge.Annotations>
+            <gauges:SfCircularGauge.Scales>
+                <gauges:CircularScale RimStrokeThickness="2"
+                                      RimStroke="Gray"
+                                      TickStroke="Gray"
+                                      LabelStroke="Gray"
+                                      SmallTickLength="0">
+                    <gauges:CircularScale.Pointers>
+                        <gauges:CircularPointer PointerType="NeedlePointer"
+                                                PointerCapDiameter="15"
+                                                PointerCapStroke="Black"
+                                                NeedleLengthFactor="0.7"
+                                                NeedlePointerStroke="Black"
+                                                RangePointerVisibility="Visible"
+                                                EnableAnimation ="True"/>
+                    </gauges:CircularScale.Pointers>
+                </gauges:CircularScale>
+            </gauges:SfCircularGauge.Scales>
+        </gauges:SfCircularGauge>
+    </StackPanel>
+
+</UserControl>

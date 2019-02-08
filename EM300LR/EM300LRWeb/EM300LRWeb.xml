@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EM300LRWeb</name>
+    </assembly>
+    <members>
+        <member name="T:EM300LRWeb.Controllers.EM300LRController">
+            <summary>
+            The EM300LR controller for reading EM300LR data items.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.#ctor(EM300LRLib.IEM300LR,Microsoft.Extensions.Options.IOptions{EM300LRWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{EM300LRWeb.Controllers.EM300LRController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:EM300LRWeb.Controllers.EM300LRController"/> class.
+            </summary>
+            <param name="em300lr">The EM300LR instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetIsInitialized">
+            <summary>
+            Returns flag indicating that the data have been sucessfully initialized.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetEM300LRData(System.Boolean)">
+            <summary>
+            Returns all EM300LR related data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetTotalData(System.Boolean)">
+            <summary>
+            Returns a subset of EM300LR data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetPhase1Data(System.Boolean)">
+            <summary>
+            Returns a subset of EM300LR data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetPhase2Data(System.Boolean)">
+            <summary>
+            Returns a subset of EM300LR data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetPhase3Data(System.Boolean)">
+            <summary>
+            Returns a subset of EM300LR data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:EM300LRWeb.Controllers.EM300LRController.GetEM300LRData(System.String,System.Boolean)">
+            <summary>
+            Returns a single EM300LR property.
+            </summary>
+            <remarks>The property name is a CamelCase name.</remarks>
+            <param name="name">The name of the property.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">If the property is invalid.</response>
+            <response code="404">If the property cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:EM300LRWeb.Hubs.EM300LRHub">
+            <summary>
+            SignalR Hub class for Fronius data.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.#ctor(EM300LRLib.IEM300LR,Microsoft.Extensions.Logging.ILogger{EM300LRWeb.Hubs.EM300LRHub},Microsoft.Extensions.Options.IOptions{EM300LRWeb.Models.AppSettings})">
+            <summary>
+            Initializes an instance of the <see cref="T:EM300LRWeb.Hubs.EM300LRHub"/> class.
+            </summary>
+            <param name="em300lr">The EM300LR instance.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.OnConnectedAsync">
+            <summary>
+            Establish connection and broadcast data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.UpdateData">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.UpdateTotal">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.UpdatePhase1">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.UpdatePhase2">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EM300LRWeb.Hubs.EM300LRHub.UpdatePhase3">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EM300LRWeb.Models.AppSettings">
+            <summary>
+            Helper class to hold application specific settings.
+            </summary>
+        </member>
+        <member name="P:EM300LRWeb.Models.AppSettings.Swagger">
+            <summary>
+            The Swagger options.
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Models.SwaggerOptions">
+            <summary>
+            The Swagger info data objects provides metadata about the web API.
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.EM300LRModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.EM300LRModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.IndexModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.IndexModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.Phase1Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.Phase1Model.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.Phase2Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.Phase2Model.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.Phase3Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.Phase3Model.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.TermsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.TermsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.TotalModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.TotalModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Program">
+            <summary>
+            The main ASP.NET application.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Program.Main(System.String[])">
+            <summary>
+            The main console application entry point.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <returns>The exit code.</returns>
+        </member>
+        <member name="T:EM300LRWeb.Services.EM300LRMonitor">
+            <summary>
+            Monitor service updating selected EM300LR instance data every minute.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.EM300LRMonitor.#ctor(EM300LRLib.IEM300LR,Microsoft.AspNetCore.SignalR.IHubContext{EM300LRWeb.Hubs.EM300LRHub},Microsoft.Extensions.Logging.ILogger{EM300LRWeb.Services.EM300LRMonitor},Microsoft.Extensions.Options.IOptions{EM300LRWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes an instance of the <see cref="T:EM300LRWeb.Services.EM300LRMonitor"/> class.
+            </summary>
+            <param name="em300lr">The Fronius instance.</param>
+            <param name="hub">The test data SignalR hub.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:EM300LRWeb.Services.EM300LRMonitor.DoStartAsync">
+            <summary>
+            Executes the startup operation.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.EM300LRMonitor.DoWorkAsync">
+            <summary>
+            Executes the update operation every minute.
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Services.TimedService">
+            <summary>
+            Timed background task based on code from https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-2.1
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.#ctor(Microsoft.Extensions.Logging.ILogger{EM300LRWeb.Services.TimedService},Microsoft.Extensions.Options.IOptions{EM300LRWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EM300LRWeb.Services.TimedService"/> class using dependency injection.
+            </summary>
+            <param name="logger"></param>
+            <param name="options"></param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stop the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.Dispose">
+            <summary>
+            Implementing basic dispose pattern.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.OnTimerElapsed(System.Object)">
+            <summary>
+            The timer callback method.
+            </summary>
+            <param name="state">The timer callback state object.</param>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.Dispose(System.Boolean)">
+            <summary>
+            Actual resource cleanup when disposing.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.DoStartAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.DoWorkAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Services.TimedService.GetDueTime">
+            <summary>
+            Returns the milliseconds to the next minute.
+            </summary>
+            <returns>The milliseconds to the next minute.</returns>
+        </member>
+        <member name="T:EM300LRWeb.Startup">
+            <summary>
+            The web application startup class.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EM300LRWeb.Startup"/> class.
+            </summary>
+            <param name="environment"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:EM300LRWeb.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+    </members>
+</doc>

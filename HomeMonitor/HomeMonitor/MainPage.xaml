@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HomeMonitor"
+             xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             xmlns:button="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
+             x:Class="HomeMonitor.MainPage">
+
+    <StackLayout>
+        <StackLayout Margin="10,10,10,0"
+                     Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+
+            <button:CircleButton x:Name="PreviousButton"
+                                 HorizontalOptions="StartAndExpand"
+                                 FontIcon="Material" Icon="md-arrow-back"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnPreviousButtonClick"/>
+
+            <button:CircleButton x:Name="UpButton"
+                                 HorizontalOptions="StartAndExpand"
+                                 FontIcon="Material" Icon="md-arrow-upward"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnUpButtonClick"/>
+
+            <button:CircleButton x:Name="UpdateButton"
+                                 HorizontalOptions="StartAndExpand"
+                                 FontIcon="Material" Icon="md-update"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnUpdateButtonClick"/>
+
+            <StackLayout x:Name="TopCaption" HorizontalOptions="CenterAndExpand" IsVisible="False">
+                <Label FontSize="Medium" Text="{Binding Caption}"/>
+                <Label FontSize="Small" FontAttributes="Bold" Text="{Binding Title}"/>
+            </StackLayout>
+
+            <button:CircleButton x:Name="SetupButton"
+                                 HorizontalOptions="EndAndExpand"
+                                 FontIcon="Material" Icon="md-settings"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnSetupButtonClick"/>
+
+            <button:CircleButton x:Name="DownButton"
+                                 HorizontalOptions="EndAndExpand"
+                                 FontIcon="Material" Icon="md-arrow-downward"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnDownButtonClick"/>
+
+            <button:CircleButton x:Name="NextButton"
+                                 HorizontalOptions="EndAndExpand"
+                                 FontIcon="Material" Icon="md-arrow-forward"
+                                 FontSize="Medium" TextColor="Black"
+                                 HeightRequest="40" WidthRequest="40"
+                                 BorderThickness="1" BorderColor="LightBlue"
+                                 BackgroundColor="LightBlue"
+                                 Clicked="OnNextButtonClick"/>
+
+        </StackLayout>
+
+        <StackLayout x:Name="CombinedCaption" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label FontSize="Medium" Text="{Binding Caption}"/>
+            <Label FontSize="Medium" Text=" - "/>
+            <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Title}"/>
+        </StackLayout>
+
+        <ScrollView VerticalScrollBarVisibility="Default">
+            <FlexLayout x:Name="GaugesLayout" Direction="Column"
+                        AlignItems="Center" JustifyContent="SpaceEvenly">
+
+                <StackLayout x:Name="StackGauge1">
+                    <Label x:Name="GaugeTitle1" HorizontalOptions="CenterAndExpand"
+                       FontSize="Small" TextColor="Gray" Text="{Binding GaugeTitle1}"/>
+
+                    <gauge:SfCircularGauge x:Name="Gauge1">
+                        <gauge:SfCircularGauge.Headers>
+                            <gauge:Header TextSize="12" ForegroundColor="Black" Text="{Binding GaugeHeader1}"/>
+                        </gauge:SfCircularGauge.Headers>
+                        <gauge:SfCircularGauge.Scales>
+                            <gauge:Scale EnableAutoInterval = "True"
+                                     LabelFontSize="8" LabelColor="Gray"
+                                     RimColor="Gray" MinorTicksPerInterval="0"
+                                     StartValue="{Binding GaugeStart1}"
+                                     EndValue="{Binding GaugeEnd1}">
+                                <gauge:Scale.Pointers>
+                                    <gauge:NeedlePointer LengthFactor="0.7" EnableAnimation="True"
+                                                     Value="{Binding GaugeValue1}"/>
+                                </gauge:Scale.Pointers>
+                            </gauge:Scale>
+                        </gauge:SfCircularGauge.Scales>
+                    </gauge:SfCircularGauge>
+                </StackLayout>
+
+                <StackLayout x:Name="StackGauge2">
+                    <Label x:Name="GaugeTitle2" HorizontalOptions="CenterAndExpand"
+                       TextColor="Gray" FontSize="Small" Text="{Binding GaugeTitle2}"/>
+
+                    <gauge:SfCircularGauge x:Name="Gauge2">
+                        <gauge:SfCircularGauge.Headers>
+                            <gauge:Header TextSize="12" ForegroundColor="Black" Text="{Binding GaugeHeader2}"/>
+                        </gauge:SfCircularGauge.Headers>
+                        <gauge:SfCircularGauge.Scales>
+                            <gauge:Scale EnableAutoInterval = "True"
+                                     LabelFontSize="8" LabelColor="Gray"
+                                     RimColor="Gray" MinorTicksPerInterval="0"
+                                     StartValue="{Binding GaugeStart2}"
+                                     EndValue="{Binding GaugeEnd2}">
+                                <gauge:Scale.Pointers>
+                                    <gauge:NeedlePointer LengthFactor="0.7" EnableAnimation="True"
+                                                     Value="{Binding GaugeValue2}"/>
+                                </gauge:Scale.Pointers>
+                            </gauge:Scale>
+                        </gauge:SfCircularGauge.Scales>
+                    </gauge:SfCircularGauge>
+                </StackLayout>
+
+                <StackLayout x:Name="StackGauge3">
+                    <Label x:Name="GaugeTitle3" HorizontalOptions="CenterAndExpand"
+                       TextColor="Gray" FontSize="Small" Text="{Binding GaugeTitle3}"/>
+
+                    <gauge:SfCircularGauge x:Name="Gauge3">
+                        <gauge:SfCircularGauge.Headers>
+                            <gauge:Header TextSize="12" ForegroundColor="Black" Text="{Binding GaugeHeader3}"/>
+                        </gauge:SfCircularGauge.Headers>
+                        <gauge:SfCircularGauge.Scales>
+                            <gauge:Scale EnableAutoInterval = "True"
+                                     LabelFontSize="8" LabelColor="Gray"
+                                     RimColor="Gray" MinorTicksPerInterval="0"
+                                     StartValue="{Binding GaugeStart3}"
+                                     EndValue="{Binding GaugeEnd3}">
+                                <gauge:Scale.Pointers>
+                                    <gauge:NeedlePointer LengthFactor="0.7" EnableAnimation="True"
+                                                     Value="{Binding GaugeValue3}"/>
+                                </gauge:Scale.Pointers>
+                            </gauge:Scale>
+                        </gauge:SfCircularGauge.Scales>
+                    </gauge:SfCircularGauge>
+                </StackLayout>
+
+            </FlexLayout>
+        </ScrollView>
+
+        <StackLayout>
+            <Label x:Name="Message" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" HeightRequest="50"
+               FontSize="Micro" TextColor="{Binding TextColor}" Text="{Binding Message}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

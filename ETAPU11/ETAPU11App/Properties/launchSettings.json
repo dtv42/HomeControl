@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ETAPU11App": {
+      "commandName": "Project",
+      "commandLineArgs": "monitor -b"
+    }
+  }
+}

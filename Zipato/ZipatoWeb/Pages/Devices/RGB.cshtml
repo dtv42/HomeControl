@@ -1,0 +1,68 @@
+﻿@page
+@model RGBModel
+@{
+    ViewData["Title"] = "Monitor Zipato";
+    ViewData["Header"] = "RGB Control";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Uuid</th><th>Intensity</th><th>Cold White</th><th>Warm White</th><th>Red</th><th>Green</th><th>Blue</th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr><th>Status</th><th>Timestamp</th></tr>
+            <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
+        </tfoot>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateDevices', function (data) {
+            $("table#DataTable tbody").empty();
+
+            for (i = 0; i < data.rgbControls.length; i++) {
+                var row = $("<tr>");
+                var cols = "";
+
+                cols += '<td>' + data.rgbControls[i].name + '</td>';
+                cols += '<td>' + data.rgbControls[i].uuid + '</td>';
+                cols += '<td>' + data.rgbControls[i].intensity.value + '</td>';
+                cols += '<td>' + data.rgbControls[i].coldWhite.value + '</td>';
+                cols += '<td>' + data.rgbControls[i].warmWhite.value + '</td>';
+                cols += '<td>' + data.rgbControls[i].red.value + '</td>';
+                cols += '<td>' + data.rgbControls[i].green.value + '</td>';
+                cols += '<td>' + data.rgbControls[i].blue.value + '</td>';
+
+                row.append(cols);
+                $("table#DataTable tbody").append(row);
+            }
+
+            $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
+            $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateValues')
+                    .catch(error => {
+                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

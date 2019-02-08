@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NModbusApp": {
+      "commandName": "Project",
+      "commandLineArgs": "tcp monitor -c -s 0 -r 4"
+    }
+  }
+}

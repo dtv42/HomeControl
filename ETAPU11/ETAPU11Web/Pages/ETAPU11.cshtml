@@ -1,0 +1,223 @@
+﻿@page
+@model ETAPU11Model
+@{
+    ViewData["Title"] = "Monitor ETAPU11";
+    ViewData["Header"] = "ETAPU11 Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<tr id=""><td id="name"></td><td id="value"></td></tr>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="FullLoadHours"><td id="name">FullLoadHours</td><td id="value"></td></tr>
+            <tr id="TotalConsumed"><td id="name">TotalConsumed</td><td id="value"></td></tr>
+            <tr id="BoilerState"><td id="name">BoilerState</td><td id="value"></td></tr>
+            <tr id="BoilerPressure"><td id="name">BoilerPressure</td><td id="value"></td></tr>
+            <tr id="BoilerTemperature"><td id="name">BoilerTemperature</td><td id="value"></td></tr>
+            <tr id="BoilerTarget"><td id="name">BoilerTarget</td><td id="value"></td></tr>
+            <tr id="BoilerBottom"><td id="name">BoilerBottom</td><td id="value"></td></tr>
+            <tr id="FlowControlState"><td id="name">FlowControlState</td><td id="value"></td></tr>
+            <tr id="DiverterValveState"><td id="name">DiverterValveState</td><td id="value"></td></tr>
+            <tr id="DiverterValveDemand"><td id="name">DiverterValveDemand</td><td id="value"></td></tr>
+            <tr id="DemandedOutput"><td id="name">DemandedOutput</td><td id="value"></td></tr>
+            <tr id="FlowMixValveTarget"><td id="name">FlowMixValveTarget</td><td id="value"></td></tr>
+            <tr id="FlowMixValveState"><td id="name">FlowMixValveState</td><td id="value"></td></tr>
+            <tr id="FlowMixValveCurrTemp"><td id="name">FlowMixValveCurrTemp</td><td id="value"></td></tr>
+            <tr id="FlowMixValvePosition"><td id="name">FlowMixValvePosition</td><td id="value"></td></tr>
+            <tr id="BoilerPumpOutput"><td id="name">BoilerPumpOutput</td><td id="value"></td></tr>
+            <tr id="BoilerPumpDemand"><td id="name">BoilerPumpDemand</td><td id="value"></td></tr>
+            <tr id="FlueGasTemperature"><td id="name">FlueGasTemperature</td><td id="value"></td></tr>
+            <tr id="DraughtFanSpeed"><td id="name">DraughtFanSpeed</td><td id="value"></td></tr>
+            <tr id="ResidualO2"><td id="name">ResidualO2</td><td id="value"></td></tr>
+            <tr id="StokerScrewDemand"><td id="name">StokerScrewDemand</td><td id="value"></td></tr>
+            <tr id="StokerScrewClockRate"><td id="name">StokerScrewClockRate</td><td id="value"></td></tr>
+            <tr id="StokerScrewState"><td id="name">StokerScrewState</td><td id="value"></td></tr>
+            <tr id="StokerScrewMotorCurr"><td id="name">StokerScrewMotorCurr</td><td id="value"></td></tr>
+            <tr id="AshRemovalState"><td id="name">AshRemovalState</td><td id="value"></td></tr>
+            <tr id="AshRemovalStartIdleTime"><td id="name">AshRemovalStartIdleTime</td><td id="value"></td></tr>
+            <tr id="AshRemovalDurationIdleTime"><td id="name">AshRemovalDurationIdleTime</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceDeAsh"><td id="name">ConsumptionSinceDeAsh</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceAshBoxEmptied"><td id="name">ConsumptionSinceAshBoxEmptied</td><td id="value"></td></tr>
+            <tr id="EmptyAshBoxAfter"><td id="name">EmptyAshBoxAfter</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceMaintainence"><td id="name">ConsumptionSinceMaintainence</td><td id="value"></td></tr>
+            <tr id="HopperState"><td id="name">HopperState</td><td id="value"></td></tr>
+            <tr id="HopperFillUpPelletBin"><td id="name">HopperFillUpPelletBin</td><td id="value"></td></tr>
+            <tr id="HopperPelletBinContents"><td id="name">HopperPelletBinContents</td><td id="value"></td></tr>
+            <tr id="HopperFillUpTime"><td id="name">HopperFillUpTime</td><td id="value"></td></tr>
+            <tr id="HopperVacuumState"><td id="name">HopperVacuumState</td><td id="value"></td></tr>
+            <tr id="HopperVacuumDemand"><td id="name">HopperVacuumDemand</td><td id="value"></td></tr>
+            <tr id="OnOffButton"><td id="name">OnOffButton</td><td id="value"></td></tr>
+            <tr id="DeAshButton"><td id="name">DeAshButton</td><td id="value"></td></tr>
+            <tr id="HotwaterTankState"><td id="name">HotwaterTankState</td><td id="value"></td></tr>
+            <tr id="ChargingTimesState"><td id="name">ChargingTimesState</td><td id="value"></td></tr>
+            <tr id="ChargingTimesSwitchStatus"><td id="name">ChargingTimesSwitchStatus</td><td id="value"></td></tr>
+            <tr id="ChargingTimesTemperature"><td id="name">ChargingTimesTemperature</td><td id="value"></td></tr>
+            <tr id="HotwaterSwitchonDiff"><td id="name">HotwaterSwitchonDiff</td><td id="value"></td></tr>
+            <tr id="HotwaterTarget"><td id="name">HotwaterTarget</td><td id="value"></td></tr>
+            <tr id="HotwaterTemperature"><td id="name">HotwaterTemperature</td><td id="value"></td></tr>
+            <tr id="ChargeButton"><td id="name">ChargeButton</td><td id="value"></td></tr>
+            <tr id="RoomSensor"><td id="name">RoomSensor</td><td id="value"></td></tr>
+            <tr id="HeatingCircuitState"><td id="name">HeatingCircuitState</td><td id="value"></td></tr>
+            <tr id="RunningState"><td id="name">RunningState</td><td id="value"></td></tr>
+            <tr id="HeatingTimes"><td id="name">HeatingTimes</td><td id="value"></td></tr>
+            <tr id="HeatingSwitchStatus"><td id="name">HeatingSwitchStatus</td><td id="value"></td></tr>
+            <tr id="HeatingTemperature"><td id="name">HeatingTemperature</td><td id="value"></td></tr>
+            <tr id="RoomTemperature"><td id="name">RoomTemperature</td><td id="value"></td></tr>
+            <tr id="RoomTarget"><td id="name">RoomTarget</td><td id="value"></td></tr>
+            <tr id="Flow"><td id="name">Flow</td><td id="value"></td></tr>
+            <tr id="HeatingCurve"><td id="name">HeatingCurve</td><td id="value"></td></tr>
+            <tr id="FlowAtMinus10"><td id="name">FlowAtMinus10</td><td id="value"></td></tr>
+            <tr id="FlowAtPlus10"><td id="name">FlowAtPlus10</td><td id="value"></td></tr>
+            <tr id="FlowSetBack"><td id="name">FlowSetBack</td><td id="value"></td></tr>
+            <tr id="OutsideTemperatureDelayed"><td id="name">OutsideTemperatureDelayed</td><td id="value"></td></tr>
+            <tr id="DayHeatingThreshold"><td id="name">DayHeatingThreshold</td><td id="value"></td></tr>
+            <tr id="NightHeatingThreshold"><td id="name">NightHeatingThreshold</td><td id="value"></td></tr>
+            <tr id="HeatingDayButton"><td id="name">HeatingDayButton</td><td id="value"></td></tr>
+            <tr id="HeatingAutoButton"><td id="name">HeatingAutoButton</td><td id="value"></td></tr>
+            <tr id="HeatingNightButton"><td id="name">HeatingNightButton</td><td id="value"></td></tr>
+            <tr id="HeatingOnOffButton"><td id="name">HeatingOnOffButton</td><td id="value"></td></tr>
+            <tr id="HeatingHomeButton"><td id="name">HeatingHomeButton</td><td id="value"></td></tr>
+            <tr id="HeatingAwayButton"><td id="name">HeatingAwayButton</td><td id="value"></td></tr>
+            <tr id="HeatingHolidayStart"><td id="name">HeatingHolidayStart</td><td id="value"></td></tr>
+            <tr id="HeatingHolidayEnd"><td id="name">HeatingHolidayEnd</td><td id="value"></td></tr>
+            <tr id="DischargeScrewDemand"><td id="name">DischargeScrewDemand</td><td id="value"></td></tr>
+            <tr id="DischargeScrewClockRate"><td id="name">DischargeScrewClockRate</td><td id="value"></td></tr>
+            <tr id="DischargeScrewState"><td id="name">DischargeScrewState</td><td id="value"></td></tr>
+            <tr id="DischargeScrewMotorCurr"><td id="name">DischargeScrewMotorCurr</td><td id="value"></td></tr>
+            <tr id="ConveyingSystem"><td id="name">ConveyingSystem</td><td id="value"></td></tr>
+            <tr id="Stock"><td id="name">Stock</td><td id="value"></td></tr>
+            <tr id="StockWarningLimit"><td id="name">StockWarningLimit</td><td id="value"></td></tr>
+            <tr id="OutsideTemperature"><td id="name">OutsideTemperature</td><td id="value"></td></tr>
+            <tr id="FirebedState"><td id="name">FirebedState</td><td id="value"></td></tr>
+            <tr id="SupplyDemand"><td id="name">SupplyDemand</td><td id="value"></td></tr>
+            <tr id="IgnitionDemand"><td id="name">IgnitionDemand</td><td id="value"></td></tr>
+            <tr id="FlowMixValveTemperature"><td id="name">FlowMixValveTemperature</td><td id="value"></td></tr>
+            <tr id="AirValveSetPosition"><td id="name">AirValveSetPosition</td><td id="value"></td></tr>
+            <tr id="AirValveCurrPosition"><td id="name">AirValveCurrPosition</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateData', function (data) {
+            $("table#DataTable tr[id='FullLoadHours']").find("#value").html(data.fullLoadHours);
+            $("table#DataTable tr[id='TotalConsumed']").find("#value").html(data.totalConsumed);
+            $("table#DataTable tr[id='BoilerState']").find("#value").html(data.boilerState);
+            $("table#DataTable tr[id='BoilerPressure']").find("#value").html(data.boilerPressure);
+            $("table#DataTable tr[id='BoilerTemperature']").find("#value").html(data.boilerTemperature);
+            $("table#DataTable tr[id='BoilerTarget']").find("#value").html(data.boilerTarget);
+            $("table#DataTable tr[id='BoilerBottom']").find("#value").html(data.boilerBottom);
+            $("table#DataTable tr[id='FlowControlState']").find("#value").html(data.flowControlState);
+            $("table#DataTable tr[id='DiverterValveState']").find("#value").html(data.diverterValveState);
+            $("table#DataTable tr[id='DiverterValveDemand']").find("#value").html(data.diverterValveDemand);
+            $("table#DataTable tr[id='DemandedOutput']").find("#value").html(data.demandedOutput);
+            $("table#DataTable tr[id='FlowMixValveTarget']").find("#value").html(data.flowMixValveTarget);
+            $("table#DataTable tr[id='FlowMixValveState']").find("#value").html(data.flowMixValveState);
+            $("table#DataTable tr[id='FlowMixValveCurrTemp']").find("#value").html(data.flowMixValveCurrTemp);
+            $("table#DataTable tr[id='FlowMixValvePosition']").find("#value").html(data.flowMixValvePosition);
+            $("table#DataTable tr[id='BoilerPumpOutput']").find("#value").html(data.boilerPumpOutput);
+            $("table#DataTable tr[id='BoilerPumpDemand']").find("#value").html(data.boilerPumpDemand);
+            $("table#DataTable tr[id='FlueGasTemperature']").find("#value").html(data.flueGasTemperature);
+            $("table#DataTable tr[id='DraughtFanSpeed']").find("#value").html(data.draughtFanSpeed);
+            $("table#DataTable tr[id='ResidualO2']").find("#value").html(data.residualO2);
+            $("table#DataTable tr[id='StokerScrewDemand']").find("#value").html(data.stokerScrewDemand);
+            $("table#DataTable tr[id='StokerScrewClockRate']").find("#value").html(data.stokerScrewClockRate);
+            $("table#DataTable tr[id='StokerScrewState']").find("#value").html(data.stokerScrewState);
+            $("table#DataTable tr[id='StokerScrewMotorCurr']").find("#value").html(data.stokerScrewMotorCurr);
+            $("table#DataTable tr[id='AshRemovalState']").find("#value").html(data.ashRemovalState);
+            $("table#DataTable tr[id='AshRemovalStartIdleTime']").find("#value").html(data.ashRemovalStartIdleTime);
+            $("table#DataTable tr[id='AshRemovalDurationIdleTime']").find("#value").html(data.ashRemovalDurationIdleTime);
+            $("table#DataTable tr[id='ConsumptionSinceDeAsh']").find("#value").html(data.consumptionSinceDeAsh);
+            $("table#DataTable tr[id='ConsumptionSinceAshBoxEmptied']").find("#value").html(data.consumptionSinceAshBoxEmptied);
+            $("table#DataTable tr[id='EmptyAshBoxAfter']").find("#value").html(data.emptyAshBoxAfter);
+            $("table#DataTable tr[id='ConsumptionSinceMaintainence']").find("#value").html(data.consumptionSinceMaintainence);
+            $("table#DataTable tr[id='HopperState']").find("#value").html(data.hopperState);
+            $("table#DataTable tr[id='HopperFillUpPelletBin']").find("#value").html(data.hopperFillUpPelletBin);
+            $("table#DataTable tr[id='HopperPelletBinContents']").find("#value").html(data.hopperPelletBinContents);
+            $("table#DataTable tr[id='HopperFillUpTime']").find("#value").html(data.hopperFillUpTime);
+            $("table#DataTable tr[id='HopperVacuumState']").find("#value").html(data.hopperVacuumState);
+            $("table#DataTable tr[id='HopperVacuumDemand']").find("#value").html(data.hopperVacuumDemand);
+            $("table#DataTable tr[id='OnOffButton']").find("#value").html(data.onOffButton);
+            $("table#DataTable tr[id='DeAshButton']").find("#value").html(data.deAshButton);
+
+            $("table#DataTable tr[id='HotwaterTankState']").find("#value").html(data.hotwaterTankState);
+            $("table#DataTable tr[id='ChargingTimesState']").find("#value").html(data.chargingTimesState);
+            $("table#DataTable tr[id='ChargingTimesSwitchStatus']").find("#value").html(data.chargingTimesSwitchStatus);
+            $("table#DataTable tr[id='ChargingTimesTemperature']").find("#value").html(data.chargingTimesTemperature);
+            $("table#DataTable tr[id='HotwaterSwitchonDiff']").find("#value").html(data.hotwaterSwitchonDiff);
+            $("table#DataTable tr[id='HotwaterTarget']").find("#value").html(data.hotwaterTarget);
+            $("table#DataTable tr[id='HotwaterTemperature']").find("#value").html(data.hotwaterTemperature);
+            $("table#DataTable tr[id='ChargeButton']").find("#value").html(data.chargeButton);
+
+            $("table#DataTable tr[id='RoomSensor']").find("#value").html(data.roomSensor);
+            $("table#DataTable tr[id='HeatingCircuitState']").find("#value").html(data.heatingCircuitState);
+            $("table#DataTable tr[id='RunningState']").find("#value").html(data.runningState);
+            $("table#DataTable tr[id='HeatingTimes']").find("#value").html(data.heatingTimes);
+            $("table#DataTable tr[id='HeatingSwitchStatus']").find("#value").html(data.heatingSwitchStatus);
+            $("table#DataTable tr[id='HeatingTemperature']").find("#value").html(data.heatingTemperature);
+            $("table#DataTable tr[id='RoomTemperature']").find("#value").html(data.roomTemperature);
+            $("table#DataTable tr[id='RoomTarget']").find("#value").html(data.roomTarget);
+            $("table#DataTable tr[id='Flow']").find("#value").html(data.flow);
+            $("table#DataTable tr[id='HeatingCurve']").find("#value").html(data.heatingCurve);
+            $("table#DataTable tr[id='FlowAtMinus10']").find("#value").html(data.flowAtMinus10);
+            $("table#DataTable tr[id='FlowAtPlus10']").find("#value").html(data.flowAtPlus10);
+            $("table#DataTable tr[id='FlowSetBack']").find("#value").html(data.flowSetBack);
+            $("table#DataTable tr[id='OutsideTemperatureDelayed']").find("#value").html(data.outsideTemperatureDelayed);
+            $("table#DataTable tr[id='DayHeatingThreshold']").find("#value").html(data.dayHeatingThreshold);
+            $("table#DataTable tr[id='NightHeatingThreshold']").find("#value").html(data.nightHeatingThreshold);
+            $("table#DataTable tr[id='HeatingDayButton']").find("#value").html(data.heatingDayButton);
+            $("table#DataTable tr[id='HeatingAutoButton']").find("#value").html(data.heatingAutoButton);
+            $("table#DataTable tr[id='HeatingNightButton']").find("#value").html(data.heatingNightButton);
+            $("table#DataTable tr[id='HeatingOnOffButton']").find("#value").html(data.heatingOnOffButton);
+            $("table#DataTable tr[id='HeatingHomeButton']").find("#value").html(data.heatingHomeButton);
+            $("table#DataTable tr[id='HeatingAwayButton']").find("#value").html(data.heatingAwayButton);
+            $("table#DataTable tr[id='HeatingHolidayStart']").find("#value").html(data.heatingHolidayStart);
+            $("table#DataTable tr[id='HeatingHolidayEnd']").find("#value").html(data.heatingHolidayEnd);
+
+            $("table#DataTable tr[id='DischargeScrewDemand']").find("#value").html(data.dischargeScrewDemand);
+            $("table#DataTable tr[id='DischargeScrewClockRate']").find("#value").html(data.dischargeScrewClockRate);
+            $("table#DataTable tr[id='DischargeScrewState']").find("#value").html(data.dischargeScrewState);
+            $("table#DataTable tr[id='DischargeScrewMotorCurr']").find("#value").html(data.dischargeScrewMotorCurr);
+            $("table#DataTable tr[id='ConveyingSystem']").find("#value").html(data.conveyingSystem);
+            $("table#DataTable tr[id='Stock']").find("#value").html(data.stock);
+            $("table#DataTable tr[id='StockWarningLimit']").find("#value").html(data.stockWarningLimit);
+
+            $("table#DataTable tr[id='OutsideTemperature']").find("#value").html(data.outsideTemperature);
+
+            $("table#DataTable tr[id='FirebedState']").find("#value").html(data.firebedState);
+            $("table#DataTable tr[id='SupplyDemand']").find("#value").html(data.supplyDemand);
+            $("table#DataTable tr[id='IgnitionDemand']").find("#value").html(data.ignitionDemand);
+            $("table#DataTable tr[id='FlowMixValveTemperature']").find("#value").html(data.flowMixValveTemperature);
+            $("table#DataTable tr[id='AirValveSetPosition']").find("#value").html(data.airValveSetPosition);
+            $("table#DataTable tr[id='AirValveCurrPosition']").find("#value").html(data.airValveCurrPosition);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateData')
+                    .catch(error => {
+                        console.log('Invocation of UpdateData failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

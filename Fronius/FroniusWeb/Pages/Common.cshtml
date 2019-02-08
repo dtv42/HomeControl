@@ -1,0 +1,65 @@
+﻿@page
+@model CommonModel
+@{
+    ViewData["Title"] = "Monitor Fronius";
+    ViewData["Header"] = "Common Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="Frequency"><td id="name">Frequency</td><td id="value"></td></tr>
+            <tr id="CurrentDC"><td id="name">Current DC</td><td id="value"></td></tr>
+            <tr id="CurrentAC"><td id="name">Current AC</td><td id="value"></td></tr>
+            <tr id="VoltageDC"><td id="name">Voltage DC</td><td id="value"></td></tr>
+            <tr id="VoltageAC"><td id="name">Voltage AC</td><td id="value"></td></tr>
+            <tr id="PowerAC"><td id="name">Power AC</td><td id="value"></td></tr>
+            <tr id="DailyEnergy"><td id="name">Daily Energy</td><td id="value"></td></tr>
+            <tr id="YearlyEnergy"><td id="name">Yearly Energy</td><td id="value"></td></tr>
+            <tr id="TotalEnergy"><td id="name">Total Energy</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateCommon', function (data) {
+            $("table#DataTable tr[id='Frequency']").find("#value").html(data.frequency);
+            $("table#DataTable tr[id='CurrentDC']").find("#value").html(data.currentDC);
+            $("table#DataTable tr[id='CurrentAC']").find("#value").html(data.currentAC);
+            $("table#DataTable tr[id='VoltageDC']").find("#value").html(data.voltageDC);
+            $("table#DataTable tr[id='VoltageAC']").find("#value").html(data.voltageAC);
+            $("table#DataTable tr[id='PowerAC']").find("#value").html(data.powerAC);
+            $("table#DataTable tr[id='DailyEnergy']").find("#value").html(data.dailyEnergy);
+            $("table#DataTable tr[id='YearlyEnergy']").find("#value").html(data.yearlyEnergy);
+            $("table#DataTable tr[id='TotalEnergy']").find("#value").html(data.totalEnergy);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateCommon')
+                    .catch(error => {
+                        console.log('Invocation of UpdateCommon failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

@@ -1,0 +1,376 @@
+﻿@page
+@model NetatmoModel
+@{
+    ViewData["Title"] = "Monitor Netatmo";
+    ViewData["Header"] = "Netatmo Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<tr id=""><td id="name"></td><td id="value"></td></tr>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id=""><td id="name"></td><td id="value"></td></tr>
+            <tr id="Response.Status"><td id="name">Response.Status</td><td id="value"></td></tr>
+            <tr id="Response.TimeExec"><td id="name">Response.TimeExec</td><td id="value"></td></tr>
+            <tr id="Response.TimeServer"><td id="name">Response.TimeServer</td><td id="value"></td></tr>
+            <tr id="User.Mail"><td id="name">User.Mail</td><td id="value"></td></tr>
+            <tr id="User.Administrative.Country"><td id="name">User.Administrative.Country</td><td id="value"></td></tr>
+            <tr id="User.Administrative.FeelsLikeAlgorithm"><td id="name">User.Administrative.FeelsLikeAlgorithm</td><td id="value"></td></tr>
+            <tr id="User.Administrative.Language"><td id="name">User.Administrative.Language</td><td id="value"></td></tr>
+            <tr id="User.Administrative.PressureUnit"><td id="name">User.Administrative.PressureUnit</td><td id="value"></td></tr>
+            <tr id="User.Administrative.RegLocale"><td id="name">User.Administrative.RegLocale</td><td id="value"></td></tr>
+            <tr id="User.Administrative.Unit"><td id="name">User.Administrative.Unit</td><td id="value"></td></tr>
+            <tr id="User.Administrative.WindUnit"><td id="name">User.Administrative.WindUnit</td><td id="value"></td></tr>
+            <tr id="Device.ID"><td id="name">Device.ID</td><td id="value"></td></tr>
+            <tr id="Device.CipherID"><td id="name">Device.CipherID</td><td id="value"></td></tr>
+            <tr id="Device.StationName"><td id="name">Device.StationName</td><td id="value"></td></tr>
+            <tr id="Device.ModuleName"><td id="name">Device.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.Firmware"><td id="name">Device.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.WifiStatus"><td id="name">Device.WifiStatus</td><td id="value"></td></tr>
+            <tr id="Device.CO2Calibrating"><td id="name">Device.CO2Calibrating</td><td id="value"></td></tr>
+            <tr id="Device.Type"><td id="name">Device.Type</td><td id="value"></td></tr>
+            <tr id="Device.DataType"><td id="name">Device.DataType</td><td id="value"></td></tr>
+            <tr id="Device.LastStatusStore"><td id="name">Device.LastStatusStore</td><td id="value"></td></tr>
+            <tr id="Device.DateSetup"><td id="name">Device.DateSetup</td><td id="value"></td></tr>
+            <tr id="Device.LastSetup"><td id="name">Device.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.LastUpgrade"><td id="name">Device.LastUpgrade</td><td id="value"></td></tr>
+            <tr id="Device.Place.Altitude"><td id="name">Device.Place.Altitude</td><td id="value"></td></tr>
+            <tr id="Device.Place.City"><td id="name">Device.Place.City</td><td id="value"></td></tr>
+            <tr id="Device.Place.Country"><td id="name">Device.Place.Country</td><td id="value"></td></tr>
+            <tr id="Device.Place.GeoIpCity"><td id="name">Device.Place.GeoIpCity</td><td id="value"></td></tr>
+            <tr id="Device.Place.ImproveLocProposed"><td id="name">Device.Place.ImproveLocProposed</td><td id="value"></td></tr>
+            <tr id="Device.Place.Location.Latitude"><td id="name">Device.Place.Location.Latitude</td><td id="value"></td></tr>
+            <tr id="Device.Place.Location.Longitude"><td id="name">Device.Place.Location.Longitude</td><td id="value"></td></tr>
+            <tr id="Device.Place.Timezone"><td id="name">Device.Place.Timezone</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.TimeUTC"><td id="name">Device.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.Temperature"><td id="name">Device.DashboardData.Temperature</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.TempTrend"><td id="name">Device.DashboardData.TempTrend</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.Humidity"><td id="name">Device.DashboardData.Humidity</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.Noise"><td id="name">Device.DashboardData.Noise</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.CO2"><td id="name">Device.DashboardData.CO2</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.Pressure"><td id="name">Device.DashboardData.Pressure</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.PressureTrend"><td id="name">Device.DashboardData.PressureTrend</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.AbsolutePressure"><td id="name">Device.DashboardData.AbsolutePressure</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.DateMaxTemp"><td id="name">Device.DashboardData.DateMaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.DateMinTemp"><td id="name">Device.DashboardData.DateMinTemp</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.MaxTemp"><td id="name">Device.DashboardData.MaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.DashboardData.MinTemp"><td id="name">Device.DashboardData.MinTemp</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.ID"><td id="name">Device.OutdoorModule.ID</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.Type"><td id="name">Device.OutdoorModule.Type</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DataType"><td id="name">Device.OutdoorModule.DataType</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.ModuleName"><td id="name">Device.OutdoorModule.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.LastMessage"><td id="name">Device.OutdoorModule.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.LastSeen"><td id="name">Device.OutdoorModule.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.LastSetup"><td id="name">Device.OutdoorModule.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.BatteryVP"><td id="name">Device.OutdoorModule.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.BatteryPercent"><td id="name">Device.OutdoorModule.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.RFStatus"><td id="name">Device.OutdoorModule.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.Firmware"><td id="name">Device.OutdoorModule.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.TimeUTC"><td id="name">Device.OutdoorModule.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.Temperature"><td id="name">Device.OutdoorModule.DashboardData.Temperature</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.TempTrend"><td id="name">Device.OutdoorModule.DashboardData.TempTrend</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.Humidity"><td id="name">Device.OutdoorModule.DashboardData.Humidity</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.DateMaxTemp"><td id="name">Device.OutdoorModule.DashboardData.DateMaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.DateMinTemp"><td id="name">Device.OutdoorModule.DashboardData.DateMinTemp</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.MaxTemp"><td id="name">Device.OutdoorModule.DashboardData.MaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.OutdoorModule.DashboardData.MinTemp"><td id="name">Device.OutdoorModule.DashboardData.MinTemp</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.ID"><td id="name">Device.WindGauge.ID</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.Type"><td id="name">Device.WindGauge.Type</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DataType"><td id="name">Device.WindGauge.DataType</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.ModuleName"><td id="name">Device.WindGauge.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.LastMessage"><td id="name">Device.WindGauge.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.LastSeen"><td id="name">Device.WindGauge.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.LastSetup"><td id="name">Device.WindGauge.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.BatteryVP"><td id="name">Device.WindGauge.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.BatteryPercent"><td id="name">Device.WindGauge.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.RFStatus"><td id="name">Device.WindGauge.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.Firmware"><td id="name">Device.WindGauge.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.TimeUTC"><td id="name">Device.WindGauge.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.WindAngle"><td id="name">Device.WindGauge.DashboardData.WindAngle</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.WindStrength"><td id="name">Device.WindGauge.DashboardData.WindStrength</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.GustAngle"><td id="name">Device.WindGauge.DashboardData.GustAngle</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.GustStrength"><td id="name">Device.WindGauge.DashboardData.GustStrength</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.MaxWindAngle"><td id="name">Device.WindGauge.DashboardData.MaxWindAngle</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.MaxWindStrength"><td id="name">Device.WindGauge.DashboardData.MaxWindStrength</td><td id="value"></td></tr>
+            <tr id="Device.WindGauge.DashboardData.DateMaxWindStrength"><td id="name">Device.WindGauge.DashboardData.DateMaxWindStrength</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.ID"><td id="name">Device.RainGauge.ID</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.Type"><td id="name">Device.RainGauge.Type</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.DataType"><td id="name">Device.RainGauge.DataType</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.ModuleName"><td id="name">Device.RainGauge.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.LastMessage"><td id="name">Device.RainGauge.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.LastSeen"><td id="name">Device.RainGauge.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.LastSetup"><td id="name">Device.RainGauge.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.BatteryVP"><td id="name">Device.RainGauge.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.BatteryPercent"><td id="name">Device.RainGauge.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.RFStatus"><td id="name">Device.RainGauge.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.Firmware"><td id="name">Device.RainGauge.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.DashboardData.TimeUTC"><td id="name">Device.RainGauge.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.DashboardData.Rain"><td id="name">Device.RainGauge.DashboardData.Rain</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.DashboardData.SumRain1"><td id="name">Device.RainGauge.DashboardData.SumRain1</td><td id="value"></td></tr>
+            <tr id="Device.RainGauge.DashboardData.SumRain24"><td id="name">Device.RainGauge.DashboardData.SumRain24</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.ID"><td id="name">Device.IndoorModule1.ID</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.Type"><td id="name">Device.IndoorModule1.Type</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DataType"><td id="name">Device.IndoorModule1.DataType</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.ModuleName"><td id="name">Device.IndoorModule1.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.LastMessage"><td id="name">Device.IndoorModule1.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.LastSeen"><td id="name">Device.IndoorModule1.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.LastSetup"><td id="name">Device.IndoorModule1.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.BatteryVP"><td id="name">Device.IndoorModule1.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.BatteryPercent"><td id="name">Device.IndoorModule1.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.RFStatus"><td id="name">Device.IndoorModule1.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.Firmware"><td id="name">Device.IndoorModule1.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.TimeUTC"><td id="name">Device.IndoorModule1.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.Temperature"><td id="name">Device.IndoorModule1.DashboardData.Temperature</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.TempTrend"><td id="name">Device.IndoorModule1.DashboardData.TempTrend</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.Humidity"><td id="name">Device.IndoorModule1.DashboardData.Humidity</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.CO2"><td id="name">Device.IndoorModule1.DashboardData.CO2</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.DateMaxTemp"><td id="name">Device.IndoorModule1.DashboardData.DateMaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.DateMinTemp"><td id="name">Device.IndoorModule1.DashboardData.DateMinTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.MaxTemp"><td id="name">Device.IndoorModule1.DashboardData.MaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule1.DashboardData.MinTemp"><td id="name">Device.IndoorModule1.DashboardData.MinTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.ID"><td id="name">Device.IndoorModule2.ID</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.Type"><td id="name">Device.IndoorModule2.Type</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DataType"><td id="name">Device.IndoorModule2.DataType</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.ModuleName"><td id="name">Device.IndoorModule2.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.LastMessage"><td id="name">Device.IndoorModule2.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.LastSeen"><td id="name">Device.IndoorModule2.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.LastSetup"><td id="name">Device.IndoorModule2.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.BatteryVP"><td id="name">Device.IndoorModule2.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.BatteryPercent"><td id="name">Device.IndoorModule2.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.RFStatus"><td id="name">Device.IndoorModule2.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.Firmware"><td id="name">Device.IndoorModule2.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.TimeUTC"><td id="name">Device.IndoorModule2.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.Temperature"><td id="name">Device.IndoorModule2.DashboardData.Temperature</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.TempTrend"><td id="name">Device.IndoorModule2.DashboardData.TempTrend</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.Humidity"><td id="name">Device.IndoorModule2.DashboardData.Humidity</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.CO2"><td id="name">Device.IndoorModule2.DashboardData.CO2</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.DateMaxTemp"><td id="name">Device.IndoorModule2.DashboardData.DateMaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.DateMinTemp"><td id="name">Device.IndoorModule2.DashboardData.DateMinTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.MaxTemp"><td id="name">Device.IndoorModule2.DashboardData.MaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule2.DashboardData.MinTemp"><td id="name">Device.IndoorModule2.DashboardData.MinTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.ID"><td id="name">Device.IndoorModule3.ID</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.Type"><td id="name">Device.IndoorModule3.Type</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DataType"><td id="name">Device.IndoorModule3.DataType</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.ModuleName"><td id="name">Device.IndoorModule3.ModuleName</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.LastMessage"><td id="name">Device.IndoorModule3.LastMessage</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.LastSeen"><td id="name">Device.IndoorModule3.LastSeen</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.LastSetup"><td id="name">Device.IndoorModule3.LastSetup</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.BatteryVP"><td id="name">Device.IndoorModule3.BatteryVP</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.BatteryPercent"><td id="name">Device.IndoorModule3.BatteryPercent</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.RFStatus"><td id="name">Device.IndoorModule3.RFStatus</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.Firmware"><td id="name">Device.IndoorModule3.Firmware</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.TimeUTC"><td id="name">Device.IndoorModule3.DashboardData.TimeUTC</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.Temperature"><td id="name">Device.IndoorModule3.DashboardData.Temperature</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.TempTrend"><td id="name">Device.IndoorModule3.DashboardData.TempTrend</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.Humidity"><td id="name">Device.IndoorModule3.DashboardData.Humidity</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.CO2"><td id="name">Device.IndoorModule3.DashboardData.CO2</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.DateMaxTemp"><td id="name">Device.IndoorModule3.DashboardData.DateMaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.DateMinTemp"><td id="name">Device.IndoorModule3.DashboardData.DateMinTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.MaxTemp"><td id="name">Device.IndoorModule3.DashboardData.MaxTemp</td><td id="value"></td></tr>
+            <tr id="Device.IndoorModule3.DashboardData.MinTemp"><td id="name">Device.IndoorModule3.DashboardData.MinTemp</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateData', function (data) {
+            $("table#DataTable tr[id='Response.Status']").find("#value").html(data.response.status);
+            $("table#DataTable tr[id='Response.TimeExec']").find("#value").html(data.response.timeExec);
+            $("table#DataTable tr[id='Response.TimeServer']").find("#value").html(data.response.timeServer);
+
+            $("table#DataTable tr[id='User.Mail']").find("#value").html(data.user.mail);
+            $("table#DataTable tr[id='User.Administrative.Country']").find("#value").html(data.user.administrative.country);
+            $("table#DataTable tr[id='User.Administrative.FeelsLikeAlgorithm']").find("#value").html(data.user.administrative.feelsLikeAlgorithm);
+            $("table#DataTable tr[id='User.Administrative.Language']").find("#value").html(data.user.administrative.language);
+            $("table#DataTable tr[id='User.Administrative.PressureUnit']").find("#value").html(data.user.administrative.pressureUnit);
+            $("table#DataTable tr[id='User.Administrative.RegLocale']").find("#value").html(data.user.administrative.regLocale);
+            $("table#DataTable tr[id='User.Administrative.Unit']").find("#value").html(data.user.administrative.unit);
+            $("table#DataTable tr[id='User.Administrative.WindUnit']").find("#value").html(data.user.administrative.windUnit);
+
+            $("table#DataTable tr[id='Device.ID']").find("#value").html(data.device.id);
+            $("table#DataTable tr[id='Device.CipherID']").find("#value").html(data.device.cipherID);
+            $("table#DataTable tr[id='Device.StationName']").find("#value").html(data.device.stationName);
+            $("table#DataTable tr[id='Device.ModuleName']").find("#value").html(data.device.moduleName);
+            $("table#DataTable tr[id='Device.Firmware']").find("#value").html(data.device.firmware);
+            $("table#DataTable tr[id='Device.WifiStatus']").find("#value").html(data.device.wifiStatus);
+            $("table#DataTable tr[id='Device.CO2Calibrating']").find("#value").html(data.device.cO2Calibrating.toString());
+            $("table#DataTable tr[id='Device.Type']").find("#value").html(data.device.type);
+            $("table#DataTable tr[id='Device.DataType']").find("#value").html(data.device.dataType);
+            $("table#DataTable tr[id='Device.LastStatusStore']").find("#value").html(data.device.lastStatusStore);
+            $("table#DataTable tr[id='Device.DateSetup']").find("#value").html(data.device.dateSetup);
+            $("table#DataTable tr[id='Device.LastSetup']").find("#value").html(data.device.lastSetup);
+            $("table#DataTable tr[id='Device.LastUpgrade']").find("#value").html(data.device.lastUpgrade);
+
+            $("table#DataTable tr[id='Device.Place.Altitude']").find("#value").html(data.device.place.altitude);
+            $("table#DataTable tr[id='Device.Place.City']").find("#value").html(data.device.place.city);
+            $("table#DataTable tr[id='Device.Place.Country']").find("#value").html(data.device.place.country);
+            $("table#DataTable tr[id='Device.Place.GeoIpCity']").find("#value").html(data.device.place.geoIpCity);
+            $("table#DataTable tr[id='Device.Place.ImproveLocProposed']").find("#value").html(data.device.place.improveLocProposed.toString());
+            $("table#DataTable tr[id='Device.Place.Location.Latitude']").find("#value").html(data.device.place.location.latitude);
+            $("table#DataTable tr[id='Device.Place.Location.Longitude']").find("#value").html(data.device.place.location.longitude);
+            $("table#DataTable tr[id='Device.Place.Timezone']").find("#value").html(data.device.place.timezone);
+
+            $("table#DataTable tr[id='Device.DashboardData.TimeUTC']").find("#value").html(data.device.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.DashboardData.Temperature']").find("#value").html(data.device.dashboardData.temperature);
+            $("table#DataTable tr[id='Device.DashboardData.TempTrend']").find("#value").html(data.device.dashboardData.tempTrend);
+            $("table#DataTable tr[id='Device.DashboardData.Humidity']").find("#value").html(data.device.dashboardData.humidity);
+            $("table#DataTable tr[id='Device.DashboardData.Noise']").find("#value").html(data.device.dashboardData.noise);
+            $("table#DataTable tr[id='Device.DashboardData.CO2']").find("#value").html(data.device.dashboardData.cO2);
+            $("table#DataTable tr[id='Device.DashboardData.Pressure']").find("#value").html(data.device.dashboardData.pressure);
+            $("table#DataTable tr[id='Device.DashboardData.PressureTrend']").find("#value").html(data.device.dashboardData.pressureTrend);
+            $("table#DataTable tr[id='Device.DashboardData.AbsolutePressure']").find("#value").html(data.device.dashboardData.absolutePressure);
+            $("table#DataTable tr[id='Device.DashboardData.DateMaxTemp']").find("#value").html(data.device.dashboardData.dateMaxTemp);
+            $("table#DataTable tr[id='Device.DashboardData.DateMinTemp']").find("#value").html(data.device.dashboardData.dateMinTemp);
+            $("table#DataTable tr[id='Device.DashboardData.MaxTemp']").find("#value").html(data.device.dashboardData.maxTemp);
+            $("table#DataTable tr[id='Device.DashboardData.MinTemp']").find("#value").html(data.device.dashboardData.minTemp);
+
+            $("table#DataTable tr[id='Device.OutdoorModule.ID']").find("#value").html(data.device.outdoorModule.id);
+            $("table#DataTable tr[id='Device.OutdoorModule.Type']").find("#value").html(data.device.outdoorModule.type);
+            $("table#DataTable tr[id='Device.OutdoorModule.DataType']").find("#value").html(data.device.outdoorModule.dataType);
+            $("table#DataTable tr[id='Device.OutdoorModule.ModuleName']").find("#value").html(data.device.outdoorModule.moduleName);
+            $("table#DataTable tr[id='Device.OutdoorModule.LastMessage']").find("#value").html(data.device.outdoorModule.lastMessage);
+            $("table#DataTable tr[id='Device.OutdoorModule.LastSeen']").find("#value").html(data.device.outdoorModule.lastSeen);
+            $("table#DataTable tr[id='Device.OutdoorModule.LastSetup']").find("#value").html(data.device.outdoorModule.lastSetup);
+            $("table#DataTable tr[id='Device.OutdoorModule.BatteryVP']").find("#value").html(data.device.outdoorModule.batteryVP);
+            $("table#DataTable tr[id='Device.OutdoorModule.BatteryPercent']").find("#value").html(data.device.outdoorModule.batteryPercent);
+            $("table#DataTable tr[id='Device.OutdoorModule.RFStatus']").find("#value").html(data.device.outdoorModule.rfStatus);
+            $("table#DataTable tr[id='Device.OutdoorModule.Firmware']").find("#value").html(data.device.outdoorModule.firmware);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.TimeUTC']").find("#value").html(data.device.outdoorModule.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.Temperature']").find("#value").html(data.device.outdoorModule.dashboardData.temperature);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.TempTrend']").find("#value").html(data.device.outdoorModule.dashboardData.tempTrend);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.Humidity']").find("#value").html(data.device.outdoorModule.dashboardData.humidity);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.DateMaxTemp']").find("#value").html(data.device.outdoorModule.dashboardData.dateMaxTemp);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.DateMinTemp']").find("#value").html(data.device.outdoorModule.dashboardData.dateMinTemp);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.MaxTemp']").find("#value").html(data.device.outdoorModule.dashboardData.maxTemp);
+            $("table#DataTable tr[id='Device.OutdoorModule.DashboardData.MinTemp']").find("#value").html(data.device.outdoorModule.dashboardData.minTemp);
+
+            $("table#DataTable tr[id='Device.WindGauge.ID']").find("#value").html(data.device.windGauge.id);
+            $("table#DataTable tr[id='Device.WindGauge.Type']").find("#value").html(data.device.windGauge.type);
+            $("table#DataTable tr[id='Device.WindGauge.DataType']").find("#value").html(data.device.windGauge.dataType);
+            $("table#DataTable tr[id='Device.WindGauge.ModuleName']").find("#value").html(data.device.windGauge.moduleName);
+            $("table#DataTable tr[id='Device.WindGauge.LastMessage']").find("#value").html(data.device.windGauge.lastMessage);
+            $("table#DataTable tr[id='Device.WindGauge.LastSeen']").find("#value").html(data.device.windGauge.lastSeen);
+            $("table#DataTable tr[id='Device.WindGauge.LastSetup']").find("#value").html(data.device.windGauge.lastSetup);
+            $("table#DataTable tr[id='Device.WindGauge.BatteryVP']").find("#value").html(data.device.windGauge.batteryVP);
+            $("table#DataTable tr[id='Device.WindGauge.BatteryPercent']").find("#value").html(data.device.windGauge.batteryPercent);
+            $("table#DataTable tr[id='Device.WindGauge.RFStatus']").find("#value").html(data.device.windGauge.rfStatus);
+            $("table#DataTable tr[id='Device.WindGauge.Firmware']").find("#value").html(data.device.windGauge.firmware);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.TimeUTC']").find("#value").html(data.device.windGauge.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.WindAngle']").find("#value").html(data.device.windGauge.dashboardData.windAngle);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.WindStrength']").find("#value").html(data.device.windGauge.dashboardData.windStrength);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.GustAngle']").find("#value").html(data.device.windGauge.dashboardData.gustAngle);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.GustStrength']").find("#value").html(data.device.windGauge.dashboardData.gustStrength);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.MaxWindAngle']").find("#value").html(data.device.windGauge.dashboardData.maxWindAngle);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.MaxWindStrength']").find("#value").html(data.device.windGauge.dashboardData.maxWindStrength);
+            $("table#DataTable tr[id='Device.WindGauge.DashboardData.DateMaxWindStrength']").find("#value").html(data.device.windGauge.dashboardData.dateMaxWindStrength);
+
+            $("table#DataTable tr[id='Device.RainGauge.ID']").find("#value").html(data.device.rainGauge.id);
+            $("table#DataTable tr[id='Device.RainGauge.Type']").find("#value").html(data.device.rainGauge.type);
+            $("table#DataTable tr[id='Device.RainGauge.DataType']").find("#value").html(data.device.rainGauge.dataType);
+            $("table#DataTable tr[id='Device.RainGauge.ModuleName']").find("#value").html(data.device.rainGauge.moduleName);
+            $("table#DataTable tr[id='Device.RainGauge.LastMessage']").find("#value").html(data.device.rainGauge.lastMessage);
+            $("table#DataTable tr[id='Device.RainGauge.LastSeen']").find("#value").html(data.device.rainGauge.lastSeen);
+            $("table#DataTable tr[id='Device.RainGauge.LastSetup']").find("#value").html(data.device.rainGauge.lastSetup);
+            $("table#DataTable tr[id='Device.RainGauge.BatteryVP']").find("#value").html(data.device.rainGauge.batteryVP);
+            $("table#DataTable tr[id='Device.RainGauge.BatteryPercent']").find("#value").html(data.device.rainGauge.batteryPercent);
+            $("table#DataTable tr[id='Device.RainGauge.RFStatus']").find("#value").html(data.device.rainGauge.rfStatus);
+            $("table#DataTable tr[id='Device.RainGauge.Firmware']").find("#value").html(data.device.rainGauge.firmware);
+            $("table#DataTable tr[id='Device.RainGauge.DashboardData.TimeUTC']").find("#value").html(data.device.rainGauge.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.RainGauge.DashboardData.Rain']").find("#value").html(data.device.rainGauge.dashboardData.rain);
+            $("table#DataTable tr[id='Device.RainGauge.DashboardData.SumRain1']").find("#value").html(data.device.rainGauge.dashboardData.sumRain1);
+            $("table#DataTable tr[id='Device.RainGauge.DashboardData.SumRain24']").find("#value").html(data.device.rainGauge.dashboardData.sumRain24);
+
+            $("table#DataTable tr[id='Device.IndoorModule1.ID']").find("#value").html(data.device.indoorModule1.id);
+            $("table#DataTable tr[id='Device.IndoorModule1.Type']").find("#value").html(data.device.indoorModule1.type);
+            $("table#DataTable tr[id='Device.IndoorModule1.DataType']").find("#value").html(data.device.indoorModule1.dataType);
+            $("table#DataTable tr[id='Device.IndoorModule1.ModuleName']").find("#value").html(data.device.indoorModule1.moduleName);
+            $("table#DataTable tr[id='Device.IndoorModule1.LastMessage']").find("#value").html(data.device.indoorModule1.lastMessage);
+            $("table#DataTable tr[id='Device.IndoorModule1.LastSeen']").find("#value").html(data.device.indoorModule1.lastSeen);
+            $("table#DataTable tr[id='Device.IndoorModule1.LastSetup']").find("#value").html(data.device.indoorModule1.lastSetup);
+            $("table#DataTable tr[id='Device.IndoorModule1.BatteryVP']").find("#value").html(data.device.indoorModule1.batteryVP);
+            $("table#DataTable tr[id='Device.IndoorModule1.BatteryPercent']").find("#value").html(data.device.indoorModule1.batteryPercent);
+            $("table#DataTable tr[id='Device.IndoorModule1.RFStatus']").find("#value").html(data.device.indoorModule1.rfStatus);
+            $("table#DataTable tr[id='Device.IndoorModule1.Firmware']").find("#value").html(data.device.indoorModule1.firmware);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.TimeUTC']").find("#value").html(data.device.indoorModule1.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.Temperature']").find("#value").html(data.device.indoorModule1.dashboardData.temperature);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.TempTrend']").find("#value").html(data.device.indoorModule1.dashboardData.tempTrend);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.Humidity']").find("#value").html(data.device.indoorModule1.dashboardData.humidity);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.CO2']").find("#value").html(data.device.indoorModule1.dashboardData.cO2);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.DateMaxTemp']").find("#value").html(data.device.indoorModule1.dashboardData.dateMaxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.DateMinTemp']").find("#value").html(data.device.indoorModule1.dashboardData.dateMinTemp);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.MaxTemp']").find("#value").html(data.device.indoorModule1.dashboardData.maxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule1.DashboardData.MinTemp']").find("#value").html(data.device.indoorModule1.dashboardData.minTemp);
+
+            $("table#DataTable tr[id='Device.IndoorModule2.ID']").find("#value").html(data.device.indoorModule2.id);
+            $("table#DataTable tr[id='Device.IndoorModule2.Type']").find("#value").html(data.device.indoorModule2.type);
+            $("table#DataTable tr[id='Device.IndoorModule2.DataType']").find("#value").html(data.device.indoorModule2.dataType);
+            $("table#DataTable tr[id='Device.IndoorModule2.ModuleName']").find("#value").html(data.device.indoorModule2.moduleName);
+            $("table#DataTable tr[id='Device.IndoorModule2.LastMessage']").find("#value").html(data.device.indoorModule2.lastMessage);
+            $("table#DataTable tr[id='Device.IndoorModule2.LastSeen']").find("#value").html(data.device.indoorModule2.lastSeen);
+            $("table#DataTable tr[id='Device.IndoorModule2.LastSetup']").find("#value").html(data.device.indoorModule2.lastSetup);
+            $("table#DataTable tr[id='Device.IndoorModule2.BatteryVP']").find("#value").html(data.device.indoorModule2.batteryVP);
+            $("table#DataTable tr[id='Device.IndoorModule2.BatteryPercent']").find("#value").html(data.device.indoorModule2.batteryPercent);
+            $("table#DataTable tr[id='Device.IndoorModule2.RFStatus']").find("#value").html(data.device.indoorModule2.rfStatus);
+            $("table#DataTable tr[id='Device.IndoorModule2.Firmware']").find("#value").html(data.device.indoorModule2.firmware);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.TimeUTC']").find("#value").html(data.device.indoorModule2.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.Temperature']").find("#value").html(data.device.indoorModule2.dashboardData.temperature);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.TempTrend']").find("#value").html(data.device.indoorModule2.dashboardData.tempTrend);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.Humidity']").find("#value").html(data.device.indoorModule2.dashboardData.humidity);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.CO2']").find("#value").html(data.device.indoorModule2.dashboardData.cO2);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.DateMaxTemp']").find("#value").html(data.device.indoorModule2.dashboardData.dateMaxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.DateMinTemp']").find("#value").html(data.device.indoorModule2.dashboardData.dateMinTemp);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.MaxTemp']").find("#value").html(data.device.indoorModule2.dashboardData.maxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule2.DashboardData.MinTemp']").find("#value").html(data.device.indoorModule2.dashboardData.minTemp);
+
+            $("table#DataTable tr[id='Device.IndoorModule3.ID']").find("#value").html(data.device.indoorModule3.id);
+            $("table#DataTable tr[id='Device.IndoorModule3.Type']").find("#value").html(data.device.indoorModule3.type);
+            $("table#DataTable tr[id='Device.IndoorModule3.DataType']").find("#value").html(data.device.indoorModule3.dataType);
+            $("table#DataTable tr[id='Device.IndoorModule3.ModuleName']").find("#value").html(data.device.indoorModule3.moduleName);
+            $("table#DataTable tr[id='Device.IndoorModule3.LastMessage']").find("#value").html(data.device.indoorModule3.lastMessage);
+            $("table#DataTable tr[id='Device.IndoorModule3.LastSeen']").find("#value").html(data.device.indoorModule3.lastSeen);
+            $("table#DataTable tr[id='Device.IndoorModule3.LastSetup']").find("#value").html(data.device.indoorModule3.lastSetup);
+            $("table#DataTable tr[id='Device.IndoorModule3.BatteryVP']").find("#value").html(data.device.indoorModule3.batteryVP);
+            $("table#DataTable tr[id='Device.IndoorModule3.BatteryPercent']").find("#value").html(data.device.indoorModule3.batteryPercent);
+            $("table#DataTable tr[id='Device.IndoorModule3.RFStatus']").find("#value").html(data.device.indoorModule3.rfStatus);
+            $("table#DataTable tr[id='Device.IndoorModule3.Firmware']").find("#value").html(data.device.indoorModule3.firmware);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.TimeUTC']").find("#value").html(data.device.indoorModule3.dashboardData.timeUTC);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.Temperature']").find("#value").html(data.device.indoorModule3.dashboardData.temperature);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.TempTrend']").find("#value").html(data.device.indoorModule3.dashboardData.tempTrend);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.Humidity']").find("#value").html(data.device.indoorModule3.dashboardData.humidity);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.CO2']").find("#value").html(data.device.indoorModule3.dashboardData.cO2);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.DateMaxTemp']").find("#value").html(data.device.indoorModule3.dashboardData.dateMaxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.DateMinTemp']").find("#value").html(data.device.indoorModule3.dashboardData.dateMinTemp);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.MaxTemp']").find("#value").html(data.device.indoorModule3.dashboardData.maxTemp);
+            $("table#DataTable tr[id='Device.IndoorModule3.DashboardData.MinTemp']").find("#value").html(data.device.indoorModule3.dashboardData.minTemp);
+
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateData')
+                    .catch(error => {
+                        console.log('Invocation of UpdateData failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

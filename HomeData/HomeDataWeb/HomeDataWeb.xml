@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeDataWeb</name>
+    </assembly>
+    <members>
+        <member name="T:HomeDataWeb.Controllers.HomeDataController">
+            <summary>
+            The Home Data controller for reading home data items.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Controllers.HomeDataController.#ctor(HomeDataLib.IHomeData,Microsoft.Extensions.Options.IOptions{HomeDataWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{HomeDataWeb.Controllers.HomeDataController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeDataWeb.Controllers.HomeDataController"/> class.
+            </summary>
+            <param name="homedata">The HomeData instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:HomeDataWeb.Controllers.HomeDataController.GetIsInitialized">
+            <summary>
+            Returns flag indicating that the data have been sucessfully initialized.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+        </member>
+        <member name="M:HomeDataWeb.Controllers.HomeDataController.GetHomeData">
+            <summary>
+            Returns all Home related data.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:HomeDataWeb.Controllers.HomeDataController.GetHomeData(System.String)">
+            <summary>
+            Returns a single Home data property.
+            </summary>
+            <remarks>The property name is a CamelCase name.</remarks>
+            <param name="name">The name of the property.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">If the property is invalid.</response>
+            <response code="404">If the property cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:HomeDataWeb.Hubs.HomeDataHub">
+            <summary>
+            SignalR Hub class for HomeData data values.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Hubs.HomeDataHub.#ctor(HomeDataLib.IHomeData,Microsoft.Extensions.Logging.ILogger{HomeDataWeb.Hubs.HomeDataHub},Microsoft.Extensions.Options.IOptions{HomeDataWeb.Models.AppSettings})">
+            <summary>
+            Initializes an instance of the <see cref="T:HomeDataWeb.Hubs.HomeDataHub"/> class.
+            </summary>
+            <param name="homedata">The HomeData instance.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+        </member>
+        <member name="M:HomeDataWeb.Hubs.HomeDataHub.OnConnectedAsync">
+            <summary>
+            Establish connection and broadcast data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HomeDataWeb.Hubs.HomeDataHub.UpdateData">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HomeDataWeb.Models.AppSettings">
+            <summary>
+            Helper class to hold application specific settings.
+            </summary>
+        </member>
+        <member name="P:HomeDataWeb.Models.AppSettings.Swagger">
+            <summary>
+            The Swagger options.
+            </summary>
+        </member>
+        <member name="T:HomeDataWeb.Models.SwaggerOptions">
+            <summary>
+            The Swagger info data objects provides metadata about the web API.
+            </summary>
+        </member>
+        <member name="T:HomeDataWeb.Pages.TermsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Pages.TermsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:HomeDataWeb.Program">
+            <summary>
+            The main ASP.NET application.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Program.Main(System.String[])">
+            <summary>
+            The main console application entry point.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <returns>The exit code.</returns>
+        </member>
+        <member name="T:HomeDataWeb.Services.HomeDataMonitor">
+            <summary>
+            Monitor service updating selected Fronius instance data every minute.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.HomeDataMonitor.#ctor(HomeDataLib.IHomeData,Microsoft.AspNetCore.SignalR.IHubContext{HomeDataWeb.Hubs.HomeDataHub},Microsoft.Extensions.Logging.ILogger{HomeDataWeb.Services.HomeDataMonitor},Microsoft.Extensions.Options.IOptions{HomeDataWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes an instance of the <see cref="T:HomeDataWeb.Services.HomeDataMonitor"/> class.
+            </summary>
+            <param name="homedata">The HomeData instance.</param>
+            <param name="hub">The test data SignalR hub.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:HomeDataWeb.Services.HomeDataMonitor.DoStartAsync">
+            <summary>
+            Executes the startup operation.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.HomeDataMonitor.DoWorkAsync">
+            <summary>
+            Executes the update operation every minute.
+            </summary>
+        </member>
+        <member name="T:HomeDataWeb.Services.TimedService">
+            <summary>
+            Timed background task based on code from https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-2.1
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.#ctor(Microsoft.Extensions.Logging.ILogger{HomeDataWeb.Services.TimedService},Microsoft.Extensions.Options.IOptions{HomeDataWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeDataWeb.Services.TimedService"/> class using dependency injection.
+            </summary>
+            <param name="logger"></param>
+            <param name="options"></param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stop the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.Dispose">
+            <summary>
+            Implementing basic dispose pattern.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.OnTimerElapsed(System.Object)">
+            <summary>
+            The timer callback method.
+            </summary>
+            <param name="state">The timer callback state object.</param>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.Dispose(System.Boolean)">
+            <summary>
+            Actual resource cleanup when disposing.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.DoStartAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.DoWorkAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Services.TimedService.GetDueTime">
+            <summary>
+            Returns the milliseconds to the next minute.
+            </summary>
+            <returns>The milliseconds to the next minute.</returns>
+        </member>
+        <member name="T:HomeDataWeb.Startup">
+            <summary>
+            The web application startup class.
+            </summary>
+        </member>
+        <member name="M:HomeDataWeb.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeDataWeb.Startup"/> class.
+            </summary>
+            <param name="environment"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:HomeDataWeb.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:HomeDataWeb.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

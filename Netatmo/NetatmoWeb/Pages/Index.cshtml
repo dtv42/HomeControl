@@ -1,0 +1,511 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@using Syncfusion.EJ2;
+@{
+    var TitleFont = new Syncfusion.EJ2.CircularGauge.CircularGaugeFont
+    {
+        Size = "24px"
+    };
+}
+
+<div class="text-center">
+    <h1 class="display-4">Netatmo Weather Station</h1>
+</div>
+
+<br /><h1><small>Outdoor</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge01" title="Temperature" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="-20" maximum="40">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge02" title="Humidity" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge03" title="Pressure" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="1200">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<br /><h1><small>Indoor 1</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge04" title="Temperature" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="40">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge05" title="Humidity" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge06" title="CO2" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="2000">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<br /><h1><small>Indoor 2</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge07" title="Temperature" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="40">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge08" title="Humidity" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge09" title="CO2" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="2000">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<br /><h1><small>Indoor 3</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge10" title="Temperature" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="40">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge11" title="Humidity" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge12" title="CO2" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="2000">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<br /><h1><small>Rain</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge13" title="Rain" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="20">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge14" title="Sum 1h" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="20">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge15" title="Sum 24h" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<br /><h1><small>Wind</small></h1>
+
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge16" title="Wind Strength" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge17" title="Gust Strength" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge18" title="Max Strength" titleStyle="TitleFont">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis minimum="0" maximum="100">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge19" title="Wind Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-majorticks interval="1"></e-axis-majorticks>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge20" title="Gust Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-majorticks interval="1"></e-axis-majorticks>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-1">
+        <div class="content-wrapper">
+            <ejs-circulargauge id="Gauge21" title="Max Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                <e-circulargauge-axes>
+                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                        <e-axis-annotations>
+                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                        </e-axis-annotations>
+                        <e-axis-majorticks interval="1"></e-axis-majorticks>
+                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                    </e-circulargauge-axis>
+                </e-circulargauge-axes>
+            </ejs-circulargauge>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/signalr/signalr.js"></script>
+<script>
+    var wind = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', ''];
+
+    window.axisLabelRender = function (args) {
+        args.text = wind[args.value];
+    }
+
+    var gauge1, gauge2, gauge3
+    var gauge4, gauge5, gauge6
+    var gauge7, gauge8, gauge9
+    var gauge10, gauge11, gauge12
+    var gauge13, gauge14, gauge15
+    var gauge16, gauge17, gauge18
+    var gauge19, gauge20, gauge21
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/hubs/monitor")
+        .configureLogging(signalR.LogLevel.Trace)
+        .build();
+
+    connection.on('UpdateData', function (data) {
+        if (!gauge1)
+            gauge1 = document.getElementById("Gauge01").ej2_instances[0];
+        if (!gauge2)
+            gauge2 = document.getElementById("Gauge02").ej2_instances[0];
+        if (!gauge3)
+            gauge3 = document.getElementById("Gauge03").ej2_instances[0];
+        if (!gauge4)
+            gauge4 = document.getElementById("Gauge04").ej2_instances[0];
+        if (!gauge5)
+            gauge5 = document.getElementById("Gauge05").ej2_instances[0];
+        if (!gauge6)
+            gauge6 = document.getElementById("Gauge06").ej2_instances[0];
+        if (!gauge7)
+            gauge7 = document.getElementById("Gauge07").ej2_instances[0];
+        if (!gauge8)
+            gauge8 = document.getElementById("Gauge08").ej2_instances[0];
+        if (!gauge9)
+            gauge9 = document.getElementById("Gauge09").ej2_instances[0];
+        if (!gauge10)
+            gauge10 = document.getElementById("Gauge10").ej2_instances[0];
+        if (!gauge11)
+            gauge11 = document.getElementById("Gauge11").ej2_instances[0];
+        if (!gauge12)
+            gauge12 = document.getElementById("Gauge12").ej2_instances[0];
+        if (!gauge13)
+            gauge13 = document.getElementById("Gauge13").ej2_instances[0];
+        if (!gauge14)
+            gauge14 = document.getElementById("Gauge14").ej2_instances[0];
+        if (!gauge15)
+            gauge15 = document.getElementById("Gauge15").ej2_instances[0];
+        if (!gauge16)
+            gauge16 = document.getElementById("Gauge16").ej2_instances[0];
+        if (!gauge17)
+            gauge17 = document.getElementById("Gauge17").ej2_instances[0];
+        if (!gauge18)
+            gauge18 = document.getElementById("Gauge18").ej2_instances[0];
+        if (!gauge19)
+            gauge19 = document.getElementById("Gauge19").ej2_instances[0];
+        if (!gauge20)
+            gauge20 = document.getElementById("Gauge20").ej2_instances[0];
+        if (!gauge21)
+            gauge21 = document.getElementById("Gauge21").ej2_instances[0];
+
+        value01 = data.device.outdoorModule.dashboardData.temperature;
+        value02 = data.device.outdoorModule.dashboardData.humidity;
+        value03 = data.device.dashboardData.pressure;
+        value04 = data.device.indoorModule1.dashboardData.temperature;
+        value05 = data.device.indoorModule1.dashboardData.humidity;
+        value06 = data.device.indoorModule1.dashboardData.cO2;
+        value07 = data.device.indoorModule2.dashboardData.temperature;
+        value08 = data.device.indoorModule2.dashboardData.humidity;
+        value09 = data.device.indoorModule2.dashboardData.cO2;
+        value10 = data.device.indoorModule3.dashboardData.temperature;
+        value11 = data.device.indoorModule3.dashboardData.humidity;
+        value12 = data.device.indoorModule3.dashboardData.cO2;
+        value13 = data.device.rainGauge.dashboardData.rain;
+        value14 = data.device.rainGauge.dashboardData.sumRain1;
+        value15 = data.device.rainGauge.dashboardData.sumRain24;
+        value16 = data.device.windGauge.dashboardData.windStrength;
+        value17 = data.device.windGauge.dashboardData.gustStrength;
+        value18 = data.device.windGauge.dashboardData.maxWindStrength;
+        value19 = data.device.windGauge.dashboardData.windAngle;
+        value20 = data.device.windGauge.dashboardData.gustAngle;
+        value21 = data.device.windGauge.dashboardData.maxWindAngle;
+        value19a = value19 / 45.0;
+        value20a = value20 / 45.0;
+        value21a = value21 / 45.0;
+
+        gauge1.setAnnotationValue(0, 0, "<text class='h4'>" + value01.toFixed(1) + " °C</text>");
+        gauge2.setAnnotationValue(0, 0, "<text class='h4'>" + value02.toFixed(1) + " %</text>");
+        gauge3.setAnnotationValue(0, 0, "<text class='h4'>" + value03.toFixed(0) + " mbar</text>");
+        gauge4.setAnnotationValue(0, 0, "<text class='h4'>" + value04.toFixed(1) + " °C</text>");
+        gauge5.setAnnotationValue(0, 0, "<text class='h4'>" + value05.toFixed(1) + " %</text>");
+        gauge6.setAnnotationValue(0, 0, "<text class='h4'>" + value06.toFixed(0) + " ppm</text>");
+        gauge7.setAnnotationValue(0, 0, "<text class='h4'>" + value07.toFixed(1) + " °C</text>");
+        gauge8.setAnnotationValue(0, 0, "<text class='h4'>" + value08.toFixed(1) + " %</text>");
+        gauge9.setAnnotationValue(0, 0, "<text class='h4'>" + value09.toFixed(0) + " ppm</text>");
+        gauge10.setAnnotationValue(0, 0, "<text class='h4'>" + value10.toFixed(1) + " °C</text>");
+        gauge11.setAnnotationValue(0, 0, "<text class='h4'>" + value11.toFixed(1) + " %</text>");
+        gauge12.setAnnotationValue(0, 0, "<text class='h4'>" + value12.toFixed(0) + " ppm</text>");
+        gauge13.setAnnotationValue(0, 0, "<text class='h4'>" + value13.toFixed(1) + " mm</text>");
+        gauge14.setAnnotationValue(0, 0, "<text class='h4'>" + value14.toFixed(1) + " mm</text>");
+        gauge15.setAnnotationValue(0, 0, "<text class='h4'>" + value15.toFixed(1) + " mm</text>");
+        gauge16.setAnnotationValue(0, 0, "<text class='h4'>" + value16.toFixed(1) + " km/h</text>");
+        gauge17.setAnnotationValue(0, 0, "<text class='h4'>" + value17.toFixed(1) + " km/h</text>");
+        gauge18.setAnnotationValue(0, 0, "<text class='h4'>" + value18.toFixed(1) + " km/h</text>");
+        gauge19.setAnnotationValue(0, 0, "<text class='h4'>" + value19.toFixed(0) + " °</text>");
+        gauge20.setAnnotationValue(0, 0, "<text class='h4'>" + value20.toFixed(0) + " °</text>");
+        gauge21.setAnnotationValue(0, 0, "<text class='h4'>" + value21.toFixed(0) + " °</text>");
+
+        gauge1.setPointerValue(0, 0, value01);
+        gauge2.setPointerValue(0, 0, value02);
+        gauge3.setPointerValue(0, 0, value03);
+        gauge4.setPointerValue(0, 0, value04);
+        gauge5.setPointerValue(0, 0, value05);
+        gauge6.setPointerValue(0, 0, value06);
+        gauge7.setPointerValue(0, 0, value07);
+        gauge8.setPointerValue(0, 0, value08);
+        gauge9.setPointerValue(0, 0, value09);
+        gauge10.setPointerValue(0, 0, value10);
+        gauge11.setPointerValue(0, 0, value11);
+        gauge12.setPointerValue(0, 0, value12);
+        gauge13.setPointerValue(0, 0, value13);
+        gauge14.setPointerValue(0, 0, value14);
+        gauge15.setPointerValue(0, 0, value15);
+        gauge16.setPointerValue(0, 0, value16);
+        gauge17.setPointerValue(0, 0, value17);
+        gauge18.setPointerValue(0, 0, value18);
+        gauge19.setPointerValue(0, 0, value19a);
+        gauge20.setPointerValue(0, 0, value20a);
+        gauge21.setPointerValue(0, 0, value21a);
+    });
+
+    connection.start()
+        .then(function () {
+            connection.invoke('UpdateData')
+                .catch(error => {
+                    console.log('Invocation of UpdateData failed. Error: ' + error);
+                    alert('Update failed with error: ' + error);
+                });
+        })
+        .catch(error => {
+            console.log('Could not connect to SignalR server. Error: ' + error);
+            alert('Could not connect to monitor hub.');
+        });
+
+</script>
+

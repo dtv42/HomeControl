@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller Uri="file://woodstock/temp/HomeControlApp.appinstaller" Version="1.0.1.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+  <MainBundle Name="4247a254-82f3-44ac-9c22-50541a05bee8" Version="1.0.1.0" Publisher="CN=peter" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/HomeControlApp_1.0.1.0_x86_x64_arm_Debug.appxbundle" />
+  <Dependencies>
+    <Package Name="Microsoft.NET.CoreRuntime.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.26926.4" ProcessorArchitecture="x86" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x86/Microsoft.NET.CoreRuntime.2.2.appx" />
+    <Package Name="Microsoft.NET.CoreRuntime.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.26926.4" ProcessorArchitecture="x64" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x64/Microsoft.NET.CoreRuntime.2.2.appx" />
+    <Package Name="Microsoft.NET.CoreRuntime.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.26926.4" ProcessorArchitecture="arm" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/arm/Microsoft.NET.CoreRuntime.2.2.appx" />
+    <Package Name="Microsoft.NET.CoreFramework.Debug.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.27129.1" ProcessorArchitecture="x86" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x86/Microsoft.NET.CoreFramework.Debug.2.2.appx" />
+    <Package Name="Microsoft.NET.CoreFramework.Debug.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.27129.1" ProcessorArchitecture="x64" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x64/Microsoft.NET.CoreFramework.Debug.2.2.appx" />
+    <Package Name="Microsoft.NET.CoreFramework.Debug.2.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="2.2.27129.1" ProcessorArchitecture="arm" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/arm/Microsoft.NET.CoreFramework.Debug.2.2.appx" />
+    <Package Name="Microsoft.VCLibs.140.00.Debug" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.27305.0" ProcessorArchitecture="arm" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/ARM/Microsoft.VCLibs.ARM.Debug.14.00.appx" />
+    <Package Name="Microsoft.VCLibs.140.00.Debug" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.27305.0" ProcessorArchitecture="x64" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x64/Microsoft.VCLibs.x64.Debug.14.00.appx" />
+    <Package Name="Microsoft.VCLibs.140.00.Debug" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.27305.0" ProcessorArchitecture="x86" Uri="file://woodstock/temp/HomeControlApp_1.0.1.0_Debug_Test/Dependencies/x86/Microsoft.VCLibs.x86.Debug.14.00.appx" />
+  </Dependencies>
+  <UpdateSettings>
+    <OnLaunch HoursBetweenUpdateChecks="0" />
+  </UpdateSettings>
+</AppInstaller>

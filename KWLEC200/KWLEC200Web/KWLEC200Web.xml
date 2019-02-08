@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KWLEC200Web</name>
+    </assembly>
+    <members>
+        <member name="T:KWLEC200Web.Controllers.KWLEC200Controller">
+            <summary>
+            The KWLEC200 controller for reading KWLEC200 data items.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.#ctor(KWLEC200Lib.IKWLEC200,Microsoft.Extensions.Options.IOptions{KWLEC200Web.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{KWLEC200Web.Controllers.KWLEC200Controller})">
+            <summary>
+            Initializes a new instance of the <see cref="T:KWLEC200Web.Controllers.KWLEC200Controller"/> class.
+            </summary>
+            <param name="kwlec200">The KWLEC200 instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetIsInitialized">
+            <summary>
+            Returns flag indicating that the data have been sucessfully initialized.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetKWLEC200Data(System.Boolean)">
+            <summary>
+            Returns all KWLEC200 related data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetOverviewData(System.Boolean)">
+            <summary>
+            Returns a subset of KWLEC200 data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetKWLEC200Data(System.String,System.Boolean)">
+            <summary>
+            Returns a single KWLEC200 property.
+            </summary>
+            <remarks>The property name is a CamelCase name.</remarks>
+            <param name="name">The name of the property.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">If the property is invalid.</response>
+            <response code="404">If the property cannot be found.</response>
+            <response code="405">If the property is not readable.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.PutKWLEC200Data(System.String,System.String)">
+            <summary>
+            Writes a single KWLEC200 property.
+            </summary>
+            <remarks>The property name is a CamelCase name.</remarks>
+            <param name="name">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Indicates successful operation.</response>
+            <response code="400">If the property is invalid.</response>
+            <response code="404">If the property cannot be found.</response>
+            <response code="405">If the property is not writable.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the write procedure was unsuccessful.</response>
+        </member>
+        <member name="T:KWLEC200Web.Hubs.KWLEC200Hub">
+            <summary>
+            SignalR Hub class for KWLEC200 data.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Hubs.KWLEC200Hub.#ctor(KWLEC200Lib.IKWLEC200,Microsoft.Extensions.Logging.ILogger{KWLEC200Web.Hubs.KWLEC200Hub},Microsoft.Extensions.Options.IOptions{KWLEC200Web.Models.AppSettings})">
+            <summary>
+            Initializes an instance of the <see cref="T:KWLEC200Web.Hubs.KWLEC200Hub"/> class.
+            </summary>
+            <param name="kwlec200">The KWLEC200 instance.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+        </member>
+        <member name="M:KWLEC200Web.Hubs.KWLEC200Hub.OnConnectedAsync">
+            <summary>
+            Establish connection and broadcast data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KWLEC200Web.Hubs.KWLEC200Hub.UpdateData">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KWLEC200Web.Hubs.KWLEC200Hub.UpdateOverview">
+            <summary>
+            Callback to provide overview data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:KWLEC200Web.Models.AppSettings">
+            <summary>
+            Helper class to hold application specific settings.
+            </summary>
+        </member>
+        <member name="P:KWLEC200Web.Models.AppSettings.TcpMaster">
+            <summary>
+            The MODBUS TCP master configuration.
+            </summary>
+        </member>
+        <member name="P:KWLEC200Web.Models.AppSettings.TcpSlave">
+            <summary>
+            The MODBUS TCP slave configuration.
+            </summary>
+        </member>
+        <member name="P:KWLEC200Web.Models.AppSettings.Swagger">
+            <summary>
+            The Swagger options.
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Models.SwaggerOptions">
+            <summary>
+            The Swagger info data objects provides metadata about the web API.
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Pages.AboutModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Pages.KWLEC200Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Pages.KWLEC200Model.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Pages.OverviewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Pages.OverviewModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Pages.TermsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Pages.TermsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Program">
+            <summary>
+            The main ASP.NET application.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Program.Main(System.String[])">
+            <summary>
+            The main console application entry point.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <returns>The exit code.</returns>
+        </member>
+        <member name="T:KWLEC200Web.Services.KWLEC200Monitor">
+            <summary>
+            Monitor service updating selected KWLEC200 instance data every minute.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.KWLEC200Monitor.#ctor(KWLEC200Lib.IKWLEC200,Microsoft.AspNetCore.SignalR.IHubContext{KWLEC200Web.Hubs.KWLEC200Hub},Microsoft.Extensions.Logging.ILogger{KWLEC200Web.Services.KWLEC200Monitor},Microsoft.Extensions.Options.IOptions{KWLEC200Web.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes an instance of the <see cref="T:KWLEC200Web.Services.KWLEC200Monitor"/> class.
+            </summary>
+            <param name="kwlec200">The KWLEC200 instance.</param>
+            <param name="hub">The test data SignalR hub.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:KWLEC200Web.Services.KWLEC200Monitor.DoStartAsync">
+            <summary>
+            Executes the start operation just once.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.KWLEC200Monitor.DoWorkAsync">
+            <summary>
+            Executes the update operation every minute.
+            </summary>
+        </member>
+        <member name="T:KWLEC200Web.Services.TimedService">
+            <summary>
+            Timed background task based on code from https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-2.1
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.#ctor(Microsoft.Extensions.Logging.ILogger{KWLEC200Web.Services.TimedService},Microsoft.Extensions.Options.IOptions{KWLEC200Web.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KWLEC200Web.Services.TimedService"/> class using dependency injection.
+            </summary>
+            <param name="logger"></param>
+            <param name="options"></param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stop the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.Dispose">
+            <summary>
+            Implementing basic dispose pattern.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.OnTimerElapsed(System.Object)">
+            <summary>
+            The timer callback method.
+            </summary>
+            <param name="state">The timer callback state object.</param>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.Dispose(System.Boolean)">
+            <summary>
+            Actual resource cleanup when disposing.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.DoStartAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.DoWorkAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Services.TimedService.GetDueTime">
+            <summary>
+            Returns the milliseconds to the next minute.
+            </summary>
+            <returns>The milliseconds to the next minute.</returns>
+        </member>
+        <member name="T:KWLEC200Web.Startup">
+            <summary>
+            The web application startup class.
+            </summary>
+        </member>
+        <member name="M:KWLEC200Web.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KWLEC200Web.Startup"/> class.
+            </summary>
+            <param name="environment"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:KWLEC200Web.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:KWLEC200Web.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

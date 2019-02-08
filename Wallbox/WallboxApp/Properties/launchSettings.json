@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WallboxApp": {
+      "commandName": "Project",
+      "commandLineArgs": "read -a"
+    }
+  }
+}

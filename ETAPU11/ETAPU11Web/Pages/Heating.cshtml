@@ -1,0 +1,72 @@
+﻿@page
+@model HeatingModel
+@{
+    ViewData["Title"] = "Monitor ETAPU11";
+    ViewData["Header"] = "Heating Data";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="RoomSensor"><td id="name">RoomSensor</td><td id="value"></td></tr>
+            <tr id="HeatingCircuitState"><td id="name">HeatingCircuitState</td><td id="value"></td></tr>
+            <tr id="RunningState"><td id="name">RunningState</td><td id="value"></td></tr>
+            <tr id="HeatingTimes"><td id="name">HeatingTimes</td><td id="value"></td></tr>
+            <tr id="HeatingSwitchStatus"><td id="name">HeatingSwitchStatus</td><td id="value"></td></tr>
+            <tr id="HeatingTemperature"><td id="name">HeatingTemperature</td><td id="value"></td></tr>
+            <tr id="RoomTemperature"><td id="name">RoomTemperature</td><td id="value"></td></tr>
+            <tr id="RoomTarget"><td id="name">RoomTarget</td><td id="value"></td></tr>
+            <tr id="Flow"><td id="name">Flow</td><td id="value"></td></tr>
+            <tr id="DayHeatingThreshold"><td id="name">DayHeatingThreshold</td><td id="value"></td></tr>
+            <tr id="NightHeatingThreshold"><td id="name">NightHeatingThreshold</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateHeating', function (data) {
+            $("table#DataTable tr[id='RoomSensor']").find("#value").html(data.roomSensor);
+            $("table#DataTable tr[id='HeatingCircuitState']").find("#value").html(data.heatingCircuitState);
+            $("table#DataTable tr[id='RunningState']").find("#value").html(data.runningState);
+            $("table#DataTable tr[id='HeatingTimes']").find("#value").html(data.heatingTimes);
+            $("table#DataTable tr[id='HeatingSwitchStatus']").find("#value").html(data.heatingSwitchStatus);
+            $("table#DataTable tr[id='HeatingTemperature']").find("#value").html(data.heatingTemperature);
+            $("table#DataTable tr[id='RoomTemperature']").find("#value").html(data.roomTemperature);
+            $("table#DataTable tr[id='RoomTarget']").find("#value").html(data.roomTarget);
+            $("table#DataTable tr[id='Flow']").find("#value").html(data.flow);
+            $("table#DataTable tr[id='DayHeatingThreshold']").find("#value").html(data.dayHeatingThreshold);
+            $("table#DataTable tr[id='NightHeatingThreshold']").find("#value").html(data.nightHeatingThreshold);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateHeating')
+                    .catch(error => {
+                        console.log('Invocation of UpdateHeating failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

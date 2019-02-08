@@ -1,0 +1,71 @@
+﻿@page
+@model MinMaxModel
+@{
+    ViewData["Title"] = "Monitor Fronius";
+    ViewData["Header"] = "MinMax Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="DailyMaxVoltageDC"><td id="name">DailyMaxVoltageDC</td><td id="value"></td></tr>
+            <tr id="DailyMaxVoltageAC"><td id="name">DailyMaxVoltageAC</td><td id="value"></td></tr>
+            <tr id="DailyMinVoltageAC"><td id="name">DailyMinVoltageAC</td><td id="value"></td></tr>
+            <tr id="YearlyMaxVoltageDC"><td id="name">YearlyMaxVoltageDC</td><td id="value"></td></tr>
+            <tr id="YearlyMaxVoltageAC"><td id="name">YearlyMaxVoltageAC</td><td id="value"></td></tr>
+            <tr id="YearlyMinVoltageAC"><td id="name">YearlyMinVoltageAC</td><td id="value"></td></tr>
+            <tr id="TotalMaxVoltageDC"><td id="name">TotalMaxVoltageDC</td><td id="value"></td></tr>
+            <tr id="TotalMaxVoltageAC"><td id="name">TotalMaxVoltageAC</td><td id="value"></td></tr>
+            <tr id="TotalMinVoltageAC"><td id="name">TotalMinVoltageAC</td><td id="value"></td></tr>
+            <tr id="DailyMaxPower"><td id="name">DailyMaxPower</td><td id="value"></td></tr>
+            <tr id="YearlyMaxPower"><td id="name">YearlyMaxPower</td><td id="value"></td></tr>
+            <tr id="TotalMaxPower"><td id="name">TotalMaxPower</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateMinMax', function (data) {
+            $("table#DataTable tr[id='DailyMaxVoltageDC']").find("#value").html(data.dailyMaxVoltageDC);
+            $("table#DataTable tr[id='DailyMaxVoltageAC']").find("#value").html(data.dailyMaxVoltageAC);
+            $("table#DataTable tr[id='DailyMinVoltageAC']").find("#value").html(data.dailyMinVoltageAC);
+            $("table#DataTable tr[id='YearlyMaxVoltageDC']").find("#value").html(data.yearlyMaxVoltageDC);
+            $("table#DataTable tr[id='YearlyMaxVoltageAC']").find("#value").html(data.yearlyMaxVoltageAC);
+            $("table#DataTable tr[id='YearlyMinVoltageAC']").find("#value").html(data.yearlyMinVoltageAC);
+            $("table#DataTable tr[id='TotalMaxVoltageDC']").find("#value").html(data.totalMaxVoltageDC);
+            $("table#DataTable tr[id='TotalMaxVoltageAC']").find("#value").html(data.totalMaxVoltageAC);
+            $("table#DataTable tr[id='TotalMinVoltageAC']").find("#value").html(data.totalMinVoltageAC);
+            $("table#DataTable tr[id='DailyMaxPower']").find("#value").html(data.dailyMaxPower);
+            $("table#DataTable tr[id='YearlyMaxPower']").find("#value").html(data.yearlyMaxPower);
+            $("table#DataTable tr[id='TotalMaxPower']").find("#value").html(data.totalMaxPower);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateMinMax')
+                    .catch(error => {
+                        console.log('Invocation of UpdateMinMax failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <Authors>Dr. Peter Trimmel</Authors>
+    <Copyright>Copyright (c) 2018 Dr. Peter Trimmel</Copyright>
+    <Company />
+    <Description>BControl energy meter library.</Description>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>meter modbus sunspec</PackageTags>
+    <PackageId>BControlLib</PackageId>
+    <PackageVersion>2.0.0</PackageVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Release using .Net Core 2.2</PackageReleaseNotes>
+    <PackageOutputPath>C:\Program Files (x86)\NuGet Server\server\Packages</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BaseClass\BaseClassLib\BaseClassLib.csproj" />
+    <ProjectReference Include="..\..\DataValue\DataValueLib\DataValueLib.csproj" />
+    <ProjectReference Include="..\..\NModbus\NModbusLib\NModbusLib.csproj" />
+    <ProjectReference Include="..\..\SunSpec\SunSpecLib\SunSpecLib.csproj" />
+  </ItemGroup>
+
+</Project>

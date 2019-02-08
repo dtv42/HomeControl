@@ -1,0 +1,1900 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZipatoWeb</name>
+    </assembly>
+    <members>
+        <member name="T:ZipatoWeb.Controllers.ZipatoController">
+            <summary>
+            The Zipato controller for reading Zipato data items.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetIsLocal">
+            <summary>
+            Returns Zipato connection type.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetIsInitialized">
+            <summary>
+            Returns flag indicating that the data have been sucessfully initialized.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetAll(System.Boolean)">
+            <summary>
+            Returns Zipato data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetValues(System.Boolean)">
+            <summary>
+            Returns Zipato attribute values.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetValue(System.Guid,System.Boolean)">
+            <summary>
+            Returns a single Zipato value.
+            </summary>
+            <param name="uuid">The UUID of the attribute.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetValueLog(System.Guid,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,ZipatoLib.Models.Enums.SortOrderTypes,System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Returns a log of the Zipato value.
+            </summary>
+            <remarks>The values are alway read directly from the zipato home control.</remarks>
+            <param name="uuid">The UUID of the attribute.</param>
+            <param name="from">Time where the log starts.</param>
+            <param name="until">Time where the log ends.</param>
+            <param name="count">Number of items requested.</param>
+            <param name="order">The sort order requested.</param>
+            <param name="start">Start time for the paged data.</param>
+            <param name="sticky">The sticky flag.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.PutValue(System.Guid,System.String)">
+            <summary>
+            Writes the Zipato attribute value data for an attribute.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="value">The attribute value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetState(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato attribute value data for a STATE attribute.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.PutState(System.Guid,System.Boolean)">
+            <summary>
+            Writes the Zipato attribute value data for a STATE attribute.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="value">The attribute value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.PutColorsRGB(System.Guid,System.String)">
+            <summary>
+            Writes the Zipato attribute value data for a RGB attribute.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="value">The attribute value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.PutColorsRGBW(System.Guid,System.String)">
+            <summary>
+            Writes the Zipato attribute value data for a RGBW attribute.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="value">The attribute value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.RunScene(System.Guid)">
+            <summary>
+            Runs the Zipato scene.
+            </summary>
+            <param name="uuid">The scene UUID.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The scene cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetProperty(System.String,System.Boolean)">
+            <summary>
+            Returns a single Zipato property.
+            </summary>
+            <remarks>The property name is a CamelCase name.</remarks>
+            <param name="name">The name of the property.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">If the property is invalid.</response>
+            <response code="404">If the property cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">If an error or an unexpected exception occurs.</response>
+            <response code="502">If the update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:ZipatoWeb.Controllers.ZipatoDataController">
+            <summary>
+            The Zipato controller for reading Zipato data items.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoDataController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoDataController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetAttributesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato attribute data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetBindingsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato binding data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetBrandsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato brand data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetCamerasAsync(System.Boolean)">
+            <summary>
+            Returns Zipato camera data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetClustersAsync(System.Boolean)">
+            <summary>
+            Returns Zipato cluster data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetClusterEndpointsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato cluster endpoint data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetDevicesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato device data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetEndpointsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato endpoint data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetGroupsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato group data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetNetworksAsync(System.Boolean)">
+            <summary>
+            Returns Zipato network data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetRulesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato rule data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetScenesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato scene data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetZipatoScheduleData(System.Boolean)">
+            <summary>
+            Returns Zipato schedule data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetThermostatsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato thermostat data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDataController.GetVirtualEndpointsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato virtual endpoint data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:ZipatoWeb.Controllers.ZipatoDevicesController">
+            <summary>
+            The Zipato controller for reading Zipato devices.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoDevicesController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoDevicesController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetDevicesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato device data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetDimmersAsync(System.Boolean)">
+            <summary>
+            Returns Zipato dimmer devices data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetDimmerAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato dimmer device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetDimmerIntensityAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato dimmer state data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetDimmerIntensity(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato dimmer intensity value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The intensity value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato dimmer devices data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato onoff device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchStateAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato onoff device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetOnOffSwitchState(System.Int32,System.Boolean)">
+            <summary>
+            Writes the Zipato onoff switch state data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The intensity value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato wallplug devices data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato wallplug device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugStateAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato wallplug device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetWallplugState(System.Int32,System.Boolean)">
+            <summary>
+            Writes the Zipato wallplug state data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The intensity value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetSwitchesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato switch devices data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetSwitchAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato switch device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetSwitchStateAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato switch device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato rgb control devices data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlIntensityAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlColdWhiteAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlWarmWhiteAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlRedAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlGreenAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetRGBControlBlueAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rgb control device data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlIntensity(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control intensity value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The intensity value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlColdWhite(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control coldwhite value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The coldwhite value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlWarmWhite(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control warmwhite value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The warmwhite value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRed(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control red value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The red value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlGreen(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control green value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The green value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlBlue(System.Int32,System.Int32)">
+            <summary>
+            Writes the Zipato rgb control blue value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The blue value.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRGB(System.Int32,System.String)">
+            <summary>
+            Writes the Zipato rgb control rgb value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The RGB value (hex).</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRGBW(System.Int32,System.String)">
+            <summary>
+            Writes the Zipato rgb control rgbw value data.
+            </summary>
+            <param name="index">The device index.</param>
+            <param name="value">The RGBW value (hex).</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:ZipatoWeb.Controllers.ZipatoInfoController">
+            <summary>
+            The Zipato controller for reading Zipato data items.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoInfoController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoInfoController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetAlarmAsync(System.Boolean)">
+            <summary>
+            Returns Zipato alarm info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetAnnouncementsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato announcement data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetAttributesFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato attribute info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetAttributeAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato attribute info.
+            </summary>
+            <param name="uuid">The attribute UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The attribute cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetBindingsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato binding info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetBindingAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato binding info.
+            </summary>
+            <param name="uuid">The binding UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The binding cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetBrandsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato brand info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetBrandAsync(System.String,System.Boolean)">
+            <summary>
+            Returns Zipato brand info.
+            </summary>
+            <param name="name">The brand UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The brand cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetBoxAsync(System.Boolean)">
+            <summary>
+            Returns Zipato box data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetCamerasFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato camera info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetCameraAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato camera info.
+            </summary>
+            <param name="uuid">The camera UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The camera cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetClustersFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato cluster info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetClusterAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato cluster info.
+            </summary>
+            <param name="id">The cluster ID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The cluster cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetClusterEndpointsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato cluster endpoint info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetClusterEndpointAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato cluster endpoint info.
+            </summary>
+            <param name="uuid">The cluster endpoint UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The cluster endpoint cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetContactsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato contact data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetContactAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato contact info.
+            </summary>
+            <param name="id">The contact ID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The contact cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetDevicesFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato device info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetDeviceAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato device info.
+            </summary>
+            <param name="uuid">The device UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetEndpointsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato endpoint info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetEndpointAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato endpoint info.
+            </summary>
+            <param name="uuid">The endpoint uuid.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The endpoint cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetGroupsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato group info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetGroupAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato group info.
+            </summary>
+            <param name="uuid">The group UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The group cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetNetworksFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato network info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetNetworkAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato network info.
+            </summary>
+            <param name="uuid">The network identifier.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The network cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetNetworkTreesAsync(System.Boolean)">
+            <summary>
+            Returns Zipato network tree data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetNetworkTreeAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato network tree info.
+            </summary>
+            <param name="uuid">The network tree UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The network tree cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetRoomsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato room data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetRoomAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato room info.
+            </summary>
+            <param name="id">The room ID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The room cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetRulesFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato rule info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetRuleAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato rule info.
+            </summary>
+            <param name="id">The rule ID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The rule cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetScenesFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato scene info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetSceneAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato scene info.
+            </summary>
+            <param name="uuid">The scene identifier.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The network cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetSchedulesFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato schedule info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetScheduleAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato schedule info.
+            </summary>
+            <param name="uuid">The schedule UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The schedule cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetThermostatsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato thermostat info.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetThermostatAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato thermostat info.
+            </summary>
+            <param name="uuid">The thermostat UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The thermostat cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetVirtualEndpointsFullAsync(System.Boolean)">
+            <summary>
+            Returns Zipato virtual endpoint data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="501">Not supported using a local connection.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoInfoController.GetVirtualEndpointAsync(System.Guid,System.Boolean)">
+            <summary>
+            Returns Zipato virtual endpoint info.
+            </summary>
+            <param name="uuid">The virtual endpoint UUID.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The virtual endpoint cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:ZipatoWeb.Controllers.ZipatoSensorsController">
+            <summary>
+            The Zipato controller for reading Zipato sensors (and meters).
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoSensorsController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoSensorsController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetSensorsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato sensor data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetVirtualMetersAsync(System.Boolean)">
+            <summary>
+            Returns Zipato virtual meters data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetVirtualMeterAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato virtual meter data.
+            </summary>
+            <param name="index">The meter index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetVirtualMeterValueAsync(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato virtual meter value data.
+            </summary>
+            <param name="index">The meter index.</param>
+            <param name="value">The value index (1-16).</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.SetVirtualMeterValue(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Writes the Zipato virtual meter value data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="value">The value index (1-16).</param>
+            <param name="data">The value data.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The sensor cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.SetVirtualMeterValues(System.Int32,System.Nullable{System.Double}[])">
+            <summary>
+            Writes all Zipato virtual meter value data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="data">The value data.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="404">The sensor cannot be found.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetConsumptionMetersAsync(System.Boolean)">
+            <summary>
+            Returns Zipato consumption meters data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetConsumptionMeterAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato consumption meter data.
+            </summary>
+            <param name="index">The meter index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetConsumptionMetersCummulativeAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato consumption meter data.
+            </summary>
+            <param name="index">The meter index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetConsumptionMetersCurrentAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato consumption meter data.
+            </summary>
+            <param name="index">The meter index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetTemperatureSensorsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato temperature sensors data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetTemperatureSensorAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato temperature sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetTemperatureSensorValueAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato temperature sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetHumiditySensorsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato humidity sensors data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetHumiditySensorAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato humidity sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetHumiditySensorValueAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato humidity sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetLuminanceSensorsAsync(System.Boolean)">
+            <summary>
+            Returns Zipato luminance sensors data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetLuminanceSensorAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato luminance sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetLuminanceSensorValueAsync(System.Int32,System.Boolean)">
+            <summary>
+            Returns Zipato luminance sensor data.
+            </summary>
+            <param name="index">The sensor index.</param>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="T:ZipatoWeb.Hubs.ZipatoHub">
+            <summary>
+            SignalR Hub class for Zipato data.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Hubs.ZipatoHub},Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings})">
+            <summary>
+            Initializes an instance of the <see cref="T:ZipatoWeb.Hubs.ZipatoHub"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.OnConnectedAsync">
+            <summary>
+            Establish connection and broadcast data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateData">
+            <summary>
+            Callback to provide data updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateValues">
+            <summary>
+            Callback to provide data values updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ZipatoWeb.Models.AppSettings">
+            <summary>
+            Helper class to hold application specific settings.
+            </summary>
+        </member>
+        <member name="P:ZipatoWeb.Models.AppSettings.Swagger">
+            <summary>
+            The Swagger options.
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Models.SwaggerOptions">
+            <summary>
+            The Swagger info data objects provides metadata about the web API.
+            </summary>
+        </member>
+        <member name="P:ZipatoWeb.Models.SwaggerOptions.Info">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ZipatoWeb.Pages.AboutModel.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.AboutModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.AttributesModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.AttributesModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.BoxModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.BoxModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.DevicesModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.DevicesModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.DevicesModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.DevicesModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.DimmerModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.DimmerModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.OnOffModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.OnOffModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.PlugModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.PlugModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.RGBModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.RGBModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Devices.SwitchModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Devices.SwitchModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.EndpointsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.EndpointsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.RoomModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.RoomModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.ScenesModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.ScenesModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.HumidityModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.HumidityModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.LuminanceModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.LuminanceModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.MeterModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.MeterModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.SensorsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.SensorsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.TemperatureModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.TemperatureModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.VirtualModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.VirtualModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.TermsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.TermsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.ThermostatsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.ThermostatsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.ZipatoModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.ZipatoModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Program">
+            <summary>
+            The main ASP.NET application.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Program.Main(System.String[])">
+            <summary>
+            The main console application entry point.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <returns>The exit code.</returns>
+        </member>
+        <member name="T:ZipatoWeb.Services.TimedService">
+            <summary>
+            Timed background task based on code from https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-2.1
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.#ctor(Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Services.TimedService},Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Services.TimedService"/> class using dependency injection.
+            </summary>
+            <param name="logger"></param>
+            <param name="options"></param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stop the async operation.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> object that represents an asynchronous operation.</returns>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.Dispose">
+            <summary>
+            Implementing basic dispose pattern.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.OnTimerElapsed(System.Object)">
+            <summary>
+            The timer callback method.
+            </summary>
+            <param name="state">The timer callback state object.</param>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.Dispose(System.Boolean)">
+            <summary>
+            Actual resource cleanup when disposing.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.DoStartAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.DoWorkAsync">
+            <summary>
+            Derived classes should override this.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.TimedService.GetDueTime">
+            <summary>
+            Returns the milliseconds to the next minute.
+            </summary>
+            <returns>The milliseconds to the next minute.</returns>
+        </member>
+        <member name="T:ZipatoWeb.Services.ZipatoMonitor">
+            <summary>
+            Monitor service updating selected Zipato instance data every minute.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.ZipatoMonitor.#ctor(ZipatoLib.IZipato,Microsoft.AspNetCore.SignalR.IHubContext{ZipatoWeb.Hubs.ZipatoHub},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Services.ZipatoMonitor},Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes an instance of the <see cref="T:ZipatoWeb.Services.ZipatoMonitor"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="hub">The test data SignalR hub.</param>
+            <param name="logger">The application logger.</param>
+            <param name="options">The application options.</param>
+            <param name="environment"></param>
+        </member>
+        <member name="M:ZipatoWeb.Services.ZipatoMonitor.DoStartAsync">
+            <summary>
+            Executes the start operation just once.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Services.ZipatoMonitor.DoWorkAsync">
+            <summary>
+            Executes the work operation every minute.
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Startup">
+            <summary>
+            The web application startup class.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Startup"/> class.
+            </summary>
+            <param name="environment"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:ZipatoWeb.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:ZipatoWeb.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

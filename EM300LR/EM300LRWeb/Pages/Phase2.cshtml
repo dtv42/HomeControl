@@ -1,0 +1,77 @@
+﻿@page
+@model Phase2Model
+@{
+    ViewData["Title"] = "Monitor EM300LR";
+    ViewData["Header"] = "Phase 2 Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="ActivePowerPlus"><td id="name">ActivePowerPlus</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyPlus"><td id="name">ActiveEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ActivePowerMinus"><td id="name">ActivePowerMinus</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyMinus"><td id="name">ActiveEnergyMinus</td><td id="value"></td></tr>
+            <tr id="ReactivePowerPlus"><td id="name">ReactivePowerPlus</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyPlus"><td id="name">ReactiveEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ReactivePowerMinus"><td id="name">ReactivePowerMinus</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyMinus"><td id="name">ReactiveEnergyMinus</td><td id="value"></td></tr>
+            <tr id="ApparentPowerPlus"><td id="name">ApparentPowerPlus</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyPlus"><td id="name">ApparentEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ApparentPowerMinus"><td id="name">ApparentPowerMinus</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyMinus"><td id="name">ApparentEnergyMinus</td><td id="value"></td></tr>
+            <tr id="Current"><td id="name">Current</td><td id="value"></td></tr>
+            <tr id="Voltage"><td id="name">Voltage</td><td id="value"></td></tr>
+            <tr id="PowerFactor"><td id="name">PowerFactor</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdatePhase2', function (data) {
+            $("table#DataTable tr[id='ActivePowerPlus']").find("#value").html(data.activePowerPlus);
+            $("table#DataTable tr[id='ActiveEnergyPlus']").find("#value").html(data.activeEnergyPlus);
+            $("table#DataTable tr[id='ActivePowerMinus']").find("#value").html(data.activePowerMinus);
+            $("table#DataTable tr[id='ActiveEnergyMinus']").find("#value").html(data.activeEnergyMinus);
+            $("table#DataTable tr[id='ReactivePowerPlus']").find("#value").html(data.reactivePowerPlus);
+            $("table#DataTable tr[id='ReactiveEnergyPlus']").find("#value").html(data.reactiveEnergyPlus);
+            $("table#DataTable tr[id='ReactivePowerMinus']").find("#value").html(data.reactivePowerMinus);
+            $("table#DataTable tr[id='ReactiveEnergyMinus']").find("#value").html(data.reactiveEnergyMinus);
+            $("table#DataTable tr[id='ApparentPowerPlus']").find("#value").html(data.apparentPowerPlus);
+            $("table#DataTable tr[id='ApparentEnergyPlus']").find("#value").html(data.apparentEnergyPlus);
+            $("table#DataTable tr[id='ApparentPowerMinus']").find("#value").html(data.apparentPowerMinus);
+            $("table#DataTable tr[id='ApparentEnergyMinus']").find("#value").html(data.apparentEnergyMinus);
+            $("table#DataTable tr[id='Current']").find("#value").html(data.current);
+            $("table#DataTable tr[id='Voltage']").find("#value").html(data.voltage);
+            $("table#DataTable tr[id='PowerFactor']").find("#value").html(data.powerFactor);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdatePhase2')
+                    .catch(error => {
+                        console.log('Invocation of UpdatePhase2 failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<modbusTcp version="1">
+	<register id="1000">
+		<variable name="PE-C 0: Boiler - Full load hours" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12153" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1002">
+		<variable name="PE-C 0: Boiler - Total consumed" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12016" scale="10" unit="kg" min="" def="" max="" />
+	</register>
+	<register id="1004">
+		<variable name="PE-C 0: Boiler - Boiler" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12000" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1006">
+		<variable name="PE-C 0: Boiler - Boiler pressure" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12180" scale="100" unit="bar" min="" def="" max="" />
+	</register>
+	<register id="1008">
+		<variable name="PE-C 0: Boiler - Boiler" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12161" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1010">
+		<variable name="PE-C 0: Boiler - Boiler tgt." nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12001" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1012">
+		<variable name="PE-C 0: Boiler - Boiler bottom" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12300" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1014">
+		<variable name="PE-C 0: Boiler - Flow control 1" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12078" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1016">
+		<variable name="PE-C 0: Boiler - Diverter valve" nodeId="40" fubId="10021" fktId="0" ioId="11128" varId="0" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1018">
+		<variable name="PE-C 0: Boiler - Diverter valve - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11128" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1020">
+		<variable name="PE-C 0: Boiler - Demanded output" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12077" scale="10" unit="kW" min="" def="" max="" />
+	</register>
+	<register id="1022">
+		<variable name="PE-C 0: Boiler - FL mix. valve 1 - Target temp." nodeId="40" fubId="10021" fktId="0" ioId="11121" varId="2120" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1024">
+		<variable name="PE-C 0: Boiler - FL mix. valve 1 - State" nodeId="40" fubId="10021" fktId="0" ioId="11121" varId="2002" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1026">
+		<variable name="PE-C 0: Boiler - FL mix. valve 1 - Curr. temp." nodeId="40" fubId="10021" fktId="0" ioId="11121" varId="2121" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1028">
+		<variable name="PE-C 0: Boiler - FL mix. valve 1 - Position" nodeId="40" fubId="10021" fktId="0" ioId="11121" varId="2127" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1030">
+		<variable name="PE-C 0: Boiler - Boiler pump" nodeId="40" fubId="10021" fktId="0" ioId="11123" varId="0" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1032">
+		<variable name="PE-C 0: Boiler - Boiler pump - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11123" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1034">
+		<variable name="PE-C 0: Boiler - Flue gas" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12162" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1036">
+		<variable name="PE-C 0: Boiler - Draught fan" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12165" scale="1" unit="rpm" min="" def="" max="" />
+	</register>
+	<register id="1038">
+		<variable name="PE-C 0: Boiler - Residual O2" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12164" scale="100" unit="" min="" def="" max="" />
+	</register>
+	<register id="1040">
+		<variable name="PE-C 0: Boiler - Stoker screw - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11030" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1042">
+		<variable name="PE-C 0: Boiler - Stoker screw - Clock rate" nodeId="40" fubId="10021" fktId="0" ioId="11030" varId="2090" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1044">
+		<variable name="PE-C 0: Boiler - Stoker screw - State" nodeId="40" fubId="10021" fktId="0" ioId="11030" varId="2002" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1046">
+		<variable name="PE-C 0: Boiler - Stoker screw - Motor curr." nodeId="40" fubId="10021" fktId="0" ioId="11030" varId="2091" scale="1" unit="mA" min="" def="" max="" />
+	</register>
+	<register id="1048">
+		<variable name="PE-C 0: Boiler - Ash removal" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12050" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1050">
+		<variable name="PE-C 0: Boiler - Start idle time" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12248" scale="1" unit="" min="0" def="1260" max="1439" />
+	</register>
+	<register id="1052">
+		<variable name="PE-C 0: Boiler - Duration idle time" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12249" scale="1" unit="" min="0" def="36000" max="43200" />
+	</register>
+	<register id="1054">
+		<variable name="PE-C 0: Boiler - Consumption since de-ash" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12012" scale="10" unit="kg" min="" def="" max="" />
+	</register>
+	<register id="1056">
+		<variable name="PE-C 0: Boiler - Consump. since ash box emptied" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12013" scale="10" unit="kg" min="" def="" max="" />
+	</register>
+	<register id="1058">
+		<variable name="PE-C 0: Boiler - Empty ash box after" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12120" scale="10" unit="kg" min="0" def="10000" max="50000" />
+	</register>
+	<register id="1060">
+		<variable name="PE-C 0: Boiler - Consump. since maint." nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12014" scale="10" unit="kg" min="" def="" max="" />
+	</register>
+	<register id="1062">
+		<variable name="PE-C 0: Boiler - Hopper" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12005" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1064">
+		<variable name="PE-C 0: Boiler - Fill up pellet bin" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12071" scale="1" unit="" min="1800" def="1800" max="1801" />
+	</register>
+	<register id="1066">
+		<variable name="PE-C 0: Boiler - Pellet bin contents" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12011" scale="10" unit="kg" min="0" def="0" max="0" />
+	</register>
+	<register id="1068">
+		<variable name="PE-C 0: Boiler - Fill-up time" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12152" scale="1" unit="" min="0" def="1140" max="1439" />
+	</register>
+	<register id="1070">
+		<variable name="PE-C 0: Boiler - Aspirator" nodeId="40" fubId="10021" fktId="0" ioId="11042" varId="0" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1072">
+		<variable name="PE-C 0: Boiler - Aspirator - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11042" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1074">
+		<variable name="PE-C 0: Boiler - On/off button" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12080" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1076">
+		<variable name="PE-C 0: Boiler - De-ash button" nodeId="40" fubId="10021" fktId="0" ioId="0" varId="12112" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1078">
+		<variable name="GM-C 0: HW - Hot water tank" nodeId="120" fubId="10111" fktId="0" ioId="0" varId="12129" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1080">
+		<variable name="GM-C 0: HW - Charging Times" nodeId="120" fubId="10111" fktId="12130" ioId="0" varId="0" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1082">
+		<variable name="GM-C 0: HW - Charging Times - SwitchStatus" nodeId="120" fubId="10111" fktId="12130" ioId="0" varId="1109" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1084">
+		<variable name="GM-C 0: HW - Charging Times - Temperature" nodeId="120" fubId="10111" fktId="12130" ioId="0" varId="1110" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1086">
+		<variable name="GM-C 0: HW - Switch-on diff." nodeId="120" fubId="10111" fktId="0" ioId="0" varId="12133" scale="10" unit="°C" min="0" def="150" max="300" />
+	</register>
+	<register id="1088">
+		<variable name="GM-C 0: HW - Hot water tank target" nodeId="120" fubId="10111" fktId="0" ioId="0" varId="12132" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1090">
+		<variable name="GM-C 0: HW - Hot water tank" nodeId="120" fubId="10111" fktId="0" ioId="0" varId="12271" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1092">
+		<variable name="GM-C 0: HW - Chrg. button" nodeId="120" fubId="10111" fktId="0" ioId="0" varId="12134" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1094">
+		<variable name="GM-C 0: HC - Room sensor" nodeId="120" fubId="10101" fktId="0" ioId="11237" varId="0" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1096">
+		<variable name="GM-C 0: HC - Heating circuit" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12090" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1098">
+		<variable name="GM-C 0: HC - Running" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12092" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1100">
+		<variable name="GM-C 0: HC - Heat times" nodeId="120" fubId="10101" fktId="12113" ioId="0" varId="0" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1102">
+		<variable name="GM-C 0: HC - Heat times - SwitchStatus" nodeId="120" fubId="10101" fktId="12113" ioId="0" varId="1109" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1104">
+		<variable name="GM-C 0: HC - Heat times - Temperature" nodeId="120" fubId="10101" fktId="12113" ioId="0" varId="1110" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1106">
+		<variable name="GM-C 0: HC - Room" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12634" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1108">
+		<variable name="GM-C 0: HC - RoomTarg" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12127" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1110">
+		<variable name="GM-C 0: HC - Flow" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12241" scale="10" unit="" min="" def="" max="" />
+	</register>
+	<register id="1112">
+		<variable name="GM-C 0: HC - Heating curve" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12111" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1114">
+		<variable name="GM-C 0: HC - Flow at -10°C" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12104" scale="10" unit="°C" min="0" def="550" max="1000" />
+	</register>
+	<register id="1116">
+		<variable name="GM-C 0: HC - Flow at +10°C" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12103" scale="10" unit="°C" min="0" def="350" max="1000" />
+	</register>
+	<register id="1118">
+		<variable name="GM-C 0: HC - Set-back" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12107" scale="10" unit="°C" min="0" def="150" max="500" />
+	</register>
+	<register id="1120">
+		<variable name="GM-C 0: HC - Outside temp. delay" nodeId="120" fubId="10101" fktId="12095" ioId="0" varId="0" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1122">
+		<variable name="GM-C 0: HC - Day Heating threshold" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12096" scale="10" unit="°C" min="-500" def="180" max="500" />
+	</register>
+	<register id="1124">
+		<variable name="GM-C 0: HC - Night Heating threshold" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12097" scale="10" unit="°C" min="-500" def="20" max="500" />
+	</register>
+	<register id="1126">
+		<variable name="GM-C 0: HC - Day button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12125" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1128">
+		<variable name="GM-C 0: HC - Auto button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12126" scale="1" unit="" min="1802" def="1803" max="1803" />
+	</register>
+	<register id="1130">
+		<variable name="GM-C 0: HC - Night button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12230" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1132">
+		<variable name="GM-C 0: HC - On/off button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12080" scale="1" unit="" min="1802" def="1803" max="1803" />
+	</register>
+	<register id="1134">
+		<variable name="GM-C 0: HC - Home button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12218" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1136">
+		<variable name="GM-C 0: HC - Away button" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12231" scale="1" unit="" min="1802" def="1802" max="1803" />
+	</register>
+	<register id="1138">
+		<variable name="GM-C 0: HC - Holiday start" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12232" scale="1" unit="" min="0" def="0" max="0" />
+	</register>
+	<register id="1140">
+		<variable name="GM-C 0: HC - Holiday end" nodeId="120" fubId="10101" fktId="0" ioId="0" varId="12239" scale="1" unit="" min="0" def="0" max="0" />
+	</register>
+	<register id="1142">
+		<variable name="PE-C 0: Store - Discharge screw - Demand" nodeId="40" fubId="10201" fktId="0" ioId="11029" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1144">
+		<variable name="PE-C 0: Store - Discharge screw - Clock rate" nodeId="40" fubId="10201" fktId="0" ioId="11029" varId="2090" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1146">
+		<variable name="PE-C 0: Store - Discharge screw - State" nodeId="40" fubId="10201" fktId="0" ioId="11029" varId="2002" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1148">
+		<variable name="PE-C 0: Store - Discharge screw - Motor curr." nodeId="40" fubId="10201" fktId="0" ioId="11029" varId="2091" scale="1" unit="mA" min="" def="" max="" />
+	</register>
+	<register id="1150">
+		<variable name="PE-C 0: Store - Conveying system" nodeId="40" fubId="10201" fktId="0" ioId="0" varId="12058" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1152">
+		<variable name="PE-C 0: Store - Stock" nodeId="40" fubId="10201" fktId="0" ioId="0" varId="12015" scale="10" unit="kg" min="-1e+06" def="0" max="1e+06" />
+	</register>
+	<register id="1154">
+		<variable name="PE-C 0: Store - Warning limit for pellet stock" nodeId="40" fubId="10201" fktId="0" ioId="0" varId="12042" scale="10" unit="kg" min="0" def="0" max="1e+06" />
+	</register>
+	<register id="1156">
+		<variable name="PE-C 0: Sys - Outside temp." nodeId="40" fubId="10241" fktId="0" ioId="0" varId="12197" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1158">
+		<variable name="PE-C 0: Boiler - Firebed" nodeId="40" fubId="10021" fktId="0" ioId="11036" varId="0" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1160">
+		<variable name="PE-C 0: Boiler - Supply - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11181" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1162">
+		<variable name="PE-C 0: Boiler - Ignition - Demand" nodeId="40" fubId="10021" fktId="0" ioId="11041" varId="2001" scale="1" unit="" min="" def="" max="" />
+	</register>
+	<register id="1164">
+		<variable name="PE-C 0: Boiler - FL mix. valve 1" nodeId="40" fubId="10021" fktId="0" ioId="11121" varId="0" scale="10" unit="°C" min="" def="" max="" />
+	</register>
+	<register id="1166">
+		<variable name="PE-C 0: Boiler - Air valve - Set position" nodeId="40" fubId="10021" fktId="0" ioId="11115" varId="2070" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1168">
+		<variable name="PE-C 0: Boiler - Air valve - Curr. pos." nodeId="40" fubId="10021" fktId="0" ioId="11115" varId="2071" scale="10" unit="%" min="" def="" max="" />
+	</register>
+	<register id="1170" />
+	<register id="1172" />
+	<register id="1174" />
+	<register id="1176" />
+	<register id="1178" />
+	<register id="1180" />
+	<register id="1182" />
+	<register id="1184" />
+	<register id="1186" />
+	<register id="1188" />
+	<register id="1190" />
+	<register id="1192" />
+	<register id="1194" />
+	<register id="1196" />
+	<register id="1198" />
+</modbusTcp>

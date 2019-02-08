@@ -1,0 +1,82 @@
+﻿@page
+@model BoilerModel
+@{
+    ViewData["Title"] = "Monitor ETAPU11";
+    ViewData["Header"] = "Boiler Data";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="FullLoadHours"><td id="name">FullLoadHours</td><td id="value"></td></tr>
+            <tr id="TotalConsumed"><td id="name">TotalConsumed</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceDeAsh"><td id="name">ConsumptionSinceDeAsh</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceAshBoxEmptied"><td id="name">ConsumptionSinceAshBoxEmptied</td><td id="value"></td></tr>
+            <tr id="ConsumptionSinceMaintainence"><td id="name">ConsumptionSinceMaintainence</td><td id="value"></td></tr>
+            <tr id="HopperFillUpPelletBin"><td id="name">HopperFillUpPelletBin</td><td id="value"></td></tr>
+            <tr id="HopperPelletBinContents"><td id="name">HopperPelletBinContents</td><td id="value"></td></tr>
+            <tr id="HopperFillUpTime"><td id="name">HopperFillUpTime</td><td id="value"></td></tr>
+            <tr id="BoilerState"><td id="name">BoilerState</td><td id="value"></td></tr>
+            <tr id="BoilerPressure"><td id="name">BoilerPressure</td><td id="value"></td></tr>
+            <tr id="BoilerTemperature"><td id="name">BoilerTemperature</td><td id="value"></td></tr>
+            <tr id="BoilerTarget"><td id="name">BoilerTarget</td><td id="value"></td></tr>
+            <tr id="BoilerBottom"><td id="name">BoilerBottom</td><td id="value"></td></tr>
+            <tr id="FlueGasTemperature"><td id="name">FlueGasTemperature</td><td id="value"></td></tr>
+            <tr id="DraughtFanSpeed"><td id="name">DraughtFanSpeed</td><td id="value"></td></tr>
+            <tr id="ResidualO2"><td id="name">ResidualO2</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateBoiler', function (data) {
+            $("table#DataTable tr[id='FullLoadHours']").find("#value").html(data.fullLoadHours);
+            $("table#DataTable tr[id='TotalConsumed']").find("#value").html(data.totalConsumed);
+            $("table#DataTable tr[id='ConsumptionSinceDeAsh']").find("#value").html(data.consumptionSinceDeAsh);
+            $("table#DataTable tr[id='ConsumptionSinceAshBoxEmptied']").find("#value").html(data.consumptionSinceAshBoxEmptied);
+            $("table#DataTable tr[id='ConsumptionSinceMaintainence']").find("#value").html(data.consumptionSinceMaintainence);
+            $("table#DataTable tr[id='HopperFillUpPelletBin']").find("#value").html(data.hopperFillUpPelletBin);
+            $("table#DataTable tr[id='HopperPelletBinContents']").find("#value").html(data.hopperPelletBinContents);
+            $("table#DataTable tr[id='HopperFillUpTime']").find("#value").html(data.hopperFillUpTime);
+            $("table#DataTable tr[id='BoilerState']").find("#value").html(data.boilerState);
+            $("table#DataTable tr[id='BoilerPressure']").find("#value").html(data.boilerPressure);
+            $("table#DataTable tr[id='BoilerTemperature']").find("#value").html(data.boilerTemperature);
+            $("table#DataTable tr[id='BoilerTarget']").find("#value").html(data.boilerTarget);
+            $("table#DataTable tr[id='BoilerBottom']").find("#value").html(data.boilerBottom);
+            $("table#DataTable tr[id='FlueGasTemperature']").find("#value").html(data.flueGasTemperature);
+            $("table#DataTable tr[id='DraughtFanSpeed']").find("#value").html(data.draughtFanSpeed);
+            $("table#DataTable tr[id='ResidualO2']").find("#value").html(data.residualO2);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateBoiler')
+                    .catch(error => {
+                        console.log('Invocation of UpdateBoiler failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

@@ -1,0 +1,65 @@
+﻿@page
+@model PlugModel
+@{
+    ViewData["Title"] = "Monitor Zipato";
+    ViewData["Header"] = "Wallplug";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Uuid</th><th>State</th><th>Power</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr><th>Status</th><th>Timestamp</th></tr>
+            <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
+        </tfoot>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateDevices', function (data) {
+            $("table#DataTable tbody").empty();
+
+            for (i = 0; i < data.wallplugs.length; i++) {
+                var row = $("<tr>");
+                var cols = "";
+
+                cols += '<td>' + data.wallplugs[i].name + '</td>';
+                cols += '<td>' + data.wallplugs[i].uuid + '</td>';
+                cols += '<td>' + data.wallplugs[i].state.value + '</td>';
+                cols += '<td>' + data.wallplugs[i].currentConsumption.value + '</td>';
+                cols += '<td>' + data.wallplugs[i].cummulativeConsumption.value + '</td>';
+
+                row.append(cols);
+                $("table#DataTable tbody").append(row);
+            }
+
+            $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
+            $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateValues')
+                    .catch(error => {
+                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

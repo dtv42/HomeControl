@@ -1,0 +1,96 @@
+﻿@page
+@model VirtualModel
+@{
+    ViewData["Title"] = "Monitor Zipato";
+    ViewData["Header"] = "Virtual Meter";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Uuid</th>
+                <th>Value1</th>
+                <th>Value2</th>
+                <th>Value3</th>
+                <th>Value4</th>
+                <th>Value5</th>
+                <th>Value6</th>
+                <th>Value7</th>
+                <th>Value8</th>
+                <th>Value9</th>
+                <th>Value10</th>
+                <th>Value11</th>
+                <th>Value12</th>
+                <th>Value13</th>
+                <th>Value14</th>
+                <th>Value15</th>
+                <th>Value16</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr><th>Status</th><th>Timestamp</th></tr>
+            <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
+        </tfoot>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateSensors', function (data) {
+            $("table#DataTable tbody").empty();
+
+            for (i = 0; i < data.virtualMeters.length; i++) {
+                var row = $("<tr>");
+                var cols = "";
+
+                cols += '<td>' + data.virtualMeters[i].name + '</td>';
+                cols += '<td>' + data.virtualMeters[i].uuid + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value1.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value2.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value3.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value4.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value5.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value6.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value7.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value8.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value9.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value10.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value11.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value12.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value13.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value14.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value15.value + '</td>';
+                cols += '<td>' + data.virtualMeters[i].value16.value + '</td>';
+
+                row.append(cols);
+                $("table#DataTable tbody").append(row);
+            }
+
+            $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
+            $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateValues')
+                    .catch(error => {
+                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

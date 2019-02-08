@@ -1,0 +1,63 @@
+﻿@page
+@model InverterModel
+@{
+    ViewData["Title"] = "Monitor Fronius";
+    ViewData["Header"] = "Inverter Info";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="Index"><td id="name">Index</td><td id="value"></td></tr>
+            <tr id="DeviceType"><td id="name">DeviceType</td><td id="value"></td></tr>
+            <tr id="PVPower"><td id="name">PVPower</td><td id="value"></td></tr>
+            <tr id="CustomName"><td id="name">CustomName</td><td id="value"></td></tr>
+            <tr id="Show"><td id="name">Show</td><td id="value"></td></tr>
+            <tr id="UniqueID"><td id="name">UniqueID</td><td id="value"></td></tr>
+            <tr id="ErrorCode"><td id="name">ErrorCode</td><td id="value"></td></tr>
+            <tr id="StatusCode"><td id="name">StatusCode</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateInverter', function (data) {
+            $("table#DataTable tr[id='Index']").find("#value").html(data.index);
+            $("table#DataTable tr[id='DeviceType']").find("#value").html(data.deviceType);
+            $("table#DataTable tr[id='PVPower']").find("#value").html(data.pvPower);
+            $("table#DataTable tr[id='CustomName']").find("#value").html(data.customName);
+            $("table#DataTable tr[id='Show']").find("#value").html(data.show);
+            $("table#DataTable tr[id='UniqueID']").find("#value").html(data.uniqueID);
+            $("table#DataTable tr[id='ErrorCode']").find("#value").html(data.errorCode);
+            $("table#DataTable tr[id='StatusCode']").find("#value").html(data.statusCode);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateInverter')
+                    .catch(error => {
+                        console.log('Invocation of UpdateInverter failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

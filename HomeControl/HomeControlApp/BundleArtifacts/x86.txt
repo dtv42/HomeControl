@@ -1,0 +1,2 @@
+MainPackage=C:\Users\peter\source\repos\HomeControl.2.2\HomeControl\HomeControlApp\bin\x86\Debug\HomeControlApp_1.0.1.0_x86_Debug.appx
+SymbolPackage=C:\Users\peter\source\repos\HomeControl.2.2\HomeControl\HomeControlApp\AppPackages\HomeControlApp_1.0.1.0_Debug_Test\HomeControlApp_1.0.1.0_x86_Debug.appxsym

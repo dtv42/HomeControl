@@ -1,0 +1,99 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+    ViewData["Message"] = "NModbusRTU Web Application";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>The NModbusRTU Web Application allows to read and write data from Modbus RTU slaves using REST based Web API's.</p>
+<ul>
+    <li>Coils (read write)</li>
+    <li>Discrete Inputs (readonly)</li>
+    <li>Holding Registers (read write)</li>
+    <li>Input Registers (readonly)</li>
+</ul>
+<p>All Modbus data are accessible through a common Web API documented using Swagger.</p>
+<br />
+<p>Additionally various additional data types are supported.</p>
+<p>Readonly data are mapped to input registers or discrete inputs.</p>
+<ul>
+    <li>ReadOnlyString      Reads an ASCII string (multiple input registers)</li>
+    <li>ReadOnlyHexString   Reads an HEX string (multiple input registers)</li>
+    <li>ReadOnlyBool        Reads a boolean value (single discrete input)</li>
+    <li>ReadOnlyBits        Reads a 16-bit bit array value (single input register)</li>
+    <li>ReadOnlyShort       Reads a 16 bit integer (single input register)</li>
+    <li>ReadOnlyUShort      Reads an unsigned 16 bit integer (single input register)</li>
+    <li>ReadOnlyInt32       Reads a 32 bit integer (two input registers)</li>
+    <li>ReadOnlyUInt32      Reads an unsigned 32 bit integer (two input registers)</li>
+    <li>ReadOnlyFloat       Reads a 32 bit IEEE floating point number (two input registers)</li>
+    <li>ReadOnlyDouble      Reads a 64 bit IEEE floating point number (four input registers)</li>
+    <li>ReadOnlyLong        Reads a 64 bit integer (four input registers)</li>
+    <li>ReadOnlyULong       Reads an unsigned 64 bit integer (four input registers)</li>
+</ul>
+<ul>
+    <li>ReadOnlyBoolArray   Reads an array of boolean values (multiple discrete inputs)</li>
+    <li>ReadOnlyBytes       Reads 8 bit values (multiple input register)</li>
+    <li>ReadOnlyShortArray  Reads an array of 16 bit integers (multiple input register)</li>
+    <li>ReadOnlyUShortArray Reads an array of unsigned 16 bit integer (multiple input register)</li>
+    <li>ReadOnlyInt32Array  Reads an array of 32 bit integers (multiple input registers)</li>
+    <li>ReadOnlyUInt32Array Reads an array of unsigned 32 bit integers (multiple input registers)</li>
+    <li>ReadOnlyFloatArray  Reads an array of 32 bit IEEE floating point numbers (multiple input registers)</li>
+    <li>ReadOnlyDoubleArray Reads an array of 64 bit IEEE floating point numbers (multiple input registers)</li>
+    <li>ReadOnlyLongArray   Reads an array of 64 bit integers (multiple input registers)</li>
+    <li>ReadOnlyULongArray  Reads an array of unsigned 64 bit integers (multiple input registers)</li>
+</ul>
+<p>Read and write data are mapped to holding registers or coils.</p>
+<ul>
+    <li>ReadString          Reads an ASCII string (multiple holding registers)</li>
+    <li>ReadHexString       Reads an HEX string (multiple holding registers)</li>
+    <li>ReadBool            Reads a boolean value (single coil)</li>
+    <li>ReadBits            Reads a 16-bit bit array value (single holding register)</li>
+    <li>ReadShort           Reads a 16 bit integer (single holding register)</li>
+    <li>ReadUShort          Reads an unsigned 16 bit integer (single holding register)</li>
+    <li>ReadInt32           Reads a 32 bit integer (two holding registers)</li>
+    <li>ReadUInt32          Reads an unsigned 32 bit integer (two holding registers)</li>
+    <li>ReadFloat           Reads a 32 bit IEEE floating point number (two holding registers)</li>
+    <li>ReadDouble          Reads a 64 bit IEEE floating point number (four holding registers)</li>
+    <li>ReadLong            Reads a 64 bit integer (four holding registers)</li>
+    <li>ReadULong           Reads an unsigned 64 bit integer (four holding registers)</li>
+</ul>
+<ul>
+    <li>WriteString         Writes an ASCII string (multiple holding registers)</li>
+    <li>WriteHexString      Writes an HEX string (multiple holding registers)</li>
+    <li>WriteBool           Writes a boolean value (single coil)</li>
+    <li>WriteBits           Writes a 16-bit bit array value (single holding register)</li>
+    <li>WriteShort          Writes a 16 bit integer (single holding register)</li>
+    <li>WriteUShort         Writes an unsigned 16 bit integer (single holding register)</li>
+    <li>WriteInt32          Writes a 32 bit integer (two holding registers)</li>
+    <li>WriteUInt32         Writes an unsigned 32 bit integer (two holding registers)</li>
+    <li>WriteFloat          Writes a 32 bit IEEE floating point number (two holding registers)</li>
+    <li>WriteDouble         Writes a 64 bit IEEE floating point number (four holding registers)</li>
+    <li>WriteLong           Writes a 64 bit integer (four holding registers)</li>
+    <li>WriteULong          Writes an unsigned 64 bit integer (four holding registers)</li>
+</ul>
+<ul>
+    <li>ReadBoolArray       Reads an array of boolean values (multiple coils)</li>
+    <li>ReadBytes           Reads 8 bit values (multiple holding register)</li>
+    <li>ReadShortArray      Reads an array of 16 bit integers (multiple holding register)</li>
+    <li>ReadUShortArray     Reads an array of unsigned 16 bit integer (multiple holding register)</li>
+    <li>ReadInt32Array      Reads an array of 32 bit integers (multiple holding registers)</li>
+    <li>ReadUInt32Array     Reads an array of unsigned 32 bit integers (multiple holding registers)</li>
+    <li>ReadFloatArray      Reads an array of 32 bit IEEE floating point numbers (multiple holding registers)</li>
+    <li>ReadDoubleArray     Reads an array of 64 bit IEEE floating point numbers (multiple holding registers)</li>
+    <li>ReadLongArray       Reads an array of 64 bit integers (multiple holding registers)</li>
+    <li>ReadULongArray      Reads an array of unsigned 64 bit integers (multiple holding registers)</li>
+</ul>
+<ul>
+    <li>WriteBoolArray      Writes an array of boolean values (multiple coils)</li>
+    <li>WriteBytes          Writes 8 bit values (multiple holding register)</li>
+    <li>WriteShortArray     Writes an array of 16 bit integers (multiple holding register)</li>
+    <li>WriteUShortArray    Writes an array of unsigned 16 bit integer (multiple holding register)</li>
+    <li>WriteInt32Array     Writes an array of 32 bit integers (multiple holding registers)</li>
+    <li>WriteUInt32Array    Writes an array of unsigned 32 bit integers (multiple holding registers)</li>
+    <li>WriteFloatArray     Writes an array of 32 bit IEEE floating point numbers (multiple holding registers)</li>
+    <li>WriteDoubleArray    Writes an array of 64 bit IEEE floating point numbers (multiple holding registers)</li>
+    <li>WriteLongArray      Writes an array of 64 bit integers (multiple holding registers)</li>
+    <li>WriteULongArray     Writes an array of unsigned 64 bit integers (multiple holding registers)</li>
+</ul>

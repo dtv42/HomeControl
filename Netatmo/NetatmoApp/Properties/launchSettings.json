@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NetatmoApp": {
+      "commandName": "Project",
+      "commandLineArgs": "Station"
+    }
+  }
+}

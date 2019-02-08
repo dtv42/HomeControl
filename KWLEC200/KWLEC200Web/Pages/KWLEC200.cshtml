@@ -1,0 +1,399 @@
+﻿@page
+@model KWLEC200Model
+@{
+    ViewData["Title"] = "Monitor KWLEC200";
+    ViewData["Header"] = "KWLEC200 Data";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<tr id=""><td id="name"></td><td id="value"></td></tr>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id=""><td id="name"></td><td id="value"></td></tr>
+            <tr id="ItemDescription"><td id="name">ItemDescription</td><td id="value"></td></tr>
+            <tr id="OrderNumber"><td id="name">OrderNumber</td><td id="value"></td></tr>
+            <tr id="MacAddress"><td id="name">MacAddress</td><td id="value"></td></tr>
+            <tr id="Language"><td id="name">Language</td><td id="value"></td></tr>
+            <tr id="Date"><td id="name">Date</td><td id="value"></td></tr>
+            <tr id="Time"><td id="name">Time</td><td id="value"></td></tr>
+            <tr id="DayLightSaving"><td id="name">DayLightSaving</td><td id="value"></td></tr>
+            <tr id="AutoUpdateEnabled"><td id="name">AutoUpdateEnabled</td><td id="value"></td></tr>
+            <tr id="PortalAccessEnabled"><td id="name">PortalAccessEnabled</td><td id="value"></td></tr>
+            <tr id="ExhaustVentilatorVoltageLevel1"><td id="name">ExhaustVentilatorVoltageLevel1</td><td id="value"></td></tr>
+            <tr id="SupplyVentilatorVoltageLevel1"><td id="name">SupplyVentilatorVoltageLevel1</td><td id="value"></td></tr>
+            <tr id="ExhaustVentilatorVoltageLevel2"><td id="name">ExhaustVentilatorVoltageLevel2</td><td id="value"></td></tr>
+            <tr id="SupplyVentilatorVoltageLevel2"><td id="name">SupplyVentilatorVoltageLevel2</td><td id="value"></td></tr>
+            <tr id="ExhaustVentilatorVoltageLevel3"><td id="name">ExhaustVentilatorVoltageLevel3</td><td id="value"></td></tr>
+            <tr id="SupplyVentilatorVoltageLevel3"><td id="name">SupplyVentilatorVoltageLevel3</td><td id="value"></td></tr>
+            <tr id="ExhaustVentilatorVoltageLevel4"><td id="name">ExhaustVentilatorVoltageLevel4</td><td id="value"></td></tr>
+            <tr id="SupplyVentilatorVoltageLevel4"><td id="name">SupplyVentilatorVoltageLevel4</td><td id="value"></td></tr>
+            <tr id="MinimumVentilationLevel"><td id="name">MinimumVentilationLevel</td><td id="value"></td></tr>
+            <tr id="KwlBeEnabled"><td id="name">KwlBeEnabled</td><td id="value"></td></tr>
+            <tr id="KwlBecEnabled"><td id="name">KwlBecEnabled</td><td id="value"></td></tr>
+            <tr id="DeviceConfiguration"><td id="name">DeviceConfiguration</td><td id="value"></td></tr>
+            <tr id="PreheaterStatus"><td id="name">PreheaterStatus</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig0"><td id="name">KwlFTFConfig0</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig1"><td id="name">KwlFTFConfig1</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig2"><td id="name">KwlFTFConfig2</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig3"><td id="name">KwlFTFConfig3</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig4"><td id="name">KwlFTFConfig4</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig5"><td id="name">KwlFTFConfig5</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig6"><td id="name">KwlFTFConfig6</td><td id="value"></td></tr>
+            <tr id="KwlFTFConfig7"><td id="name">KwlFTFConfig7</td><td id="value"></td></tr>
+            <tr id="HumidityControlStatus"><td id="name">HumidityControlStatus</td><td id="value"></td></tr>
+            <tr id="HumidityControlTarget"><td id="name">HumidityControlTarget</td><td id="value"></td></tr>
+            <tr id="HumidityControlStep"><td id="name">HumidityControlStep</td><td id="value"></td></tr>
+            <tr id="HumidityControlStop"><td id="name">HumidityControlStop</td><td id="value"></td></tr>
+            <tr id="CO2ControlStatus"><td id="name">CO2ControlStatus</td><td id="value"></td></tr>
+            <tr id="CO2ControlTarget"><td id="name">CO2ControlTarget</td><td id="value"></td></tr>
+            <tr id="CO2ControlStep"><td id="name">CO2ControlStep</td><td id="value"></td></tr>
+            <tr id="VOCControlStatus"><td id="name">VOCControlStatus</td><td id="value"></td></tr>
+            <tr id="VOCControlTarget"><td id="name">VOCControlTarget</td><td id="value"></td></tr>
+            <tr id="VOCControlStep"><td id="name">VOCControlStep</td><td id="value"></td></tr>
+            <tr id="ThermalComfortTemperature"><td id="name">ThermalComfortTemperature</td><td id="value"></td></tr>
+            <tr id="TimeZoneOffset"><td id="name">TimeZoneOffset</td><td id="value"></td></tr>
+            <tr id="DateFormat"><td id="name">DateFormat</td><td id="value"></td></tr>
+            <tr id="HeatExchangerType"><td id="name">HeatExchangerType</td><td id="value"></td></tr>
+            <tr id="PartyOperationDuration"><td id="name">PartyOperationDuration</td><td id="value"></td></tr>
+            <tr id="PartyVentilationLevel"><td id="name">PartyVentilationLevel</td><td id="value"></td></tr>
+            <tr id="PartyOperationRemaining"><td id="name">PartyOperationRemaining</td><td id="value"></td></tr>
+            <tr id="PartyOperationActivate"><td id="name">PartyOperationActivate</td><td id="value"></td></tr>
+            <tr id="StandbyOperationDuration"><td id="name">StandbyOperationDuration</td><td id="value"></td></tr>
+            <tr id="StandbyVentilationLevel"><td id="name">StandbyVentilationLevel</td><td id="value"></td></tr>
+            <tr id="StandbyOperationRemaining"><td id="name">StandbyOperationRemaining</td><td id="value"></td></tr>
+            <tr id="StandbyOperationActivate"><td id="name">StandbyOperationActivate</td><td id="value"></td></tr>
+            <tr id="OperationMode"><td id="name">OperationMode</td><td id="value"></td></tr>
+            <tr id="VentilationLevel"><td id="name">VentilationLevel</td><td id="value"></td></tr>
+            <tr id="VentilationPercentage"><td id="name">VentilationPercentage</td><td id="value"></td></tr>
+            <tr id="TemperatureOutdoor"><td id="name">TemperatureOutdoor</td><td id="value"></td></tr>
+            <tr id="TemperatureSupply"><td id="name">TemperatureSupply</td><td id="value"></td></tr>
+            <tr id="TemperatureExhaust"><td id="name">TemperatureExhaust</td><td id="value"></td></tr>
+            <tr id="TemperatureExtract"><td id="name">TemperatureExtract</td><td id="value"></td></tr>
+            <tr id="TemperaturePreHeater"><td id="name">TemperaturePreHeater</td><td id="value"></td></tr>
+            <tr id="TemperaturePostHeater"><td id="name">TemperaturePostHeater</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor1"><td id="name">ExternalHumiditySensor1</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor2"><td id="name">ExternalHumiditySensor2</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor3"><td id="name">ExternalHumiditySensor3</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor4"><td id="name">ExternalHumiditySensor4</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor5"><td id="name">ExternalHumiditySensor5</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor6"><td id="name">ExternalHumiditySensor6</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor7"><td id="name">ExternalHumiditySensor7</td><td id="value"></td></tr>
+            <tr id="ExternalHumiditySensor8"><td id="name">ExternalHumiditySensor8</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature1"><td id="name">ExternalHumidityTemperature1</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature2"><td id="name">ExternalHumidityTemperature2</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature3"><td id="name">ExternalHumidityTemperature3</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature4"><td id="name">ExternalHumidityTemperature4</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature5"><td id="name">ExternalHumidityTemperature5</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature6"><td id="name">ExternalHumidityTemperature6</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature7"><td id="name">ExternalHumidityTemperature7</td><td id="value"></td></tr>
+            <tr id="ExternalHumidityTemperature8"><td id="name">ExternalHumidityTemperature8</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor1"><td id="name">ExternalCO2Sensor1</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor2"><td id="name">ExternalCO2Sensor2</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor3"><td id="name">ExternalCO2Sensor3</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor4"><td id="name">ExternalCO2Sensor4</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor5"><td id="name">ExternalCO2Sensor5</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor6"><td id="name">ExternalCO2Sensor6</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor7"><td id="name">ExternalCO2Sensor7</td><td id="value"></td></tr>
+            <tr id="ExternalCO2Sensor8"><td id="name">ExternalCO2Sensor8</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor1"><td id="name">ExternalVOCSensor1</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor2"><td id="name">ExternalVOCSensor2</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor3"><td id="name">ExternalVOCSensor3</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor4"><td id="name">ExternalVOCSensor4</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor5"><td id="name">ExternalVOCSensor5</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor6"><td id="name">ExternalVOCSensor6</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor7"><td id="name">ExternalVOCSensor7</td><td id="value"></td></tr>
+            <tr id="ExternalVOCSensor8"><td id="name">ExternalVOCSensor8</td><td id="value"></td></tr>
+            <tr id="TemperatureChannel"><td id="name">TemperatureChannel</td><td id="value"></td></tr>
+            <tr id="WeeklyProfile"><td id="name">WeeklyProfile</td><td id="value"></td></tr>
+            <tr id="SerialNumber"><td id="name">SerialNumber</td><td id="value"></td></tr>
+            <tr id="ProductionCode"><td id="name">ProductionCode</td><td id="value"></td></tr>
+            <tr id="SupplyFanSpeed"><td id="name">SupplyFanSpeed</td><td id="value"></td></tr>
+            <tr id="ExhaustFanSpeed"><td id="name">ExhaustFanSpeed</td><td id="value"></td></tr>
+            <tr id="VacationOperation"><td id="name">VacationOperation</td><td id="value"></td></tr>
+            <tr id="VacationVentilationLevel"><td id="name">VacationVentilationLevel</td><td id="value"></td></tr>
+            <tr id="VacationStartDate"><td id="name">VacationStartDate</td><td id="value"></td></tr>
+            <tr id="VacationEndDate"><td id="name">VacationEndDate</td><td id="value"></td></tr>
+            <tr id="VacationInterval"><td id="name">VacationInterval</td><td id="value"></td></tr>
+            <tr id="VacationDuration"><td id="name">VacationDuration</td><td id="value"></td></tr>
+            <tr id="PreheaterType"><td id="name">PreheaterType</td><td id="value"></td></tr>
+            <tr id="KwlFunctionType"><td id="name">KwlFunctionType</td><td id="value"></td></tr>
+            <tr id="HeaterAfterRunTime"><td id="name">HeaterAfterRunTime</td><td id="value"></td></tr>
+            <tr id="ExternalContact"><td id="name">ExternalContact</td><td id="value"></td></tr>
+            <tr id="FaultTypeOutput"><td id="name">FaultTypeOutput</td><td id="value"></td></tr>
+            <tr id="FilterChange"><td id="name">FilterChange</td><td id="value"></td></tr>
+            <tr id="FilterChangeInterval"><td id="name">FilterChangeInterval</td><td id="value"></td></tr>
+            <tr id="FilterChangeRemaining"><td id="name">FilterChangeRemaining</td><td id="value"></td></tr>
+            <tr id="BypassRoomTemperature"><td id="name">BypassRoomTemperature</td><td id="value"></td></tr>
+            <tr id="BypassOutdoorTemperature"><td id="name">BypassOutdoorTemperature</td><td id="value"></td></tr>
+            <tr id="BypassOutdoorTemperature2"><td id="name">BypassOutdoorTemperature2</td><td id="value"></td></tr>
+            <tr id="SupplyLevel"><td id="name">SupplyLevel</td><td id="value"></td></tr>
+            <tr id="ExhaustLevel"><td id="name">ExhaustLevel</td><td id="value"></td></tr>
+            <tr id="FanLevelRegion02"><td id="name">FanLevelRegion02</td><td id="value"></td></tr>
+            <tr id="FanLevelRegion24"><td id="name">FanLevelRegion24</td><td id="value"></td></tr>
+            <tr id="FanLevelRegion46"><td id="name">FanLevelRegion46</td><td id="value"></td></tr>
+            <tr id="FanLevelRegion68"><td id="name">FanLevelRegion68</td><td id="value"></td></tr>
+            <tr id="FanLevelRegion80"><td id="name">FanLevelRegion80</td><td id="value"></td></tr>
+            <tr id="OffsetExhaust"><td id="name">OffsetExhaust</td><td id="value"></td></tr>
+            <tr id="FanLevelConfiguration"><td id="name">FanLevelConfiguration</td><td id="value"></td></tr>
+            <tr id="SensorName1"><td id="name">SensorName1</td><td id="value"></td></tr>
+            <tr id="SensorName2"><td id="name">SensorName2</td><td id="value"></td></tr>
+            <tr id="SensorName3"><td id="name">SensorName3</td><td id="value"></td></tr>
+            <tr id="SensorName4"><td id="name">SensorName4</td><td id="value"></td></tr>
+            <tr id="SensorName5"><td id="name">SensorName5</td><td id="value"></td></tr>
+            <tr id="SensorName6"><td id="name">SensorName6</td><td id="value"></td></tr>
+            <tr id="SensorName7"><td id="name">SensorName7</td><td id="value"></td></tr>
+            <tr id="SensorName8"><td id="name">SensorName8</td><td id="value"></td></tr>
+            <tr id="CO2SensorName1"><td id="name">CO2SensorName1</td><td id="value"></td></tr>
+            <tr id="CO2SensorName2"><td id="name">CO2SensorName2</td><td id="value"></td></tr>
+            <tr id="CO2SensorName3"><td id="name">CO2SensorName3</td><td id="value"></td></tr>
+            <tr id="CO2SensorName4"><td id="name">CO2SensorName4</td><td id="value"></td></tr>
+            <tr id="CO2SensorName5"><td id="name">CO2SensorName5</td><td id="value"></td></tr>
+            <tr id="CO2SensorName6"><td id="name">CO2SensorName6</td><td id="value"></td></tr>
+            <tr id="CO2SensorName7"><td id="name">CO2SensorName7</td><td id="value"></td></tr>
+            <tr id="CO2SensorName8"><td id="name">CO2SensorName8</td><td id="value"></td></tr>
+            <tr id="VOCSensorName1"><td id="name">VOCSensorName1</td><td id="value"></td></tr>
+            <tr id="VOCSensorName2"><td id="name">VOCSensorName2</td><td id="value"></td></tr>
+            <tr id="VOCSensorName3"><td id="name">VOCSensorName3</td><td id="value"></td></tr>
+            <tr id="VOCSensorName4"><td id="name">VOCSensorName4</td><td id="value"></td></tr>
+            <tr id="VOCSensorName5"><td id="name">VOCSensorName5</td><td id="value"></td></tr>
+            <tr id="VOCSensorName6"><td id="name">VOCSensorName6</td><td id="value"></td></tr>
+            <tr id="VOCSensorName7"><td id="name">VOCSensorName7</td><td id="value"></td></tr>
+            <tr id="VOCSensorName8"><td id="name">VOCSensorName8</td><td id="value"></td></tr>
+            <tr id="SoftwareVersion"><td id="name">SoftwareVersion</td><td id="value"></td></tr>
+            <tr id="OperationMinutesSupply"><td id="name">OperationMinutesSupply</td><td id="value"></td></tr>
+            <tr id="OperationMinutesExhaust"><td id="name">OperationMinutesExhaust</td><td id="value"></td></tr>
+            <tr id="OperationMinutesPreheater"><td id="name">OperationMinutesPreheater</td><td id="value"></td></tr>
+            <tr id="OperationMinutesAfterheater"><td id="name">OperationMinutesAfterheater</td><td id="value"></td></tr>
+            <tr id="PowerPreheater"><td id="name">PowerPreheater</td><td id="value"></td></tr>
+            <tr id="PowerAfterheater"><td id="name">PowerAfterheater</td><td id="value"></td></tr>
+            <tr id="ErrorCode"><td id="name">ErrorCode</td><td id="value"></td></tr>
+            <tr id="WarningCode"><td id="name">WarningCode</td><td id="value"></td></tr>
+            <tr id="InfoCode"><td id="name">InfoCode</td><td id="value"></td></tr>
+            <tr id="NumberOfErrors"><td id="name">NumberOfErrors</td><td id="value"></td></tr>
+            <tr id="NumberOfWarnings"><td id="name">NumberOfWarnings</td><td id="value"></td></tr>
+            <tr id="NumberOfInfos"><td id="name">NumberOfInfos</td><td id="value"></td></tr>
+            <tr id="Errors"><td id="name">Errors</td><td id="value"></td></tr>
+            <tr id="Warnings"><td id="name">Warnings</td><td id="value"></td></tr>
+            <tr id="Infos"><td id="name">Infos</td><td id="value"></td></tr>
+            <tr id="StatusFlags"><td id="name">StatusFlags</td><td id="value"></td></tr>
+            <tr id="SensorConfig1"><td id="name">SensorConfig1</td><td id="value"></td></tr>
+            <tr id="SensorConfig2"><td id="name">SensorConfig2</td><td id="value"></td></tr>
+            <tr id="SensorConfig3"><td id="name">SensorConfig3</td><td id="value"></td></tr>
+            <tr id="SensorConfig4"><td id="name">SensorConfig4</td><td id="value"></td></tr>
+            <tr id="SensorConfig5"><td id="name">SensorConfig5</td><td id="value"></td></tr>
+            <tr id="SensorConfig6"><td id="name">SensorConfig6</td><td id="value"></td></tr>
+            <tr id="SensorConfig7"><td id="name">SensorConfig7</td><td id="value"></td></tr>
+            <tr id="SensorConfig8"><td id="name">SensorConfig8</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateData', function (data) {
+            $("table#DataTable tr[id='ItemDescription']").find("#value").html(data.itemDescription);
+            $("table#DataTable tr[id='OrderNumber']").find("#value").html(data.orderNumber);
+            $("table#DataTable tr[id='MacAddress']").find("#value").html(data.macAddress);
+            $("table#DataTable tr[id='Language']").find("#value").html(data.language);
+            $("table#DataTable tr[id='Date']").find("#value").html(data.date);
+            $("table#DataTable tr[id='Time']").find("#value").html(data.time);
+            $("table#DataTable tr[id='DayLightSaving']").find("#value").html(data.dayLightSaving);
+            $("table#DataTable tr[id='AutoUpdateEnabled']").find("#value").html(data.autoUpdateEnabled);
+            $("table#DataTable tr[id='PortalAccessEnabled']").find("#value").html(data.portalAccessEnabled);
+            $("table#DataTable tr[id='ExhaustVentilatorVoltageLevel1']").find("#value").html(data.exhaustVentilatorVoltageLevel1);
+            $("table#DataTable tr[id='SupplyVentilatorVoltageLevel1']").find("#value").html(data.supplyVentilatorVoltageLevel1);
+            $("table#DataTable tr[id='ExhaustVentilatorVoltageLevel2']").find("#value").html(data.exhaustVentilatorVoltageLevel2);
+            $("table#DataTable tr[id='SupplyVentilatorVoltageLevel2']").find("#value").html(data.supplyVentilatorVoltageLevel2);
+            $("table#DataTable tr[id='ExhaustVentilatorVoltageLevel3']").find("#value").html(data.exhaustVentilatorVoltageLevel3);
+            $("table#DataTable tr[id='SupplyVentilatorVoltageLevel3']").find("#value").html(data.supplyVentilatorVoltageLevel3);
+            $("table#DataTable tr[id='ExhaustVentilatorVoltageLevel4']").find("#value").html(data.exhaustVentilatorVoltageLevel4);
+            $("table#DataTable tr[id='SupplyVentilatorVoltageLevel4']").find("#value").html(data.supplyVentilatorVoltageLevel4);
+            $("table#DataTable tr[id='MinimumVentilationLevel']").find("#value").html(data.minimumVentilationLevel);
+            $("table#DataTable tr[id='KwlBeEnabled']").find("#value").html(data.kwlBeEnabled);
+            $("table#DataTable tr[id='KwlBecEnabled']").find("#value").html(data.kwlBecEnabled);
+            $("table#DataTable tr[id='DeviceConfiguration']").find("#value").html(data.deviceConfiguration);
+            $("table#DataTable tr[id='PreheaterStatus']").find("#value").html(data.preheaterStatus);
+            $("table#DataTable tr[id='KwlFTFConfig0']").find("#value").html(data.kwlFTFConfig0);
+            $("table#DataTable tr[id='KwlFTFConfig1']").find("#value").html(data.kwlFTFConfig1);
+            $("table#DataTable tr[id='KwlFTFConfig2']").find("#value").html(data.kwlFTFConfig2);
+            $("table#DataTable tr[id='KwlFTFConfig3']").find("#value").html(data.kwlFTFConfig3);
+            $("table#DataTable tr[id='KwlFTFConfig4']").find("#value").html(data.kwlFTFConfig4);
+            $("table#DataTable tr[id='KwlFTFConfig5']").find("#value").html(data.kwlFTFConfig5);
+            $("table#DataTable tr[id='KwlFTFConfig6']").find("#value").html(data.kwlFTFConfig6);
+            $("table#DataTable tr[id='KwlFTFConfig7']").find("#value").html(data.kwlFTFConfig7);
+            $("table#DataTable tr[id='HumidityControlStatus']").find("#value").html(data.humidityControlStatus);
+            $("table#DataTable tr[id='HumidityControlTarget']").find("#value").html(data.humidityControlTarget);
+            $("table#DataTable tr[id='HumidityControlStep']").find("#value").html(data.humidityControlStep);
+            $("table#DataTable tr[id='HumidityControlStop']").find("#value").html(data.humidityControlStop);
+            $("table#DataTable tr[id='CO2ControlStatus']").find("#value").html(data.cO2ControlStatus);
+            $("table#DataTable tr[id='CO2ControlTarget']").find("#value").html(data.cO2ControlTarget);
+            $("table#DataTable tr[id='CO2ControlStep']").find("#value").html(data.cO2ControlStep);
+            $("table#DataTable tr[id='VOCControlStatus']").find("#value").html(data.vocControlStatus);
+            $("table#DataTable tr[id='VOCControlTarget']").find("#value").html(data.vocControlTarget);
+            $("table#DataTable tr[id='VOCControlStep']").find("#value").html(data.vocControlStep);
+            $("table#DataTable tr[id='ThermalComfortTemperature']").find("#value").html(data.thermalComfortTemperature);
+            $("table#DataTable tr[id='TimeZoneOffset']").find("#value").html(data.timeZoneOffset);
+            $("table#DataTable tr[id='DateFormat']").find("#value").html(data.dateFormat);
+            $("table#DataTable tr[id='HeatExchangerType']").find("#value").html(data.heatExchangerType);
+            $("table#DataTable tr[id='PartyOperationDuration']").find("#value").html(data.partyOperationDuration);
+            $("table#DataTable tr[id='PartyVentilationLevel']").find("#value").html(data.partyVentilationLevel);
+            $("table#DataTable tr[id='PartyOperationRemaining']").find("#value").html(data.partyOperationRemaining);
+            $("table#DataTable tr[id='PartyOperationActivate']").find("#value").html(data.partyOperationActivate);
+            $("table#DataTable tr[id='StandbyOperationDuration']").find("#value").html(data.standbyOperationDuration);
+            $("table#DataTable tr[id='StandbyVentilationLevel']").find("#value").html(data.standbyVentilationLevel);
+            $("table#DataTable tr[id='StandbyOperationRemaining']").find("#value").html(data.standbyOperationRemaining);
+            $("table#DataTable tr[id='StandbyOperationActivate']").find("#value").html(data.standbyOperationActivate);
+            $("table#DataTable tr[id='OperationMode']").find("#value").html(data.operationMode);
+            $("table#DataTable tr[id='VentilationLevel']").find("#value").html(data.ventilationLevel);
+            $("table#DataTable tr[id='VentilationPercentage']").find("#value").html(data.ventilationPercentage);
+            $("table#DataTable tr[id='TemperatureOutdoor']").find("#value").html(data.temperatureOutdoor);
+            $("table#DataTable tr[id='TemperatureSupply']").find("#value").html(data.temperatureSupply);
+            $("table#DataTable tr[id='TemperatureExhaust']").find("#value").html(data.temperatureExhaust);
+            $("table#DataTable tr[id='TemperatureExtract']").find("#value").html(data.temperatureExtract);
+            $("table#DataTable tr[id='TemperaturePreHeater']").find("#value").html(data.temperaturePreHeater);
+            $("table#DataTable tr[id='TemperaturePostHeater']").find("#value").html(data.temperaturePostHeater);
+            $("table#DataTable tr[id='ExternalHumiditySensor1']").find("#value").html(data.externalHumiditySensor1);
+            $("table#DataTable tr[id='ExternalHumiditySensor2']").find("#value").html(data.externalHumiditySensor2);
+            $("table#DataTable tr[id='ExternalHumiditySensor3']").find("#value").html(data.externalHumiditySensor3);
+            $("table#DataTable tr[id='ExternalHumiditySensor4']").find("#value").html(data.externalHumiditySensor4);
+            $("table#DataTable tr[id='ExternalHumiditySensor5']").find("#value").html(data.externalHumiditySensor5);
+            $("table#DataTable tr[id='ExternalHumiditySensor6']").find("#value").html(data.externalHumiditySensor6);
+            $("table#DataTable tr[id='ExternalHumiditySensor7']").find("#value").html(data.externalHumiditySensor7);
+            $("table#DataTable tr[id='ExternalHumiditySensor8']").find("#value").html(data.externalHumiditySensor8);
+            $("table#DataTable tr[id='ExternalHumidityTemperature1']").find("#value").html(data.externalHumidityTemperature1);
+            $("table#DataTable tr[id='ExternalHumidityTemperature2']").find("#value").html(data.externalHumidityTemperature2);
+            $("table#DataTable tr[id='ExternalHumidityTemperature3']").find("#value").html(data.externalHumidityTemperature3);
+            $("table#DataTable tr[id='ExternalHumidityTemperature4']").find("#value").html(data.externalHumidityTemperature4);
+            $("table#DataTable tr[id='ExternalHumidityTemperature5']").find("#value").html(data.externalHumidityTemperature5);
+            $("table#DataTable tr[id='ExternalHumidityTemperature6']").find("#value").html(data.externalHumidityTemperature6);
+            $("table#DataTable tr[id='ExternalHumidityTemperature7']").find("#value").html(data.externalHumidityTemperature7);
+            $("table#DataTable tr[id='ExternalHumidityTemperature8']").find("#value").html(data.externalHumidityTemperature8);
+            $("table#DataTable tr[id='ExternalCO2Sensor1']").find("#value").html(data.externalCO2Sensor1);
+            $("table#DataTable tr[id='ExternalCO2Sensor2']").find("#value").html(data.externalCO2Sensor2);
+            $("table#DataTable tr[id='ExternalCO2Sensor3']").find("#value").html(data.externalCO2Sensor3);
+            $("table#DataTable tr[id='ExternalCO2Sensor4']").find("#value").html(data.externalCO2Sensor4);
+            $("table#DataTable tr[id='ExternalCO2Sensor5']").find("#value").html(data.externalCO2Sensor5);
+            $("table#DataTable tr[id='ExternalCO2Sensor6']").find("#value").html(data.externalCO2Sensor6);
+            $("table#DataTable tr[id='ExternalCO2Sensor7']").find("#value").html(data.externalCO2Sensor7);
+            $("table#DataTable tr[id='ExternalCO2Sensor8']").find("#value").html(data.externalCO2Sensor8);
+            $("table#DataTable tr[id='ExternalVOCSensor1']").find("#value").html(data.externalVOCSensor1);
+            $("table#DataTable tr[id='ExternalVOCSensor2']").find("#value").html(data.externalVOCSensor2);
+            $("table#DataTable tr[id='ExternalVOCSensor3']").find("#value").html(data.externalVOCSensor3);
+            $("table#DataTable tr[id='ExternalVOCSensor4']").find("#value").html(data.externalVOCSensor4);
+            $("table#DataTable tr[id='ExternalVOCSensor5']").find("#value").html(data.externalVOCSensor5);
+            $("table#DataTable tr[id='ExternalVOCSensor6']").find("#value").html(data.externalVOCSensor6);
+            $("table#DataTable tr[id='ExternalVOCSensor7']").find("#value").html(data.externalVOCSensor7);
+            $("table#DataTable tr[id='ExternalVOCSensor8']").find("#value").html(data.externalVOCSensor8);
+            $("table#DataTable tr[id='TemperatureChannel']").find("#value").html(data.temperatureChannel);
+            $("table#DataTable tr[id='WeeklyProfile']").find("#value").html(data.weeklyProfile);
+            $("table#DataTable tr[id='SerialNumber']").find("#value").html(data.serialNumber);
+            $("table#DataTable tr[id='ProductionCode']").find("#value").html(data.productionCode);
+            $("table#DataTable tr[id='SupplyFanSpeed']").find("#value").html(data.supplyFanSpeed);
+            $("table#DataTable tr[id='ExhaustFanSpeed']").find("#value").html(data.exhaustFanSpeed);
+            $("table#DataTable tr[id='VacationOperation']").find("#value").html(data.vacationOperation);
+            $("table#DataTable tr[id='VacationVentilationLevel']").find("#value").html(data.vacationVentilationLevel);
+            $("table#DataTable tr[id='VacationStartDate']").find("#value").html(data.vacationStartDate);
+            $("table#DataTable tr[id='VacationEndDate']").find("#value").html(data.vacationEndDate);
+            $("table#DataTable tr[id='VacationInterval']").find("#value").html(data.vacationInterval);
+            $("table#DataTable tr[id='VacationDuration']").find("#value").html(data.vacationDuration);
+            $("table#DataTable tr[id='PreheaterType']").find("#value").html(data.preheaterType);
+            $("table#DataTable tr[id='KwlFunctionType']").find("#value").html(data.kwlFunctionType);
+            $("table#DataTable tr[id='HeaterAfterRunTime']").find("#value").html(data.heaterAfterRunTime);
+            $("table#DataTable tr[id='ExternalContact']").find("#value").html(data.externalContact);
+            $("table#DataTable tr[id='FaultTypeOutput']").find("#value").html(data.faultTypeOutput);
+            $("table#DataTable tr[id='FilterChange']").find("#value").html(data.filterChange);
+            $("table#DataTable tr[id='FilterChangeInterval']").find("#value").html(data.filterChangeInterval);
+            $("table#DataTable tr[id='FilterChangeRemaining']").find("#value").html(data.filterChangeRemaining);
+            $("table#DataTable tr[id='BypassRoomTemperature']").find("#value").html(data.bypassRoomTemperature);
+            $("table#DataTable tr[id='BypassOutdoorTemperature']").find("#value").html(data.bypassOutdoorTemperature);
+            $("table#DataTable tr[id='BypassOutdoorTemperature2']").find("#value").html(data.bypassOutdoorTemperature2);
+            $("table#DataTable tr[id='SupplyLevel']").find("#value").html(data.supplyLevel);
+            $("table#DataTable tr[id='ExhaustLevel']").find("#value").html(data.exhaustLevel);
+            $("table#DataTable tr[id='FanLevelRegion02']").find("#value").html(data.fanLevelRegion02);
+            $("table#DataTable tr[id='FanLevelRegion24']").find("#value").html(data.fanLevelRegion24);
+            $("table#DataTable tr[id='FanLevelRegion46']").find("#value").html(data.fanLevelRegion46);
+            $("table#DataTable tr[id='FanLevelRegion68']").find("#value").html(data.fanLevelRegion68);
+            $("table#DataTable tr[id='FanLevelRegion80']").find("#value").html(data.fanLevelRegion80);
+            $("table#DataTable tr[id='OffsetExhaust']").find("#value").html(data.offsetExhaust);
+            $("table#DataTable tr[id='FanLevelConfiguration']").find("#value").html(data.fanLevelConfiguration);
+            $("table#DataTable tr[id='SensorName1']").find("#value").html(data.sensorName1);
+            $("table#DataTable tr[id='SensorName2']").find("#value").html(data.sensorName2);
+            $("table#DataTable tr[id='SensorName3']").find("#value").html(data.sensorName3);
+            $("table#DataTable tr[id='SensorName4']").find("#value").html(data.sensorName4);
+            $("table#DataTable tr[id='SensorName5']").find("#value").html(data.sensorName5);
+            $("table#DataTable tr[id='SensorName6']").find("#value").html(data.sensorName6);
+            $("table#DataTable tr[id='SensorName7']").find("#value").html(data.sensorName7);
+            $("table#DataTable tr[id='SensorName8']").find("#value").html(data.sensorName8);
+            $("table#DataTable tr[id='CO2SensorName1']").find("#value").html(data.cO2sensorName1);
+            $("table#DataTable tr[id='CO2SensorName2']").find("#value").html(data.cO2sensorName2);
+            $("table#DataTable tr[id='CO2SensorName3']").find("#value").html(data.cO2sensorName3);
+            $("table#DataTable tr[id='CO2SensorName4']").find("#value").html(data.cO2sensorName4);
+            $("table#DataTable tr[id='CO2SensorName5']").find("#value").html(data.cO2sensorName5);
+            $("table#DataTable tr[id='CO2SensorName6']").find("#value").html(data.cO2sensorName6);
+            $("table#DataTable tr[id='CO2SensorName7']").find("#value").html(data.cO2sensorName7);
+            $("table#DataTable tr[id='CO2SensorName8']").find("#value").html(data.cO2sensorName8);
+            $("table#DataTable tr[id='VOCSensorName1']").find("#value").html(data.vocSensorName1);
+            $("table#DataTable tr[id='VOCSensorName2']").find("#value").html(data.vocSensorName2);
+            $("table#DataTable tr[id='VOCSensorName3']").find("#value").html(data.vocSensorName3);
+            $("table#DataTable tr[id='VOCSensorName4']").find("#value").html(data.vocSensorName4);
+            $("table#DataTable tr[id='VOCSensorName5']").find("#value").html(data.vocSensorName5);
+            $("table#DataTable tr[id='VOCSensorName6']").find("#value").html(data.vocSensorName6);
+            $("table#DataTable tr[id='VOCSensorName7']").find("#value").html(data.vocSensorName7);
+            $("table#DataTable tr[id='VOCSensorName8']").find("#value").html(data.vocSensorName8);
+            $("table#DataTable tr[id='SoftwareVersion']").find("#value").html(data.softwareVersion);
+            $("table#DataTable tr[id='OperationMinutesSupply']").find("#value").html(data.operationMinutesSupply);
+            $("table#DataTable tr[id='OperationMinutesExhaust']").find("#value").html(data.operationMinutesExhaust);
+            $("table#DataTable tr[id='OperationMinutesPreheater']").find("#value").html(data.operationMinutesPreheater);
+            $("table#DataTable tr[id='OperationMinutesAfterheater']").find("#value").html(data.operationMinutesAfterheater);
+            $("table#DataTable tr[id='PowerPreheater']").find("#value").html(data.powerPreheater);
+            $("table#DataTable tr[id='PowerAfterheater']").find("#value").html(data.powerAfterheater);
+            $("table#DataTable tr[id='ErrorCode']").find("#value").html(data.errorCode);
+            $("table#DataTable tr[id='WarningCode']").find("#value").html(data.warningCode);
+            $("table#DataTable tr[id='InfoCode']").find("#value").html(data.infoCode);
+            $("table#DataTable tr[id='NumberOfErrors']").find("#value").html(data.numberOfErrors);
+            $("table#DataTable tr[id='NumberOfWarnings']").find("#value").html(data.numberOfWarnings);
+            $("table#DataTable tr[id='NumberOfInfos']").find("#value").html(data.numberOfInfos);
+            $("table#DataTable tr[id='Errors']").find("#value").html(data.errors);
+            $("table#DataTable tr[id='Warnings']").find("#value").html(data.warnings);
+            $("table#DataTable tr[id='Infos']").find("#value").html(data.infos);
+            $("table#DataTable tr[id='StatusFlags']").find("#value").html(data.statusFlags);
+            $("table#DataTable tr[id='SensorConfig1']").find("#value").html(data.sensorConfig1);
+            $("table#DataTable tr[id='SensorConfig2']").find("#value").html(data.sensorConfig2);
+            $("table#DataTable tr[id='SensorConfig3']").find("#value").html(data.sensorConfig3);
+            $("table#DataTable tr[id='SensorConfig4']").find("#value").html(data.sensorConfig4);
+            $("table#DataTable tr[id='SensorConfig5']").find("#value").html(data.sensorConfig5);
+            $("table#DataTable tr[id='SensorConfig6']").find("#value").html(data.sensorConfig6);
+            $("table#DataTable tr[id='SensorConfig7']").find("#value").html(data.sensorConfig7);
+            $("table#DataTable tr[id='SensorConfig8']").find("#value").html(data.sensorConfig8);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateData')
+                    .catch(error => {
+                        console.log('Invocation of UpdateData failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    })
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

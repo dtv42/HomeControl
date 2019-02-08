@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KWLEC200App": {
+      "commandName": "Project",
+      "commandLineArgs": "read Date"
+    }
+  }
+}

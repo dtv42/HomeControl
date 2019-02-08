@@ -1,0 +1,169 @@
+﻿@page
+@model EM300LRModel
+@{
+    ViewData["Title"] = "Monitor EM300LR";
+    ViewData["Header"] = "EM300LR Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<tr id=""><td id="name"></td><td id="value"></td></tr>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="ActivePowerPlus" )"><td id="name">ActivePowerPlus</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyPlus"><td id="name">ActiveEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ActivePowerMinus"><td id="name">ActivePowerMinus</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyMinus"><td id="name">ActiveEnergyMinus</td><td id="value"></td></tr>
+            <tr id="ReactivePowerPlus"><td id="name">ReactivePowerPlus</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyPlus"><td id="name">ReactiveEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ReactivePowerMinus"><td id="name">ReactivePowerMinus</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyMinus"><td id="name">ReactiveEnergyMinus</td><td id="value"></td></tr>
+            <tr id="ApparentPowerPlus"><td id="name">ApparentPowerPlus</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyPlus"><td id="name">ApparentEnergyPlus</td><td id="value"></td></tr>
+            <tr id="ApparentPowerMinus"><td id="name">ApparentPowerMinus</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyMinus"><td id="name">ApparentEnergyMinus</td><td id="value"></td></tr>
+            <tr id="PowerFactor"><td id="name">PowerFactor</td><td id="value"></td></tr>
+            <tr id="SupplyFrequency"><td id="name">SupplyFrequency</td><td id="value"></td></tr>
+            <tr id="ActivePowerPlusL1" )"><td id="name">ActivePowerPlusL1</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyPlusL1"><td id="name">ActiveEnergyPlusL1</td><td id="value"></td></tr>
+            <tr id="ActivePowerMinusL1"><td id="name">ActivePowerMinusL1</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyMinusL1"><td id="name">ActiveEnergyMinusL1</td><td id="value"></td></tr>
+            <tr id="ReactivePowerPlusL1"><td id="name">ReactivePowerPlusL1</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyPlusL1"><td id="name">ReactiveEnergyPlusL1</td><td id="value"></td></tr>
+            <tr id="ReactivePowerMinusL1"><td id="name">ReactivePowerMinusL1</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyMinusL1"><td id="name">ReactiveEnergyMinusL1</td><td id="value"></td></tr>
+            <tr id="ApparentPowerPlusL1"><td id="name">ApparentPowerPlusL1</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyPlusL1"><td id="name">ApparentEnergyPlusL1</td><td id="value"></td></tr>
+            <tr id="ApparentPowerMinusL1"><td id="name">ApparentPowerMinusL1</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyMinusL1"><td id="name">ApparentEnergyMinusL1</td><td id="value"></td></tr>
+            <tr id="CurrentL2"><td id="name">CurrentL2</td><td id="value"></td></tr>
+            <tr id="VoltageL2"><td id="name">VoltageL2</td><td id="value"></td></tr>
+            <tr id="PowerFactorL2"><td id="name">PowerFactorL2</td><td id="value"></td></tr>
+            <tr id="ActivePowerPlusL2" )"><td id="name">ActivePowerPlusL2</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyPlusL2"><td id="name">ActiveEnergyPlusL2</td><td id="value"></td></tr>
+            <tr id="ActivePowerMinusL2"><td id="name">ActivePowerMinusL2</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyMinusL2"><td id="name">ActiveEnergyMinusL2</td><td id="value"></td></tr>
+            <tr id="ReactivePowerPlusL2"><td id="name">ReactivePowerPlusL2</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyPlusL2"><td id="name">ReactiveEnergyPlusL2</td><td id="value"></td></tr>
+            <tr id="ReactivePowerMinusL2"><td id="name">ReactivePowerMinusL2</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyMinusL2"><td id="name">ReactiveEnergyMinusL2</td><td id="value"></td></tr>
+            <tr id="ApparentPowerPlusL2"><td id="name">ApparentPowerPlusL2</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyPlusL2"><td id="name">ApparentEnergyPlusL2</td><td id="value"></td></tr>
+            <tr id="ApparentPowerMinusL2"><td id="name">ApparentPowerMinusL2</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyMinusL2"><td id="name">ApparentEnergyMinusL2</td><td id="value"></td></tr>
+            <tr id="CurrentL2"><td id="name">CurrentL2</td><td id="value"></td></tr>
+            <tr id="VoltageL2"><td id="name">VoltageL2</td><td id="value"></td></tr>
+            <tr id="PowerFactorL2"><td id="name">PowerFactorL2</td><td id="value"></td></tr>
+            <tr id="ActivePowerPlusL3" )"><td id="name">ActivePowerPlusL3</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyPlusL3"><td id="name">ActiveEnergyPlusL3</td><td id="value"></td></tr>
+            <tr id="ActivePowerMinusL3"><td id="name">ActivePowerMinusL3</td><td id="value"></td></tr>
+            <tr id="ActiveEnergyMinusL3"><td id="name">ActiveEnergyMinusL3</td><td id="value"></td></tr>
+            <tr id="ReactivePowerPlusL3"><td id="name">ReactivePowerPlusL3</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyPlusL3"><td id="name">ReactiveEnergyPlusL3</td><td id="value"></td></tr>
+            <tr id="ReactivePowerMinusL3"><td id="name">ReactivePowerMinusL3</td><td id="value"></td></tr>
+            <tr id="ReactiveEnergyMinusL3"><td id="name">ReactiveEnergyMinusL3</td><td id="value"></td></tr>
+            <tr id="ApparentPowerPlusL3"><td id="name">ApparentPowerPlusL3</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyPlusL3"><td id="name">ApparentEnergyPlusL3</td><td id="value"></td></tr>
+            <tr id="ApparentPowerMinusL3"><td id="name">ApparentPowerMinusL3</td><td id="value"></td></tr>
+            <tr id="ApparentEnergyMinusL3"><td id="name">ApparentEnergyMinusL3</td><td id="value"></td></tr>
+            <tr id="CurrentL3"><td id="name">CurrentL3</td><td id="value"></td></tr>
+            <tr id="VoltageL3"><td id="name">VoltageL3</td><td id="value"></td></tr>
+            <tr id="PowerFactorL3"><td id="name">PowerFactorL3</td><td id="value"></td></tr>
+            <tr id="Serial"><td id="name">Serial</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateData', function (data) {
+            $("table#DataTable tr[id='ActivePowerPlus']").find("#value").html(data["1-0:1.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyPlus']").find("#value").html(data["1-0:1.8.0*255"]);
+            $("table#DataTable tr[id='ActivePowerMinus']").find("#value").html(data["1-0:2.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyMinus']").find("#value").html(data["1-0:2.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerPlus']").find("#value").html(data["1-0:3.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyPlus']").find("#value").html(data["1-0:3.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerMinus']").find("#value").html(data["1-0:4.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyMinus']").find("#value").html(data["1-0:4.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerPlus']").find("#value").html(data["1-0:9.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyPlus']").find("#value").html(data["1-0:9.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerMinus']").find("#value").html(data["1-0:10.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyMinus']").find("#value").html(data["1-0:10.8.0*255"]);
+            $("table#DataTable tr[id='PowerFactor']").find("#value").html(data["1-0:13.4.0*255"]);
+            $("table#DataTable tr[id='SupplyFrequency']").find("#value").html(data["1-0:14.4.0*255"]);
+            $("table#DataTable tr[id='ActivePowerPlusL1']").find("#value").html(data["1-0:21.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyPlusL1']").find("#value").html(data["1-0:21.8.0*255"]);
+            $("table#DataTable tr[id='ActivePowerMinusL1']").find("#value").html(data["1-0:22.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyMinusL1']").find("#value").html(data["1-0:22.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerPlusL1']").find("#value").html(data["1-0:23.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyPlusL1']").find("#value").html(data["1-0:23.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerMinusL1']").find("#value").html(data["1-0:24.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyMinusL1']").find("#value").html(data["1-0:24.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerPlusL1']").find("#value").html(data["1-0:29.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyPlusL1']").find("#value").html(data["1-0:29.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerMinusL1']").find("#value").html(data["1-0:30.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyMinusL1']").find("#value").html(data["1-0:30.8.0*255"]);
+            $("table#DataTable tr[id='CurrentL1']").find("#value").html(data["1-0:31.4.0*255"]);
+            $("table#DataTable tr[id='VoltageL1']").find("#value").html(data["1-0:32.4.0*255"]);
+            $("table#DataTable tr[id='PowerFactorL1']").find("#value").html(data["1-0:33.4.0*255"]);
+            $("table#DataTable tr[id='ActivePowerPlusL2']").find("#value").html(data["1-0:41.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyPlusL2']").find("#value").html(data["1-0:41.8.0*255"]);
+            $("table#DataTable tr[id='ActivePowerMinusL2']").find("#value").html(data["1-0:42.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyMinusL2']").find("#value").html(data["1-0:42.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerPlusL2']").find("#value").html(data["1-0:43.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyPlusL2']").find("#value").html(data["1-0:43.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerMinusL2']").find("#value").html(data["1-0:44.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyMinusL2']").find("#value").html(data["1-0:44.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerPlusL2']").find("#value").html(data["1-0:49.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyPlusL2']").find("#value").html(data["1-0:49.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerMinusL2']").find("#value").html(data["1-0:50.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyMinusL2']").find("#value").html(data["1-0:50.8.0*255"]);
+            $("table#DataTable tr[id='CurrentL2']").find("#value").html(data["1-0:51.4.0*255"]);
+            $("table#DataTable tr[id='VoltageL2']").find("#value").html(data["1-0:52.4.0*255"]);
+            $("table#DataTable tr[id='PowerFactorL2']").find("#value").html(data["1-0:53.4.0*255"]);
+            $("table#DataTable tr[id='ActivePowerPlusL3']").find("#value").html(data["1-0:61.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyPlusL3']").find("#value").html(data["1-0:61.8.0*255"]);
+            $("table#DataTable tr[id='ActivePowerMinusL3']").find("#value").html(data["1-0:62.4.0*255"]);
+            $("table#DataTable tr[id='ActiveEnergyMinusL3']").find("#value").html(data["1-0:62.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerPlusL3']").find("#value").html(data["1-0:63.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyPlusL3']").find("#value").html(data["1-0:63.8.0*255"]);
+            $("table#DataTable tr[id='ReactivePowerMinusL3']").find("#value").html(data["1-0:64.4.0*255"]);
+            $("table#DataTable tr[id='ReactiveEnergyMinusL3']").find("#value").html(data["1-0:64.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerPlusL3']").find("#value").html(data["1-0:69.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyPlusL3']").find("#value").html(data["1-0:69.8.0*255"]);
+            $("table#DataTable tr[id='ApparentPowerMinusL3']").find("#value").html(data["1-0:70.4.0*255"]);
+            $("table#DataTable tr[id='ApparentEnergyMinusL3']").find("#value").html(data["1-0:70.8.0*255"]);
+            $("table#DataTable tr[id='CurrentL3']").find("#value").html(data["1-0:71.4.0*255"]);
+            $("table#DataTable tr[id='VoltageL3']").find("#value").html(data["1-0:72.4.0*255"]);
+            $("table#DataTable tr[id='PowerFactorL3']").find("#value").html(data["1-0:73.4.0*255"]);
+            $("table#DataTable tr[id='Serial']").find("#value").html(data.serial);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateData')
+                    .catch(error => {
+                        console.log('Invocation of UpdateData failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}

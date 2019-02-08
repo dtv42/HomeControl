@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EM300LRApp": {
+      "commandName": "Project",
+      "commandLineArgs": "info -t"
+    }
+  }
+}

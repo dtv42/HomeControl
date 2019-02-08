@@ -1,0 +1,87 @@
+﻿@page
+@model Report3Model
+@{
+    ViewData["Title"] = "Monitor Wallbox";
+    ViewData["Header"] = "Report 3 Data";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Header"]</h3>
+<div class="container">
+    <table id="DataTable" class="table">
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr id="ID"><td id="name">ID</td><td id="value"></td></tr>
+            <tr id="VoltageL1N"><td id="name">VoltageL1N</td><td id="value"></td></tr>
+            <tr id="VoltageL2N"><td id="name">VoltageL2N</td><td id="value"></td></tr>
+            <tr id="VoltageL3N"><td id="name">VoltageL3N</td><td id="value"></td></tr>
+            <tr id="CurrentL1"><td id="name">CurrentL1</td><td id="value"></td></tr>
+            <tr id="CurrentL2"><td id="name">CurrentL2</td><td id="value"></td></tr>
+            <tr id="CurrentL3"><td id="name">CurrentL3</td><td id="value"></td></tr>
+            <tr id="Power"><td id="name">Power</td><td id="value"></td></tr>
+            <tr id="PowerFactor"><td id="name">PowerFactor</td><td id="value"></td></tr>
+            <tr id="EnergyCharging"><td id="name">EnergyCharging</td><td id="value"></td></tr>
+            <tr id="EnergyTotal"><td id="name">EnergyTotal</td><td id="value"></td></tr>
+            <tr id="Serial"><td id="name">Serial</td><td id="value"></td></tr>
+            <tr id="Seconds"><td id="name">Seconds</td><td id="value"></td></tr>
+            <tr id="Status"><td id="name">Status</td><td id="value"></td></tr>
+            <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
+        </tbody>
+    </table>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/monitor")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on('UpdateReport3', function (data) {
+            ID
+            VoltageL1N
+            VoltageL2N
+            VoltageL3N
+            CurrentL1
+            CurrentL2
+            CurrentL3
+            Power
+            PowerFactor
+            EnergyCharging
+            EnergyTotal
+            Serial
+            Seconds
+
+            $("table#DataTable tr[id='ID']").find("#value").html(data.id);
+            $("table#DataTable tr[id='VoltageL1N']").find("#value").html(data.voltageL1N);
+            $("table#DataTable tr[id='VoltageL2N']").find("#value").html(data.voltageL2N);
+            $("table#DataTable tr[id='VoltageL3N']").find("#value").html(data.voltageL3N);
+            $("table#DataTable tr[id='CurrentL1']").find("#value").html(data.currentL1);
+            $("table#DataTable tr[id='CurrentL2']").find("#value").html(data.currentL2);
+            $("table#DataTable tr[id='CurrentL3']").find("#value").html(data.currentL3);
+            $("table#DataTable tr[id='Power']").find("#value").html(data.power);
+            $("table#DataTable tr[id='PowerFactor']").find("#value").html(data.powerFactor);
+            $("table#DataTable tr[id='EnergyCharging']").find("#value").html(data.energyCharging);
+            $("table#DataTable tr[id='EnergyTotal']").find("#value").html(data.energyTotal);
+            $("table#DataTable tr[id='Serial']").find("#value").html(data.serial);
+            $("table#DataTable tr[id='Seconds']").find("#value").html(data.seconds);
+            $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
+            $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+        });
+
+        connection.start()
+            .then(function () {
+                connection.invoke('UpdateReport3')
+                    .catch(error => {
+                        console.log('Invocation of UpdateReport3 failed. Error: ' + error);
+                        alert('Update failed with error: ' + error);
+                    });
+            })
+            .catch(error => {
+                console.log('Could not connect to SignalR server. Error: ' + error);
+                alert('Could not connect to monitor hub.');
+            });
+    </script>
+}
