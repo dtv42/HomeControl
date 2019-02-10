@@ -565,7 +565,7 @@ namespace ZipatoLib
 
         // Implements GET /sv/camera/{uuid} - list files saved by the camera.
         public async Task<(List<FileData> Data, DataStatus Status)>
-            ReadSavedFilesAsync(Guid uuid, int start, int size, DateTime? from = null, DateTime? until = null, FileTypes type = FileTypes.SNAPSHOT, bool refresh = false) =>
+            ReadSavedFilesAsync(Guid uuid, int start, int size, DateTime? from = null, DateTime? until = null, FileTypes? type = null, bool refresh = false) =>
             await ReadListDataAsync<FileData>($"sv/camera/{uuid}{CreateQuery(start, size, from, until, type, refresh)}");
 
         // Implements GET /sv/{id} - get saved file info.

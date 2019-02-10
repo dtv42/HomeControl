@@ -14,6 +14,9 @@ namespace ZipatoLib.Models.Sensors
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato luminance sensor.
+    /// </summary>
     public class LuminanceSensor
     {
         #region Private Data Members

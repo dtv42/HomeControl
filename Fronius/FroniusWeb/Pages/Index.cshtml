@@ -11,163 +11,179 @@
     };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Fronius Symo 8.2-3-M</h1>
+<div class="container">
+
+    <div class="text-center">
+        <h1 class="display-4">Fronius Symo 8.2-3-M</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge01" title="Current Power" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="8">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge02" title="Daily Energy" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="50">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge03" title="Yearly Energy" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="8000">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge04" title="Current DC" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="10">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge05" title="Voltage DC" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="500">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge06" title="Frequency" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="48" maximum="52">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
+    </div>
+
 </div>
 
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge01" title="Current Power" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="8">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script>
+    var gauge1, gauge2, gauge3
+    var gauge4, gauge5, gauge6
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge02" title="Daily Energy" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="50">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/hubs/monitor")
+        .configureLogging(signalR.LogLevel.Trace)
+        .build();
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge03" title="Yearly Energy" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="8000">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
+    connection.on('UpdateCommon', function (data) {
+        if (!gauge1)
+            gauge1 = document.getElementById("Gauge01").ej2_instances[0];
+        if (!gauge2)
+            gauge2 = document.getElementById("Gauge02").ej2_instances[0];
+        if (!gauge3)
+            gauge3 = document.getElementById("Gauge03").ej2_instances[0];
+        if (!gauge4)
+            gauge4 = document.getElementById("Gauge04").ej2_instances[0];
+        if (!gauge5)
+            gauge5 = document.getElementById("Gauge05").ej2_instances[0];
+        if (!gauge6)
+            gauge6 = document.getElementById("Gauge06").ej2_instances[0];
 
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge04" title="Current DC" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="10">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
+        value01 = (data.powerAC === "NaN") ? 0 : data.powerAC / 1000.0;
+        value02 = (data.dailyEnergy === "NaN") ? 0 : data.dailyEnergy / 1000.0;
+        value03 = (data.yearlyEnergy === "NaN") ? 0 : data.yearlyEnergy / 1000.0;
+        value04 = (data.currentDC === "NaN") ? 0 : data.currentDC;
+        value05 = (data.voltageDC === "NaN") ? 0 : data.voltageDC;
+        value06 = (data.frequency === "NaN") ? 0 : data.frequency;
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge05" title="Voltage DC" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="500">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
+        gauge1.setAnnotationValue(0, 0, "<text class='h4'>" + value01.toFixed(2) + " kW</text>");
+        gauge2.setAnnotationValue(0, 0, "<text class='h4'>" + value02.toFixed(1) + " kWh</text>");
+        gauge3.setAnnotationValue(0, 0, "<text class='h4'>" + value03.toFixed(0) + " kWh</text>");
+        gauge4.setAnnotationValue(0, 0, "<text class='h4'>" + value04.toFixed(2) + " A</text>");
+        gauge5.setAnnotationValue(0, 0, "<text class='h4'>" + value05.toFixed(1) + " V</text>");
+        gauge6.setAnnotationValue(0, 0, "<text class='h4'>" + value06.toFixed(2) + " Hz</text>");
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge06" title="Frequency" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="48" maximum="52">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
+        gauge1.setPointerValue(0, 0, value01);
+        gauge2.setPointerValue(0, 0, value02);
+        gauge3.setPointerValue(0, 0, value03);
+        gauge4.setPointerValue(0, 0, value04);
+        gauge5.setPointerValue(0, 0, value05);
+        gauge6.setPointerValue(0, 0, value06);
 
-@section Scripts
-    {
-    <script src="~/lib/signalr/signalr.js"></script>
-    <script>
-        var gauge1, gauge2, gauge3
-        var gauge4, gauge5, gauge6
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/hubs/monitor")
-            .configureLogging(signalR.LogLevel.Trace)
-            .build();
+        if (data.status.code == 0) {
+            message.textContent = "Last updated at " + time;
+        }
+        else {
+            message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+        }
+    });
 
-        connection.on('UpdateCommon', function (data) {
-            if (!gauge1)
-                gauge1 = document.getElementById("Gauge01").ej2_instances[0];
-            if (!gauge2)
-                gauge2 = document.getElementById("Gauge02").ej2_instances[0];
-            if (!gauge3)
-                gauge3 = document.getElementById("Gauge03").ej2_instances[0];
-            if (!gauge4)
-                gauge4 = document.getElementById("Gauge04").ej2_instances[0];
-            if (!gauge5)
-                gauge5 = document.getElementById("Gauge05").ej2_instances[0];
-            if (!gauge6)
-                gauge6 = document.getElementById("Gauge06").ej2_instances[0];
-
-            value01 = (data.powerAC === "NaN") ? 0 : data.powerAC / 1000.0;
-            value02 = (data.dailyEnergy === "NaN") ? 0 : data.dailyEnergy / 1000.0;
-            value03 = (data.yearlyEnergy === "NaN") ? 0 : data.yearlyEnergy / 1000.0;
-            value04 = (data.currentDC === "NaN") ? 0 : data.currentDC;
-            value05 = (data.voltageDC === "NaN") ? 0 : data.voltageDC;
-            value06 = (data.frequency === "NaN") ? 0 : data.frequency;
-
-            gauge1.setAnnotationValue(0, 0, "<text class='h4'>" + value01.toFixed(2) + " kW</text>");
-            gauge2.setAnnotationValue(0, 0, "<text class='h4'>" + value02.toFixed(1) + " kWh</text>");
-            gauge3.setAnnotationValue(0, 0, "<text class='h4'>" + value03.toFixed(0) + " kWh</text>");
-            gauge4.setAnnotationValue(0, 0, "<text class='h4'>" + value04.toFixed(2) + " A</text>");
-            gauge5.setAnnotationValue(0, 0, "<text class='h4'>" + value05.toFixed(1) + " V</text>");
-            gauge6.setAnnotationValue(0, 0, "<text class='h4'>" + value06.toFixed(2) + " Hz</text>");
-
-            gauge1.setPointerValue(0, 0, value01);
-            gauge2.setPointerValue(0, 0, value02);
-            gauge3.setPointerValue(0, 0, value03);
-            gauge4.setPointerValue(0, 0, value04);
-            gauge5.setPointerValue(0, 0, value05);
-            gauge6.setPointerValue(0, 0, value06);
+    connection.start()
+        .then(function () {
+            connection.invoke('UpdateCommon')
+                .catch(error => {
+                    console.log('Invocation of UpdateCommon failed. Error: ' + error);
+                    alert('Update failed with error: ' + error);
+                });
+        })
+        .catch(error => {
+            console.log('Could not connect to SignalR server. Error: ' + error);
+            alert('Could not connect to monitor hub.');
         });
-
-        connection.start()
-            .then(function () {
-                connection.invoke('UpdateCommon')
-                    .catch(error => {
-                        console.log('Invocation of UpdateCommon failed. Error: ' + error);
-                        alert('Update failed with error: ' + error);
-                    });
-            })
-            .catch(error => {
-                console.log('Could not connect to SignalR server. Error: ' + error);
-                alert('Could not connect to monitor hub.');
-            });
-    </script>
-}
+</script>

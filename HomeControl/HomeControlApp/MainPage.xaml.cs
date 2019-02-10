@@ -72,7 +72,7 @@ namespace HomeControlApp
         private void Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
         {
             Log.Debug($"Navigate to {navItemTag}");
-            Type pagetype = typeof(GaugesPage);
+            Type pagetype = typeof(ContentPage);
 
             if (navItemTag == "Settings")
             {
@@ -87,9 +87,9 @@ namespace HomeControlApp
                 ContentFrame.Navigate(pagetype, navItemTag, transitionInfo);
             }
 
-            if (ContentFrame.SourcePageType == typeof(GaugesPage))
+            if (ContentFrame.SourcePageType == typeof(ContentPage))
             {
-                ((GaugesPage)ContentFrame.Content).Initialize(navItemTag);
+                ((ContentPage)ContentFrame.Content).Initialize(navItemTag);
                 NavigationViewControl.Header = navItemTag;
             }
         }

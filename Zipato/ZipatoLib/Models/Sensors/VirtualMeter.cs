@@ -15,6 +15,9 @@ namespace ZipatoLib.Models.Sensors
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato virtual meter.
+    /// </summary>
     public class VirtualMeter
     {
         #region Private Data Members

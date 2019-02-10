@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace ZipatoLib.Models
 {
+    using System;
     #region Using Directives
 
     using System.Collections.Generic;
@@ -24,6 +25,12 @@ namespace ZipatoLib.Models
     /// </summary>
     public class ZipatoDevices : DataValue, IPropertyHelper
     {
+        #region Private Data Members
+
+        private IZipato _zipato;
+
+        #endregion
+
         #region Public Properties
 
         public List<Switch> Switches { get; set; } = new List<Switch> { };
@@ -44,10 +51,13 @@ namespace ZipatoLib.Models
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ZipatoDevices"/> class.
+        /// The list of UUIDs from the SettingsData is used to create the device instances.
         /// </summary>
         /// <param name="zipato"></param>
         public ZipatoDevices(IZipato zipato)
         {
+            _zipato = zipato;
+
             foreach (var uuid in zipato.DevicesInfo.Switches)
             {
                 Switches.Add(new Switch(zipato, uuid));
@@ -79,10 +89,45 @@ namespace ZipatoLib.Models
         #region Public Methods
 
         /// <summary>
-        /// Updates the Properties used in ZipatoDevices.
+        /// Updates the devices used in ZipatoDevices.
         /// </summary>
-        /// <param name="data">The Zipato data.</param>
-        public void Refresh(ZipatoData data)
+        public void Update()
+        {
+            for (int i = 0; i < Switches.Count; ++i)
+            {
+                var uuid = Switches[i].Uuid;
+                Switches[i] = new Switch(_zipato, uuid);
+            }
+
+            for (int i = 0; i < OnOffSwitches.Count; ++i)
+            {
+                var uuid = OnOffSwitches[i].Uuid;
+                OnOffSwitches[i] = new OnOff(_zipato, uuid);
+            }
+
+            for (int i = 0; i < Wallplugs.Count; ++i)
+            {
+                var uuid = Wallplugs[i].Uuid;
+                Wallplugs[i] = new Plug(_zipato, uuid);
+            }
+
+            for (int i = 0; i < Dimmers.Count; ++i)
+            {
+                var uuid = Dimmers[i].Uuid;
+                Dimmers[i] = new Dimmer(_zipato, uuid);
+            }
+
+            for (int i = 0; i < RGBControls.Count; ++i)
+            {
+                var uuid = RGBControls[i].Uuid;
+                RGBControls[i] = new RGBControl(_zipato, uuid);
+            }
+        }
+
+        /// <summary>
+        /// Updates the data values used in ZipatoDevices.
+        /// </summary>
+        public void Refresh()
         {
             foreach (var item in Switches)
             {
@@ -109,11 +154,11 @@ namespace ZipatoLib.Models
                 item.Refresh();
             }
 
-            Status = data?.Status ?? Uncertain;
+            Status = _zipato.Data?.Status ?? Uncertain;
         }
 
         /// <summary>
-        /// Gets the property list for the InverterInfo class.
+        /// Gets the property list for the ZipatoDevices class.
         /// </summary>
         /// <returns>The property list.</returns>
         public static List<string> GetProperties()

@@ -10,11 +10,10 @@ namespace ZipatoLib
 {
     #region Using Directives
 
-    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using DataValueLib;
-    using ZipatoLib.Models;
     using ZipatoLib.Models.Data;
 
     #endregion
@@ -103,6 +102,8 @@ namespace ZipatoLib
         // Implements POST /subscriptions/{name}/test
 
         // Implements POST /sv/deleteBatch - delete multiple files.
+        public async Task<DataStatus>
+        DeleteFilesBatchAsync(List<string> data) => await CreateDataAsync("sv/deleteBatch", data);
 
         // Implements POST /thermostats/ - create a thermostat.
         // Implements POST /thermostats/wrap/{device} - create a thermostat from a device based on tags on endpoints of the device.

@@ -72,6 +72,10 @@ namespace ZipatoWeb.Hubs
         public async Task UpdateData()
         {
             await Clients.All.SendAsync("UpdateData", _zipato.Data);
+            await Clients.All.SendAsync("UpdateValues", _zipato.Data.Values);
+            await Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
+            await Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+            await Clients.All.SendAsync("UpdateOthers", _zipato.Others);
         }
 
         /// <summary>
@@ -83,6 +87,33 @@ namespace ZipatoWeb.Hubs
             await Clients.All.SendAsync("UpdateValues", _zipato.Data.Values);
             await Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
             await Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+        }
+
+        /// <summary>
+        /// Callback to provide data values updates.
+        /// </summary>
+        /// <returns></returns>
+        public async Task UpdateDevices()
+        {
+            await Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
+        }
+
+        /// <summary>
+        /// Callback to provide data values updates.
+        /// </summary>
+        /// <returns></returns>
+        public async Task UpdateSensors()
+        {
+            await Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+        }
+
+        /// <summary>
+        /// Callback to provide data values updates.
+        /// </summary>
+        /// <returns></returns>
+        public async Task UpdateOthers()
+        {
+            await Clients.All.SendAsync("UpdateOthers", _zipato.Others);
         }
 
         #endregion

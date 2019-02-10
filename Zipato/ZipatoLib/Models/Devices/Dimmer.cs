@@ -14,6 +14,9 @@ namespace ZipatoLib.Models.Devices
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato dimmer device.
+    /// </summary>
     public class Dimmer
     {
         #region Private Data Members
@@ -37,7 +40,7 @@ namespace ZipatoLib.Models.Devices
         /// <summary>
         /// The INTENSITY value of the dimmer.
         /// </summary>
-        public ValueInfo<int> Intensity { get; private set; } = new ValueInfo<int>();
+        public ValueInfo<int> Intensity { get; }
 
         #endregion
 
@@ -89,7 +92,7 @@ namespace ZipatoLib.Models.Devices
         }
 
         /// <summary>
-        /// Refreshes the intesity using the list of values.
+        /// Refreshes the intensity using the list of values.
         /// </summary>
         /// <remarks>Requires a valid list of values.</remarks>
         public void Refresh()

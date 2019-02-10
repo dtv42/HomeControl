@@ -36,7 +36,6 @@ namespace ZipatoApp.Commands
              ExtendedHelpText = "\nCopyright (c) 2018 Dr. Peter Trimmel - All rights reserved.")]
     [VersionOptionFromMember(MemberName = nameof(GetVersion))]
     [HelpOption("-?|--help")]
-    [Subcommand("run", typeof(RunCommand))]
     [Subcommand("find", typeof(FindCommand))]
     [Subcommand("info", typeof(InfoCommand))]
     [Subcommand("read", typeof(ReadCommand))]
@@ -46,6 +45,7 @@ namespace ZipatoApp.Commands
     [Subcommand("clean", typeof(CleanCommand))]
     [Subcommand("delete", typeof(DeleteCommand))]
     [Subcommand("monitor", typeof(MonitorCommand))]
+    [Subcommand("others", typeof(OthersCommand))]
     [Subcommand("devices", typeof(DevicesCommand))]
     [Subcommand("sensors", typeof(SensorsCommand))]
     public class RootCommand : BaseCommand<AppSettings>

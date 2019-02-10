@@ -82,9 +82,9 @@
 
         connection.start()
             .then(function () {
-                connection.invoke('UpdateValues')
+                connection.invoke('UpdateSensors')
                     .catch(error => {
-                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        console.log('Invocation of UpdateSensors failed. Error: ' + error);
                         alert('Update failed with error: ' + error);
                     });
             })

@@ -168,15 +168,18 @@ namespace ZipatoApp.Commands
 
             foreach (var option in options)
             {
-                if (option.Inherited == false)
+                switch (option.LongName)
                 {
-                    switch (option.LongName)
-                    {
-                        case "index": OptionIndex = option.HasValue(); break;
-                        case "name": OptionName = option.HasValue(); break;
-                        case "uuid": OptionUuid = option.HasValue(); break;
-                    }
+                    case "index": OptionIndex = option.HasValue(); break;
+                    case "name": OptionName = option.HasValue(); break;
+                    case "uuid": OptionUuid = option.HasValue(); break;
                 }
+            }
+
+            if (!NoOptions)
+            {
+                Console.WriteLine("Select a command: 'switch', 'onoff', 'plug', 'dimmer', or 'rgb'.");
+                return false;
             }
 
             return true;

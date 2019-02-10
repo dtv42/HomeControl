@@ -388,6 +388,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -398,6 +399,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -410,6 +412,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -422,6 +425,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -434,17 +438,18 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchesAsync(System.Boolean)">
             <summary>
-            Returns Zipato dimmer devices data.
+            Returns Zipato onoff devices data.
             </summary>
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -457,6 +462,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -469,6 +475,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -481,9 +488,21 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchToggle(System.Int32)">
+            <summary>
+            Writes the Zipato onoff switch toggled state data.
+            </summary>
+            <param name="index">The device index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugsAsync(System.Boolean)">
             <summary>
@@ -492,6 +511,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -504,6 +524,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -516,6 +537,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -528,9 +550,21 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugToggle(System.Int32)">
+            <summary>
+            Writes the Zipato wallplug state data.
+            </summary>
+            <param name="index">The device index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetSwitchesAsync(System.Boolean)">
             <summary>
@@ -539,6 +573,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -551,6 +586,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -563,6 +599,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -573,6 +610,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -585,6 +623,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -597,6 +636,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -609,6 +649,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -621,6 +662,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -633,6 +675,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -645,6 +688,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -657,6 +701,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -669,9 +714,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlColdWhite(System.Int32,System.Int32)">
             <summary>
@@ -682,9 +727,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlWarmWhite(System.Int32,System.Int32)">
             <summary>
@@ -695,9 +740,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRed(System.Int32,System.Int32)">
             <summary>
@@ -708,9 +753,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlGreen(System.Int32,System.Int32)">
             <summary>
@@ -721,9 +766,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlBlue(System.Int32,System.Int32)">
             <summary>
@@ -734,9 +779,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRGB(System.Int32,System.String)">
             <summary>
@@ -747,9 +792,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetRGBControlRGBW(System.Int32,System.String)">
             <summary>
@@ -760,9 +805,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The device cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="T:ZipatoWeb.Controllers.ZipatoInfoController">
             <summary>
@@ -1265,6 +1310,159 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
+        <member name="T:ZipatoWeb.Controllers.ZipatoOthersController">
+            <summary>
+            The Zipato controller for reading other Zipato data.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.#ctor(ZipatoLib.IZipato,Microsoft.Extensions.Options.IOptions{ZipatoWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{ZipatoWeb.Controllers.ZipatoOthersController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZipatoWeb.Controllers.ZipatoOthersController"/> class.
+            </summary>
+            <param name="zipato">The Zipato instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetOthers">
+            <summary>
+            Returns Zipato others data.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetCameras">
+            <summary>
+            Returns Zipato cameras data.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetCamera(System.Int32)">
+            <summary>
+            Returns Zipato camera data.
+            </summary>
+            <param name="index">The camera index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetCameraFiles(System.Int32)">
+            <summary>
+            Returns Zipato camera saved files.
+            </summary>
+            <param name="index">The camera index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetCameraFile(System.Int32,System.Int32)">
+            <summary>
+            Returns Zipato a single camera saved files.
+            </summary>
+            <param name="index">The camera index.</param>
+            <param name="file">The file index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.DeleteSavedFiles(System.Int32)">
+            <summary>
+            Deletes all camera saved files.
+            </summary>
+            <param name="index">The camera index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.DeleteSavedFile(System.Int32,System.Int32)">
+            <summary>
+            Deletes a single camera saved files.
+            </summary>
+            <param name="index">The camera index.</param>
+            <param name="file">The file index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">The operation was successful.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetTakeSnapshotAsync(System.Int32)">
+            <summary>
+            Takes a snapshot.
+            </summary>
+            <param name="index">The camera index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetTakeRecordingAsync(System.Int32)">
+            <summary>
+            Takes a 10 sec recording.
+            </summary>
+            <param name="index">The camera index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetScenes">
+            <summary>
+            Returns Zipato scenes data.
+            </summary>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetScene(System.Int32)">
+            <summary>
+            Returns Zipato scene data.
+            </summary>
+            <param name="index">The scene index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetSceneRun(System.Int32)">
+            <summary>
+            Runs Zipato scene.
+            </summary>
+            <param name="index">The scene index.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
         <member name="T:ZipatoWeb.Controllers.ZipatoSensorsController">
             <summary>
             The Zipato controller for reading Zipato sensors (and meters).
@@ -1285,6 +1483,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1295,6 +1494,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1307,6 +1507,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1320,6 +1521,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1333,9 +1535,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The sensor cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.SetVirtualMeterValues(System.Int32,System.Nullable{System.Double}[])">
             <summary>
@@ -1346,9 +1548,9 @@
             <returns>The action method result.</returns>
             <response code="200">The operation was successful.</response>
             <response code="400">The request has missing/invalid values.</response>
-            <response code="404">The sensor cannot be found.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
-            <response code="502">The update procedure was unsuccessful.</response>
+            <response code="502">The write procedure was unsuccessful.</response>
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoSensorsController.GetConsumptionMetersAsync(System.Boolean)">
             <summary>
@@ -1357,6 +1559,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1369,6 +1572,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1381,6 +1585,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1393,6 +1598,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1403,6 +1609,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1415,6 +1622,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1427,6 +1635,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1437,6 +1646,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1449,6 +1659,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1461,6 +1672,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1471,6 +1683,7 @@
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1483,6 +1696,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1495,6 +1709,7 @@
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
             <response code="400">The request has missing/invalid values.</response>
+            <response code="406">An internal update is still in progress.</response>
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
@@ -1524,6 +1739,24 @@
             <returns></returns>
         </member>
         <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateValues">
+            <summary>
+            Callback to provide data values updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateDevices">
+            <summary>
+            Callback to provide data values updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateSensors">
+            <summary>
+            Callback to provide data values updates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZipatoWeb.Hubs.ZipatoHub.UpdateOthers">
             <summary>
             Callback to provide data values updates.
             </summary>
@@ -1594,12 +1827,12 @@
             
             </summary>
         </member>
-        <member name="T:ZipatoWeb.Pages.Devices.DevicesModel">
+        <member name="T:ZipatoWeb.Pages.Devices.AllModel">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ZipatoWeb.Pages.Devices.DevicesModel.OnGet">
+        <member name="M:ZipatoWeb.Pages.Devices.AllModel.OnGet">
             <summary>
             
             </summary>
@@ -1664,6 +1897,36 @@
             
             </summary>
         </member>
+        <member name="T:ZipatoWeb.Pages.Others.AllModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Others.AllModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Others.CameraModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Others.CameraModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Others.SceneModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Others.SceneModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ZipatoWeb.Pages.RoomModel">
             <summary>
             
@@ -1680,6 +1943,16 @@
             </summary>
         </member>
         <member name="M:ZipatoWeb.Pages.ScenesModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.Sensors.AllModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.Sensors.AllModel.OnGet">
             <summary>
             
             </summary>
@@ -1710,16 +1983,6 @@
             </summary>
         </member>
         <member name="M:ZipatoWeb.Pages.Sensors.MeterModel.OnGet">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ZipatoWeb.Pages.Sensors.SensorsModel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ZipatoWeb.Pages.Sensors.SensorsModel.OnGet">
             <summary>
             
             </summary>

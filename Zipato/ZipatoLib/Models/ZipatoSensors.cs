@@ -24,6 +24,12 @@ namespace ZipatoLib.Models
     /// </summary>
     public class ZipatoSensors : DataValue, IPropertyHelper
     {
+        #region Private Data Members
+
+        private IZipato _zipato;
+
+        #endregion
+
         #region Public Properties
 
         public List<VirtualMeter> VirtualMeters { get; set; } = new List<VirtualMeter> { };
@@ -44,10 +50,13 @@ namespace ZipatoLib.Models
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ZipatoSensors"/> class.
+        /// The list of UUIDs from the SettingsData is used to create the device instances.
         /// </summary>
         /// <param name="zipato"></param>
         public ZipatoSensors(IZipato zipato)
         {
+            _zipato = zipato;
+
             foreach (var uuid in zipato.SensorsInfo.VirtualMeters)
             {
                 VirtualMeters.Add(new VirtualMeter(zipato, uuid));
@@ -79,10 +88,45 @@ namespace ZipatoLib.Models
         #region Public Methods
 
         /// <summary>
-        /// Updates the Properties used in ZipatoSensors.
+        /// Updates the sensors used in ZipatoSensors.
         /// </summary>
-        /// <param name="data">The Zipato data.</param>
-        public void Refresh(ZipatoData data)
+        public void Update()
+        {
+            for (int i = 0; i < VirtualMeters.Count; ++i)
+            {
+                var uuid = VirtualMeters[i].Uuid;
+                VirtualMeters[i] = new VirtualMeter(_zipato, uuid);
+            }
+
+            for (int i = 0; i < ConsumptionMeters.Count; ++i)
+            {
+                var uuid = ConsumptionMeters[i].Uuid;
+                ConsumptionMeters[i] = new ConsumptionMeter(_zipato, uuid);
+            }
+
+            for (int i = 0; i < TemperatureSensors.Count; ++i)
+            {
+                var uuid = TemperatureSensors[i].Uuid;
+                TemperatureSensors[i] = new TemperatureSensor(_zipato, uuid);
+            }
+
+            for (int i = 0; i < HumiditySensors.Count; ++i)
+            {
+                var uuid = HumiditySensors[i].Uuid;
+                HumiditySensors[i] = new HumiditySensor(_zipato, uuid);
+            }
+
+            for (int i = 0; i < LuminanceSensors.Count; ++i)
+            {
+                var uuid = LuminanceSensors[i].Uuid;
+                LuminanceSensors[i] = new LuminanceSensor(_zipato, uuid);
+            }
+        }
+
+        /// <summary>
+        /// Updates the data values used in ZipatoSensors.
+        /// </summary>
+        public void Refresh()
         {
             foreach (var item in VirtualMeters)
             {
@@ -109,15 +153,15 @@ namespace ZipatoLib.Models
                 item.Refresh();
             }
 
-            Status = data?.Status ?? Uncertain;
+            Status = _zipato.Data?.Status ?? Uncertain;
         }
 
         /// <summary>
-        /// Gets the property list for the InverterInfo class.
+        /// Gets the property list for the ZipatoSensors class.
         /// </summary>
         /// <returns>The property list.</returns>
         public static List<string> GetProperties()
-            => typeof(ZipatoDevices).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            => typeof(ZipatoSensors).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
             .Select(p => p.Name).ToList();
 
         /// <summary>
@@ -126,7 +170,7 @@ namespace ZipatoLib.Models
         /// <param name="property">The property name.</param>
         /// <returns>Returns true if property is found.</returns>
         public static bool IsProperty(string property)
-            => (PropertyValue.GetPropertyInfo(typeof(ZipatoDevices), property) != null) ? true : false;
+            => (PropertyValue.GetPropertyInfo(typeof(ZipatoSensors), property) != null) ? true : false;
 
         /// <summary>
         /// Returns the value for the property with the specified name.

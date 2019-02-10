@@ -2,7 +2,7 @@
   "profiles": {
     "ZipatoApp": {
       "commandName": "Project",
-      "commandLineArgs": "sensors temperature --name \"Thermostat 1 Hvac\""
+      "commandLineArgs": "others camera --index 0"
     }
   }
 }

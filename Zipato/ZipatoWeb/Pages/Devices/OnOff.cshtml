@@ -9,7 +9,7 @@
 <div class="container">
     <table id="DataTable" class="table">
         <thead>
-            <tr><th>Name</th><th>Uuid</th><th>State</th></tr>
+            <tr><th>Name</th><th>Uuid</th><th>State</th><th>Action</th></tr>
         </thead>
         <tbody>
         </tbody>
@@ -38,6 +38,7 @@
                 cols += '<td>' + data.onOffSwitches[i].name + '</td>';
                 cols += '<td>' + data.onOffSwitches[i].uuid + '</td>';
                 cols += '<td>' + data.onOffSwitches[i].state.value + '</td>';
+                cols += '<td><button onclick="fetch(\'/api/devices/onoff/' + i + '/toggle\')">Toggle</button></td>';
 
                 row.append(cols);
                 $("table#DataTable tbody").append(row);
@@ -49,9 +50,9 @@
 
         connection.start()
             .then(function () {
-                connection.invoke('UpdateValues')
+                connection.invoke('UpdateDevices')
                     .catch(error => {
-                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        console.log('Invocation of UpdateDevices failed. Error: ' + error);
                         alert('Update failed with error: ' + error);
                     });
             })

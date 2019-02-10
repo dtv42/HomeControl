@@ -15,6 +15,9 @@ namespace ZipatoLib.Models.Sensors
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato temperature sensor.
+    /// </summary>
     public class TemperatureSensor
     {
         #region Private Data Members

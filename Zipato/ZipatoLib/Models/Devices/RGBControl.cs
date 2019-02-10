@@ -12,9 +12,14 @@ namespace ZipatoLib.Models.Devices
 
     using System;
     using Newtonsoft.Json;
+    using ZipatoLib.Models.Data;
+    using ZipatoLib.Models.Data.Color;
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato RGB control device.
+    /// </summary>
     public class RGBControl
     {
         #region Private Data Members
@@ -267,7 +272,6 @@ namespace ZipatoLib.Models.Devices
                 _zipato.DataReadValueAsync(Red.Uuid).Wait();
                 _zipato.DataReadValueAsync(Green.Uuid).Wait();
                 _zipato.DataReadValueAsync(Blue.Uuid).Wait();
-                _zipato.DataReadValueAsync(WarmWhite.Uuid).Wait();
                 Refresh();
             }
 

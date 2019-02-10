@@ -55,6 +55,11 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA80;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem x:Name="Control" Tag="Control" Content="Control">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEBFC;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" NavigationFailed="ContentFrameNavigationFailed"></Frame>
         </NavigationView>

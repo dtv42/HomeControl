@@ -14,6 +14,9 @@ namespace ZipatoLib.Models.Devices
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato OnOff switch device.
+    /// </summary>
     public class OnOff
     {
         #region Private Data Members
@@ -71,6 +74,8 @@ namespace ZipatoLib.Models.Devices
         public bool TurnOn() => SetState(true);
 
         public bool TurnOff() => SetState(false);
+
+        public bool Toggle() => SetState(!State.Value);
 
         /// <summary>
         /// Sets the state attribute value.

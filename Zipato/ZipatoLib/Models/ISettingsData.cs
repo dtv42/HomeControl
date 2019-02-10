@@ -15,6 +15,7 @@ namespace ZipatoLib.Models
         bool IsLocal { get; set; }
         int SessionTimeout { get; set; }
 
+        OthersInfo OthersInfo { get; set; }
         DevicesInfo DevicesInfo { get; set; }
         SensorsInfo SensorsInfo { get; set; }
     }

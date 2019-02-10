@@ -36,7 +36,6 @@ namespace ZipatoLib
         /// Reads single attribute.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(AttributeInfo Data, DataStatus Status)>DataReadAttributeAsync(Guid uuid)
         {
@@ -59,7 +58,6 @@ namespace ZipatoLib
         /// Reads single binding.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(BindingInfo Data, DataStatus Status)> DataReadBindingAsync(Guid uuid)
         {
@@ -82,7 +80,6 @@ namespace ZipatoLib
         /// Reads single brand.
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(BrandInfo Data, DataStatus Status)> DataReadBrandAsync(string name)
         {
@@ -105,7 +102,6 @@ namespace ZipatoLib
         /// Reads single camera.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(CameraInfo Data, DataStatus Status)> DataReadCameraAsync(Guid uuid)
         {
@@ -128,7 +124,6 @@ namespace ZipatoLib
         /// Reads single cluster.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(ClusterInfo Data, DataStatus Status)> DataReadClusterAsync(int id)
         {
@@ -151,7 +146,6 @@ namespace ZipatoLib
         /// Reads single cluster endpoint.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(ClusterEndpointInfo Data, DataStatus Status)> DataReadClusterEndpointAsync(Guid uuid)
         {
@@ -174,7 +168,6 @@ namespace ZipatoLib
         /// Reads single contact.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(ContactInfo Data, DataStatus Status)> DataReadContactAsync(int id)
         {
@@ -197,7 +190,6 @@ namespace ZipatoLib
         /// Reads single device.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(DeviceInfo Data, DataStatus Status)> DataReadDeviceAsync(Guid uuid)
         {
@@ -220,7 +212,6 @@ namespace ZipatoLib
         /// Reads single endpoint.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(EndpointInfo Data, DataStatus Status)> DataReadEndpointAsync(Guid uuid)
         {
@@ -243,7 +234,6 @@ namespace ZipatoLib
         /// Reads single group.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(GroupInfo Data, DataStatus Status)> DataReadGroupAsync(Guid uuid)
         {
@@ -266,7 +256,6 @@ namespace ZipatoLib
         /// Reads single network.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(NetworkInfo Data, DataStatus Status)> DataReadNetworkAsync(Guid uuid)
         {
@@ -289,7 +278,6 @@ namespace ZipatoLib
         /// Reads single network tree.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(NetworkTree Data, DataStatus Status)> DataReadNetworkTreeAsync(Guid uuid)
         {
@@ -312,7 +300,6 @@ namespace ZipatoLib
         /// Reads single rule.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(RuleInfo Data, DataStatus Status)> DataReadRuleAsync(int id)
         {
@@ -335,7 +322,6 @@ namespace ZipatoLib
         /// Reads single scene.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(SceneInfo Data, DataStatus Status)> DataReadSceneAsync(Guid uuid)
         {
@@ -358,7 +344,6 @@ namespace ZipatoLib
         /// Reads single schedule.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(ScheduleInfo Data, DataStatus Status)> DataReadScheduleAsync(Guid uuid)
         {
@@ -378,10 +363,32 @@ namespace ZipatoLib
         }
 
         /// <summary>
+        /// Reads single saved file.
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<(FileData Data, DataStatus Status)> DataReadSavedFileAsync(Guid uuid, string id)
+        {
+            var (file, status) = await ReadSavedFileAsync(id);
+
+            if (status.IsGood)
+            {
+                Data.UpdateSavedFiles(uuid, file);
+            }
+            else
+            {
+                _logger?.LogError($"Error code {status.Code} in reading file data: {status.Explanation}.");
+            }
+
+            Data.Status = status;
+            return (file, Data.Status);
+        }
+
+        /// <summary>
         /// Reads single thermostats.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(ThermostatInfo Data, DataStatus Status)> DataReadThermostatAsync(Guid uuid)
         {
@@ -404,7 +411,6 @@ namespace ZipatoLib
         /// Reads single virtual endpoint.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(VirtualEndpointInfo Data, DataStatus Status)> DataReadVirtualEndpointAsync(Guid uuid)
         {
@@ -428,7 +434,6 @@ namespace ZipatoLib
         /// Note that the parameter is an attribute UUID.
         /// </summary>
         /// <param name="uuid"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(AttributeValueDto Data, DataStatus Status)> DataReadValueAsync(Guid uuid)
         {
@@ -452,7 +457,6 @@ namespace ZipatoLib
         /// </summary>
         /// <param name="endpoint"></param>
         /// <param name="name"></param>
-        /// <param name="session"></param>
         /// <returns></returns>
         public async Task<(AttributeValueDto Data, DataStatus Status)> DataReadValueAsync(Guid endpoint, string name)
         {

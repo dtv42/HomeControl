@@ -21,6 +21,7 @@ namespace ZipatoLib
     using BaseClassLib;
     using DataValueLib;
     using ZipatoLib.Models;
+    using ZipatoLib.Models.Data;
 
     #endregion
 
@@ -50,6 +51,12 @@ namespace ZipatoLib
         /// The Data property holds all Zipato data properties.
         /// </summary>
         public ZipatoData Data { get; private set; } = new ZipatoData();
+
+        /// <summary>
+        /// The Values property holds selected Zipato other devices.
+        /// </summary>
+        [JsonIgnore]
+        public ZipatoOthers Others { get; private set; } = new ZipatoOthers();
 
         /// <summary>
         /// The Values property holds selected Zipato devices.
@@ -153,6 +160,15 @@ namespace ZipatoLib
             set => _settings.SessionTimeout = value;
         }
 
+        /// <summary>
+        /// Settings for the scenes.
+        /// </summary>
+        [JsonIgnore]
+        public OthersInfo OthersInfo
+        {
+            get => _settings.OthersInfo;
+            set => _settings.OthersInfo = value;
+        }
 
         /// <summary>
         /// Settings for the devices.
@@ -191,8 +207,9 @@ namespace ZipatoLib
             _settings = settings;
 
             Data = new ZipatoData();
-            Devices = new ZipatoDevices();
-            Sensors = new ZipatoSensors();
+            Others = new ZipatoOthers(this);
+            Devices = new ZipatoDevices(this);
+            Sensors = new ZipatoSensors(this);
         }
 
         #endregion Constructors
@@ -480,25 +497,28 @@ namespace ZipatoLib
                     await DataReadRoomsAsync();
                     await DataReadScenesFullAsync();
                     await DataReadSchedulesFullAsync();
+                    await DataReadSavedFilesAsync();
                     await DataReadThermostatsFullAsync();
                     await DataReadBoxAsync();
                     await DataReadValuesAsync();
-                    await DataReadAnnouncementsAsync();
-                    await DataReadBindingsFullAsync();
-                    await DataReadClustersFullAsync();
-                    await DataReadRulesFullAsync();
-                    await DataReadVirtualEndpointsFullAsync();
+
+                    if (!IsLocal)
+                    {
+                        await DataReadAnnouncementsAsync();
+                        await DataReadBindingsFullAsync();
+                        await DataReadClustersAsync();
+                        await DataReadRulesAsync();
+                        await DataReadVirtualEndpointsAsync();
+                    }
 
                     if (IsInitialized == false)
                     {
                         IsInitialized = true;
                     }
 
-                    Devices = new ZipatoDevices(this);
-                    Devices.Refresh(Data);
-
-                    Sensors = new ZipatoSensors(this);
-                    Sensors.Refresh(Data);
+                    Others.Update();
+                    Devices.Update();
+                    Sensors.Update();
                 }
                 else
                 {
@@ -521,45 +541,6 @@ namespace ZipatoLib
         }
 
         /// <summary>
-        /// Reads all attribute data values from the Zipato web service.
-        /// </summary>
-        /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadAllValuesAsync()
-        {
-            try
-            {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
-
-                if (session.IsActive)
-                {
-                    _logger?.LogDebug("ReadAllValuesAsync() starting.");
-
-                    await DataReadAttributeValuesAsync();
-
-                    Devices.Refresh(Data);
-                    Sensors.Refresh(Data);
-                }
-                else
-                {
-                    _logger?.LogDebug($"ReadAllValuesAsync(): Session not established.");
-                    Data.Status = DataValue.BadCommunicationError;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, "Exception in ReadAllValuesAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
-            }
-            finally
-            {
-                ZipatoSession.EndSession();
-                _logger?.LogDebug("ReadAllValuesAsync() finished.");
-            }
-
-            return Data.Status;
-        }
-
-        /// <summary>
         /// Reads just the minimal data values from the Zipato web service.
         /// </summary>
         /// <returns></returns>
@@ -575,12 +556,13 @@ namespace ZipatoLib
 
                     await DataReadAttributesEndpointsAsync();
                     await DataReadEndpointsAsync();
+                    await DataReadCamerasAsync();
+                    await DataReadSavedFilesAsync();
+                    await DataReadScenesAsync();
 
-                    Devices = new ZipatoDevices(this);
-                    Devices.Refresh(Data);
-
-                    Sensors = new ZipatoSensors(this);
-                    Sensors.Refresh(Data);
+                    Others.Update();
+                    Devices.Update();
+                    Sensors.Update();
                 }
                 else
                 {
@@ -597,6 +579,46 @@ namespace ZipatoLib
             {
                 ZipatoSession.EndSession();
                 _logger?.LogDebug("ReadAllDataAsync() finished.");
+            }
+
+            return Data.Status;
+        }
+
+        /// <summary>
+        /// Reads all attribute data values from the Zipato web service.
+        /// </summary>
+        /// <returns>The status indicating success or failure.</returns>
+        public async Task<DataStatus> ReadAllValuesAsync()
+        {
+            try
+            {
+                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+
+                if (session.IsActive)
+                {
+                    _logger?.LogDebug("ReadAllValuesAsync() starting.");
+
+                    await DataReadAttributeValuesAsync();
+
+                    Others.Refresh();
+                    Devices.Refresh();
+                    Sensors.Refresh();
+                }
+                else
+                {
+                    _logger?.LogDebug($"ReadAllValuesAsync(): Session not established.");
+                    Data.Status = DataValue.BadCommunicationError;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Exception in ReadAllValuesAsync().");
+                Data.Status = DataValue.BadUnexpectedError;
+            }
+            finally
+            {
+                ZipatoSession.EndSession();
+                _logger?.LogDebug("ReadAllValuesAsync() finished.");
             }
 
             return Data.Status;

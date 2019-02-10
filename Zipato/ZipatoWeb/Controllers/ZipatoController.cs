@@ -271,6 +271,15 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
+        [HttpGet("values/{uuid}/log")]
+        [SwaggerOperation(Tags = new[] { "Zipato API" })]
+        [ProducesResponseType(typeof(ValueData), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 404)]
+        [ProducesResponseType(typeof(string), 405)]
+        [ProducesResponseType(typeof(string), 406)]
+        [ProducesResponseType(typeof(string), 500)]
+        [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetValueLog(Guid uuid, DateTime? from, DateTime? until, int count = 100, SortOrderTypes order = SortOrderTypes.DESC, DateTime? start = null, bool sticky = false)
         {
             try

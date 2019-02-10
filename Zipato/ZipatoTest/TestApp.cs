@@ -221,6 +221,25 @@ namespace ZipatoTest
         }
 
         [Theory]
+        [InlineData("others", "Zipato Others:", 0)]
+        [InlineData("others -?", "ZipatoApp others [options] [command]", 0)]
+        [InlineData("others --help", "ZipatoApp others [options] [command]", 0)]
+        [InlineData("others camera", "Cameras:", 0)]
+        [InlineData("others camera -?", "Usage: ZipatoApp others camera [options]", 0)]
+        [InlineData("others camera --help", "Usage: ZipatoApp others camera [options]", 0)]
+        [InlineData("others scene", "Scenes:", 0)]
+        [InlineData("others scene -?", "Usage: ZipatoApp others scene [options]", 0)]
+        [InlineData("others scene --help", "Usage: ZipatoApp others scene [options]", 0)]
+        public void TestOthersCommand(string args, string result, int exit)
+        {
+            var sw = new StringWriter();
+            Console.SetOut(sw);
+            var code = StartConsoleApplication(args);
+            Assert.Equal(exit, code);
+            Assert.Contains(result, sw.ToString());
+        }
+
+        [Theory]
         [InlineData("sensors", "Zipato Sensors:", 0)]
         [InlineData("sensors -?", "ZipatoApp sensors [options] [command]", 0)]
         [InlineData("sensors --help", "ZipatoApp sensors [options] [command]", 0)]

@@ -11,352 +11,361 @@
     };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Netatmo Weather Station</h1>
-</div>
+<div class="container">
 
-<br /><h1><small>Outdoor</small></h1>
+    <div class="text-center">
+        <h1 class="display-4">Netatmo Weather Station</h1>
+    </div>
 
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge01" title="Temperature" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="-20" maximum="40">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Outdoor</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge01" title="Temperature" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="-20" maximum="40">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge02" title="Humidity" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge03" title="Pressure" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="1200">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge02" title="Humidity" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Indoor 1</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge04" title="Temperature" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="40">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge05" title="Humidity" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge06" title="CO2" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="2000">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge03" title="Pressure" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="1200">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Indoor 2</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge07" title="Temperature" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="40">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
-    </div>
-</div>
 
-<br /><h1><small>Indoor 1</small></h1>
-
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge04" title="Temperature" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="40">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge08" title="Humidity" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
-    </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge05" title="Humidity" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge06" title="CO2" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="2000">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
-
-<br /><h1><small>Indoor 2</small></h1>
-
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge07" title="Temperature" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="40">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge09" title="CO2" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="2000">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge08" title="Humidity" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Indoor 3</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge10" title="Temperature" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="40">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge11" title="Humidity" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge12" title="CO2" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="2000">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge09" title="CO2" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="2000">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Rain</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge13" title="Rain" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="20">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
-    </div>
-</div>
 
-<br /><h1><small>Indoor 3</small></h1>
-
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge10" title="Temperature" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="40">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge14" title="Sum 1h" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="20">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
-    </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge11" title="Humidity" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge12" title="CO2" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="2000">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
-
-<br /><h1><small>Rain</small></h1>
-
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge13" title="Rain" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="20">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge15" title="Sum 24h" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge14" title="Sum 1h" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="20">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
+    <br /><h1><small>Wind</small></h1>
+
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge16" title="Wind Strength" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge17" title="Gust Strength" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge18" title="Max Strength" titleStyle="TitleFont">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis minimum="0" maximum="100">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge19" title="Wind Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-majorticks interval="1"></e-axis-majorticks>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge20" title="Gust Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-majorticks interval="1"></e-axis-majorticks>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-1">
+            <div class="content-wrapper">
+                <ejs-circulargauge id="Gauge21" title="Max Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
+                    <e-circulargauge-axes>
+                        <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
+                            <e-axis-annotations>
+                                <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
+                            </e-axis-annotations>
+                            <e-axis-majorticks interval="1"></e-axis-majorticks>
+                            <e-axis-minorticks color="transparent"></e-axis-minorticks>
+                        </e-circulargauge-axis>
+                    </e-circulargauge-axes>
+                </ejs-circulargauge>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge15" title="Sum 24h" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
-
-<br /><h1><small>Wind</small></h1>
-
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge16" title="Wind Strength" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
     </div>
 
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge17" title="Gust Strength" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge18" title="Max Strength" titleStyle="TitleFont">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis minimum="0" maximum="100">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge19" title="Wind Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-majorticks interval="1"></e-axis-majorticks>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge20" title="Gust Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-majorticks interval="1"></e-axis-majorticks>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
-
-    <div class="col-sm-4 col-xs-1">
-        <div class="content-wrapper">
-            <ejs-circulargauge id="Gauge21" title="Max Angle" titleStyle="TitleFont" axisLabelRender="axisLabelRender">
-                <e-circulargauge-axes>
-                    <e-circulargauge-axis startAngle="0" endAngle="360" minimum="0" maximum="8">
-                        <e-axis-annotations>
-                            <e-axis-annotation angle="180" radius="120%" content=""></e-axis-annotation>
-                        </e-axis-annotations>
-                        <e-axis-majorticks interval="1"></e-axis-majorticks>
-                        <e-axis-minorticks color="transparent"></e-axis-minorticks>
-                    </e-circulargauge-axis>
-                </e-circulargauge-axes>
-            </ejs-circulargauge>
-        </div>
-    </div>
 </div>
 
 <script src="~/lib/signalr/signalr.js"></script>
@@ -492,6 +501,16 @@
         gauge19.setPointerValue(0, 0, value19a);
         gauge20.setPointerValue(0, 0, value20a);
         gauge21.setPointerValue(0, 0, value21a);
+
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+        if (data.status.code == 0) {
+            message.textContent = "Last updated at " + time;
+        }
+        else {
+            message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+        }
     });
 
     connection.start()

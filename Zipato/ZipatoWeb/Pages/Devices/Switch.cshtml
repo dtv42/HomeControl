@@ -49,9 +49,9 @@
 
         connection.start()
             .then(function () {
-                connection.invoke('UpdateValues')
+                connection.invoke('UpdateDevices')
                     .catch(error => {
-                        console.log('Invocation of UpdateValues failed. Error: ' + error);
+                        console.log('Invocation of UpdateDevices failed. Error: ' + error);
                         alert('Update failed with error: ' + error);
                     });
             })

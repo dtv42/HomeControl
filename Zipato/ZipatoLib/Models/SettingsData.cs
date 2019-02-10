@@ -40,6 +40,10 @@ namespace ZipatoLib.Models
         public bool IsLocal { get; set; } = true;
         public int SessionTimeout { get; set; } = 120000;
 
+        /// <summary>
+        /// The selected scenes, devices, and sensors.
+        /// </summary>
+        public OthersInfo OthersInfo { get; set; } = new OthersInfo();
         public DevicesInfo DevicesInfo { get; set; } = new DevicesInfo();
         public SensorsInfo SensorsInfo { get; set; } = new SensorsInfo();
 
@@ -59,6 +63,7 @@ namespace ZipatoLib.Models
             Password = options.Value.Password;
             IsLocal = options.Value.IsLocal;
 
+            OthersInfo = options.Value.OthersInfo;
             DevicesInfo = options.Value.DevicesInfo;
             SensorsInfo = options.Value.SensorsInfo;
         }

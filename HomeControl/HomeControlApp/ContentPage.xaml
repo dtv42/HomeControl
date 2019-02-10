@@ -1,0 +1,495 @@
+﻿<Page
+    x:Class="HomeControlApp.Views.ContentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custom="using:HomeControlApp.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <StackPanel x:Name="HomeData" Visibility="Collapsed">
+                <TextBlock FontSize="20">Power Total</TextBlock>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="HomeDataGauge01" Grid.Column="0" Title="Load" Format="0.000 kW" StartValue="0" EndValue="12" Value="0" Interval="1"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge02" Grid.Column="1" Title="Demand" Format="0.000 kW" StartValue="0" EndValue="12" Value="0" Interval="1"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge03" Grid.Column="2" Title="Surplus" Format="0.000 kW" StartValue="0" EndValue="12" Value="0" Interval="1"/>
+                </Grid>
+                <TextBlock FontSize="20">Power Phase L1</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="HomeDataGauge04" Grid.Column="0" Title="Load" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge05" Grid.Column="1" Title="Demand" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge06" Grid.Column="2" Title="Surplus" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                </Grid>
+                <TextBlock FontSize="20">Power Phase L2</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="HomeDataGauge07" Grid.Column="0" Title="Load" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge08" Grid.Column="1" Title="Demand" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge09" Grid.Column="2" Title="Surplus" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                </Grid>
+                <TextBlock FontSize="20">Power Phase L3</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="HomeDataGauge10" Grid.Column="0" Title="Load" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge11" Grid.Column="1" Title="Demand" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                    <custom:CircularGauge x:Name="HomeDataGauge12" Grid.Column="2" Title="Surplus" Format="0.000 kW" StartValue="0" EndValue="5" Value="0" Interval="0.5"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="Netatmo" Visibility="Collapsed">
+                <TextBlock FontSize="20">Outdoor</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge01" Grid.Column="0" Title="Temperature" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge02" Grid.Column="1" Title="Humidity" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge03" Grid.Column="2" Title="Pressure" Format="0000 mbar" StartValue="0" EndValue="1200" Interval="100"/>
+                </Grid>
+                <TextBlock FontSize="20">Indoor</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge04" Grid.Column="0" Title="Temperature" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge05" Grid.Column="1" Title="Humidity" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge06" Grid.Column="2" Title="CO2" Format="0 ppm" StartValue="0" EndValue="2000" Interval="200"/>
+                </Grid>
+                <TextBlock FontSize="20">Indoor 1</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge07" Grid.Column="0" Title="Temperature" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge08" Grid.Column="1" Title="Humidity" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge09" Grid.Column="2" Title="CO2" Format="0 ppm" StartValue="0" EndValue="2000" Interval="200"/>
+                </Grid>
+                <TextBlock FontSize="20">Indoor 2</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge10" Grid.Column="0" Title="Temperature" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge11" Grid.Column="1" Title="Humidity" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge12" Grid.Column="2" Title="CO2" Format="0 ppm" StartValue="0" EndValue="2000" Interval="200"/>
+                </Grid>
+                <TextBlock FontSize="20">Indoor 3</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge13" Grid.Column="0" Title="Temperature" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge14" Grid.Column="1" Title="Humidity" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge15" Grid.Column="2" Title="CO2" Format="0 ppm" StartValue="0" EndValue="2000" Interval="200"/>
+                </Grid>
+                <TextBlock FontSize="20">Rain Gauge</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge16" Grid.Column="0" Title="Rain" Format="0.0 mm" StartValue="0" EndValue="20" Interval="2"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge17" Grid.Column="1" Title="Sum 1h" Format="0.0 mm" StartValue="0" EndValue="20" Interval="2"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge18" Grid.Column="2" Title="Sum 24h" Format="0.0 mm" StartValue="0" EndValue="100" Interval="10"/>
+                </Grid>
+                <TextBlock FontSize="20">Wind Gauge</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="NetatmoGauge19" Grid.Column="0" Title="Wind Strength" Format="0.0 km/h" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge20" Grid.Column="1" Title="Gust Strength" Format="0.0 km/h" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="NetatmoGauge21" Grid.Column="2" Title="Max. Strength" Format="0.0 km/h" StartValue="0" EndValue="100" Interval="10"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:WindGauge x:Name="NetatmoGauge22" Grid.Column="0" Title="Wind Angle"/>
+                    <custom:WindGauge x:Name="NetatmoGauge23" Grid.Column="1" Title="Gust Angle"/>
+                    <custom:WindGauge x:Name="NetatmoGauge24" Grid.Column="2" Title="Max. Angle"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="ETAPU11" Visibility="Collapsed">
+                <TextBlock FontSize="20">Boiler</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge01" Grid.Column="0" Title="Boiler Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge02" Grid.Column="1" Title="Boiler Bottom" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge03" Grid.Column="2" Title="Boiler Pressure" Format="0.000 bar" StartValue="0" EndValue="3" Interval="0.5"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge04" Grid.Column="0" Title="Fluegas Temperature" Format="0.0 °C" StartValue="0" EndValue="200" Interval="20"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge05" Grid.Column="1" Title="Fan Speed" Format="0 rpm" StartValue="0" EndValue="2000" Interval="200"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge06" Grid.Column="2" Title="Residual O2" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                </Grid>
+                <TextBlock FontSize="20">Heating</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge07" Grid.Column="0" Title="Heating Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge08" Grid.Column="1" Title="Flow Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge09" Grid.Column="2" Title="Room Temperature" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                </Grid>
+                <TextBlock FontSize="20">Hot Water</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge10" Grid.Column="0" Title="Water Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge11" Grid.Column="1" Title="Target Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge12" Grid.Column="2" Title="Charging Temperature" Format="0.0 °C" StartValue="0" EndValue="100" Interval="10"/>
+                </Grid>
+                <TextBlock FontSize="20">Storage</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge13" Grid.Column="0" Title="Stock" Format="0 kg" StartValue="0" EndValue="3000" Interval="250"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge14" Grid.Column="1" Title="Bin Contents" Format="0.0 kg" StartValue="0" EndValue="30" Interval="5"/>
+                    <custom:CircularGauge x:Name="ETAPU11Gauge15" Grid.Column="2" Title="Motor Current" Format="0 mA" StartValue="0" EndValue="5000" Interval="500"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="KWLEC200" Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge01" Grid.Column="0" Title="Temperature Outdoor" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge02" Grid.Column="1" Title="Temperature Exhaust" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge03" Grid.Column="2" Title="Temperature Extract" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge04" Grid.Column="0" Title="Temperature Supply" Format="0.0 °C" StartValue="-20" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge05" Grid.Column="1" Title="Ventilation" Format="0.0 \%" StartValue="0" EndValue="100" Interval="10"/>
+                    <custom:CircularGauge x:Name="KWLEC200Gauge06" Grid.Column="2" Title="Ventilation Level" Format="0" StartValue="0" EndValue="4" Interval="1"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="Fronius" Visibility="Collapsed">
+                <TextBlock FontSize="20">Total</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="FroniusGauge01" Grid.Column="0" Title="Current Power" Format="0.000 W" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="FroniusGauge02" Grid.Column="1" Title="Daily Energy" Format="0.0 kWh" StartValue="0" EndValue="50" Interval="5"/>
+                    <custom:CircularGauge x:Name="FroniusGauge03" Grid.Column="2" Title="Yearly Energy" Format="0.0 kWh" StartValue="0" EndValue="8000" Interval="1000"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="FroniusGauge04" Grid.Column="0" Title="Current DC" Format="0.000 A" StartValue="0" EndValue="10" Interval="1"/>
+                    <custom:CircularGauge x:Name="FroniusGauge05" Grid.Column="1" Title="Voltage DC" Format="0.0 V" StartValue="0" EndValue="500" Interval="50"/>
+                    <custom:CircularGauge x:Name="FroniusGauge06" Grid.Column="2" Title="Frequency" Format="0.00 Hz" StartValue="48" EndValue="52" Interval="0.5"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="EM300LR" Visibility="Collapsed">
+                <TextBlock FontSize="20">Total</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge01" Grid.Column="0" Title="Apparent Power +" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge02" Grid.Column="1" Title="Active Power +" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge03" Grid.Column="2" Title="Reactive Power +" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge04" Grid.Column="0" Title="Apparent Power -" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge05" Grid.Column="1" Title="Active Power -" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge06" Grid.Column="2" Title="Reactive Power -" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+                <TextBlock FontSize="20">Phase L1</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge07" Grid.Column="0" Title="Apparent Power +" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge08" Grid.Column="1" Title="Active Power +" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge09" Grid.Column="2" Title="Reactive Power +" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge10" Grid.Column="0" Title="Apparent Power -" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge11" Grid.Column="1" Title="Active Power -" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge12" Grid.Column="2" Title="Reactive Power -" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+                <TextBlock FontSize="20">Phase L2</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge13" Grid.Column="0" Title="" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge14" Grid.Column="1" Title="Active Power +" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge15" Grid.Column="2" Title="Reactive Power +" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge16" Grid.Column="0" Title="Apparent Power -" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge17" Grid.Column="1" Title="Active Power -" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge18" Grid.Column="2" Title="Reactive Power -" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+                <TextBlock FontSize="20">Phase L3</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge19" Grid.Column="0" Title="Apparent Power +" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge20" Grid.Column="1" Title="Active Power +" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge21" Grid.Column="2" Title="Reactive Power +" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="EM300LRGauge22" Grid.Column="0" Title="Apparent Power -" Format="0.000 kVA" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge23" Grid.Column="1" Title="Active Power -" Format="0.000 kW" StartValue="0" EndValue="8" Interval="1"/>
+                    <custom:CircularGauge x:Name="EM300LRGauge24" Grid.Column="2" Title="Reactive Power -" Format="0.000 kvar" StartValue="0" EndValue="8" Interval="1"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="Wallbox" Visibility="Collapsed">
+                <TextBlock FontSize="20">Charging</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="WallboxGauge01" Grid.Column="0" Title="Power" Format="0.000 kW" StartValue="0" EndValue="10" Interval="1"/>
+                    <custom:CircularGauge x:Name="WallboxGauge02" Grid.Column="1" Title="Charging" Format="0.00 kWh" StartValue="0" EndValue="30" Interval="5"/>
+                    <custom:CircularGauge x:Name="WallboxGauge03" Grid.Column="2" Title="Energy" Format="0 kWh" StartValue="0" EndValue="2500" Interval="250"/>
+                </Grid>
+                <TextBlock FontSize="20">Current</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="WallboxGauge04" Grid.Column="0" Title="Current L1" Format="0.00 A" StartValue="0" EndValue="20" Interval="2.5"/>
+                    <custom:CircularGauge x:Name="WallboxGauge05" Grid.Column="1" Title="Current L2" Format="0.00 A" StartValue="0" EndValue="20" Interval="2.5"/>
+                    <custom:CircularGauge x:Name="WallboxGauge06" Grid.Column="2" Title="Current L3" Format="0.00 A" StartValue="0" EndValue="20" Interval="2.5"/>
+                </Grid>
+                <TextBlock FontSize="20">Voltage</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="WallboxGauge07" Grid.Column="0" Title="Voltage L1" Format="0.0 V" StartValue="0" EndValue="250" Interval="25"/>
+                    <custom:CircularGauge x:Name="WallboxGauge08" Grid.Column="1" Title="Voltage L2" Format="0.0 V" StartValue="0" EndValue="250" Interval="25"/>
+                    <custom:CircularGauge x:Name="WallboxGauge09" Grid.Column="2" Title="Voltage L3" Format="0.0 V" StartValue="0" EndValue="250" Interval="25"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="Zipato" Visibility="Collapsed">
+                <TextBlock FontSize="20">Plugs</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ZipatoGauge01" Grid.Column="0" Title="Power Plug 1" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge02" Grid.Column="1" Title="Power Plug 2" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge03" Grid.Column="2" Title="Power Plug 3" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ZipatoGauge04" Grid.Column="0" Title="Power Plug 4" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge05" Grid.Column="1" Title="Power Plug 5" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge06" Grid.Column="2" Title="Power Plug 6" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ZipatoGauge07" Grid.Column="0" Title="Power Plug 7" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge08" Grid.Column="1" Title="Power Plug 8" Format="0 W" StartValue="0" EndValue="2500" Interval="250"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge09" Grid.Column="2" Title="Heavy Duty Switch" Format="0 W" StartValue="0" EndValue="3500" Interval="250"/>
+                </Grid>
+                <TextBlock FontSize="20">Temperatures</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ZipatoGauge10" Grid.Column="0" Title="Thermostat 1" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge11" Grid.Column="1" Title="Thermostat 2" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge12" Grid.Column="2" Title="Thermostat 3" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <custom:CircularGauge x:Name="ZipatoGauge13" Grid.Column="0" Title="Thermostat 4" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge14" Grid.Column="1" Title="Smoke Sensor" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                    <custom:CircularGauge x:Name="ZipatoGauge15" Grid.Column="2" Title="Flood Sensor" Format="0.0 °C" StartValue="0" EndValue="40" Interval="5"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="Control" Visibility="Visible">
+                <TextBlock FontSize="20">Scenes</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="ZipatoScene1" Grid.Column="0" Content="Scene 1" Click="OnScene1Click" />
+                    <ToggleButton x:Name="ZipatoScene2" Grid.Column="1" Content="Scene 2" Click="OnScene2Click" />
+                    <ToggleButton x:Name="ZipatoScene3" Grid.Column="2" Content="Scene 3" Click="OnScene3Click" />
+                    <ToggleButton x:Name="ZipatoScene4" Grid.Column="3" Content="Scene 4" Click="OnScene4Click" />
+                    <ToggleButton x:Name="ZipatoScene5" Grid.Column="4" Content="Scene 5" Click="OnScene5Click" />
+                    <ToggleButton x:Name="ZipatoScene6" Grid.Column="5" Content="Scene 6" Click="OnScene6Click" />
+                    <ToggleButton x:Name="ZipatoScene7" Grid.Column="6" Content="Scene 7" Click="OnScene7Click" />
+                    <ToggleButton x:Name="ZipatoScene8" Grid.Column="7" Content="Scene 8" Click="OnScene8Click" />
+                </Grid>
+                <TextBlock FontSize="20">Controls</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="ZipatoSwitch1" Grid.Column="0" Content="Switch 1" Click="OnSwitch1Click" />
+                    <ToggleButton x:Name="ZipatoSwitch2" Grid.Column="1" Content="Switch 2" Click="OnSwitch2Click" />
+                    <ToggleButton x:Name="ZipatoSwitch3" Grid.Column="2" Content="Switch 3" Click="OnSwitch3Click" />
+                    <ToggleButton x:Name="ZipatoSwitch4" Grid.Column="3" Content="Switch 4" Click="OnSwitch4Click" />
+                    <ToggleButton x:Name="ZipatoSwitch5" Grid.Column="4" Content="Switch 5" Click="OnSwitch5Click" />
+                    <ToggleButton x:Name="ZipatoSwitch6" Grid.Column="5" Content="Switch 6" Click="OnSwitch6Click" />
+                    <ToggleButton x:Name="ZipatoSwitch7" Grid.Column="6" Content="Switch 7" Click="OnSwitch7Click" />
+                    <ToggleButton x:Name="ZipatoSwitch8" Grid.Column="7" Content="Switch 8" Click="OnSwitch8Click" />
+                </Grid>
+            <TextBlock FontSize="20">Dimmer</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                    <Slider x:Name="ZipatoDimmer1"
+                            Grid.Column="0"
+                            Minimum="0" Maximum="100"
+                            TickFrequency="10"
+                            TickPlacement="Outside" ValueChanged="OnValueChanged" />
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+
+    </ScrollViewer>
+</Page>

@@ -14,6 +14,10 @@ namespace ZipatoLib.Models.Devices
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato switch device.
+    /// Note that the state value cannot be set.
+    /// </summary>
     public class Switch
     {
         #region Private Data Members

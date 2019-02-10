@@ -14,6 +14,9 @@ namespace ZipatoLib.Models.Devices
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato plug device.
+    /// </summary>
     public class Plug
     {
         #region Private Data Members
@@ -83,6 +86,8 @@ namespace ZipatoLib.Models.Devices
         public bool TurnOn() => SetState(true);
 
         public bool TurnOff() => SetState(false);
+
+        public bool Toggle() => SetState(!State.Value);
 
         /// <summary>
         /// Sets the state attribute value.

@@ -71,15 +71,20 @@ namespace ZipatoWeb.Services
             {
                 _logger?.LogDebug("ZipatoMonitor: DoStart...");
 
-                // Update minimal required data (for devices, sensors, and values).
+                // Read just minimal data and update.
                 await _zipato?.ReadAllDataAsync();
                 await _hub.Clients.All.SendAsync("UpdateValues", _zipato.Data.Values);
                 await _hub.Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
                 await _hub.Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+                await _hub.Clients.All.SendAsync("UpdateOthers", _zipato.Others);
 
                 // Run ReadAllAsync only once.
                 await _zipato?.ReadAllAsync();
                 await _hub.Clients.All.SendAsync("UpdateData", _zipato.Data);
+                await _hub.Clients.All.SendAsync("UpdateValues", _zipato.Data.Values);
+                await _hub.Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
+                await _hub.Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+                await _hub.Clients.All.SendAsync("UpdateOthers", _zipato.Others);
             }
             catch (Exception ex)
             {
@@ -95,10 +100,13 @@ namespace ZipatoWeb.Services
             try
             {
                 _logger?.LogDebug("ZipatoMonitor: DoWork...");
+
+                // Update just data values and update.
                 await _zipato?.ReadAllValuesAsync();
                 await _hub.Clients.All.SendAsync("UpdateValues", _zipato.Data.Values);
                 await _hub.Clients.All.SendAsync("UpdateDevices", _zipato.Devices);
                 await _hub.Clients.All.SendAsync("UpdateSensors", _zipato.Sensors);
+                await _hub.Clients.All.SendAsync("UpdateOthers", _zipato.Others);
 
                 // Check for new day and update other data.
                 if (_currentdate.Date != DateTime.Now.Date)

@@ -50,6 +50,7 @@ namespace ZipatoLib.Models
         public List<RuleInfo> Rules { get; set; } = new List<RuleInfo> { };
         public List<SceneInfo> Scenes { get; set; } = new List<SceneInfo> { };
         public List<ScheduleInfo> Schedules { get; set; } = new List<ScheduleInfo> { };
+        public Dictionary<Guid, List<FileData>> SavedFiles { get; set; } = new Dictionary<Guid, List<FileData>> { };
         public List<ThermostatInfo> Thermostats { get; set; } = new List<ThermostatInfo> { };
         public List<VirtualEndpointInfo> VirtualEndpoints { get; set; } = new List<VirtualEndpointInfo> { };
         public List<ValueData> Values { get => Attributes?.Where(a => a.Value != null).Select(a => a.ToValueData()).ToList(); }
@@ -258,6 +259,7 @@ namespace ZipatoLib.Models
             else
             {
                 Cameras.Add(data.ToCameraInfo());
+                SavedFiles.Add(data.Uuid.Value, new List<FileData> { });
             }
         }
 
@@ -279,6 +281,7 @@ namespace ZipatoLib.Models
             else
             {
                 Cameras.Add(info);
+                SavedFiles.Add(info.Uuid.Value, new List<FileData> { });
             }
         }
 
@@ -293,6 +296,9 @@ namespace ZipatoLib.Models
             // Delete
             foreach (var item in deleted)
                 Cameras.Remove(item);
+
+            foreach (var item in deleted)
+                SavedFiles.Remove(item.Uuid.Value);
         }
 
         /// <summary>
@@ -1002,6 +1008,56 @@ namespace ZipatoLib.Models
             // Delete
             foreach (var item in deleted)
                 VirtualEndpoints.Remove(item);
+        }
+
+        /// <summary>
+        /// Helper method to update the data item in the list with new data.
+        /// </summary>
+        /// <param name="uuid">The camera UUID.</param>
+        /// <param name="data">The new data.</param>
+        public void UpdateSavedFiles(Guid uuid, FileData data)
+        {
+            // Are camera files available.
+            if (SavedFiles.ContainsKey(uuid))
+            {
+                var files = SavedFiles[uuid];
+                int index = files.FindIndex(f => f.Id == data.Id);
+
+                // Update
+                if (index > -1)
+                {
+                    files[index] = data;
+                }
+                // Insert
+                else
+                {
+                    files.Add(data);
+                }
+            }
+            // Create new entry in dictionary.
+            else
+            {
+                SavedFiles.Add(uuid, new List<FileData> { data });
+            }
+        }
+
+        /// <summary>
+        /// Helper method to update the list (remove missing items).
+        /// </summary>
+        /// <param name="uuid">The camera UUID.</param>
+        /// <param name="list">The list of data items identifiers.</param>
+        public void CleanSavedFiles(Guid uuid, List<string> list)
+        {
+            // Are camera files available.
+            if (SavedFiles.ContainsKey(uuid))
+            {
+                var files = SavedFiles[uuid];
+                var deleted = files.Where(item => list.All(id => id != item.Id)).ToList();
+
+                // Delete
+                foreach (var item in deleted)
+                    files.Remove(item);
+            }
         }
 
         /// <summary>

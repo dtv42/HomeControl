@@ -31,6 +31,7 @@ namespace ZipatoLib
     public interface IZipato : ISettingsData
     {
         ZipatoData Data { get; }
+        ZipatoOthers Others { get; }
         ZipatoDevices Devices { get; }
         ZipatoSensors Sensors { get; }
         bool IsInitialized { get; }
@@ -59,6 +60,7 @@ namespace ZipatoLib
         Task<(RuleInfo Data, DataStatus Status)> DataReadRuleAsync(int id);
         Task<(SceneInfo Data, DataStatus Status)> DataReadSceneAsync(Guid uuid);
         Task<(ScheduleInfo Data, DataStatus Status)> DataReadScheduleAsync(Guid uuid);
+        Task<(FileData Data, DataStatus Status)> DataReadSavedFileAsync(Guid uuid, string id);
         Task<(ThermostatInfo Data, DataStatus Status)> DataReadThermostatAsync(Guid uuid);
         Task<(VirtualEndpointInfo Data, DataStatus Status)> DataReadVirtualEndpointAsync(Guid uuid);
         Task<(AttributeValueDto Data, DataStatus Status)> DataReadValueAsync(Guid uuid);
@@ -190,7 +192,8 @@ namespace ZipatoLib
         Task<(ScheduleConfig Data, DataStatus Status)> ReadScheduleConfigAsync(Guid uuid);
         Task<(List<SnapshotData> Data, DataStatus Status)> ReadSnapshotsAsync(string serial);
         Task<(SnapshotData Data, DataStatus Status)> ReadSnapshotAsync(string serial, Guid uuid);
-        Task<(List<FileData> Data, DataStatus Status)> ReadSavedFilesAsync(Guid uuid, int start, int size, DateTime? from = null, DateTime? until = null, FileTypes type = FileTypes.SNAPSHOT, bool refresh = false);
+        Task<(Dictionary<Guid, List<FileData>> Data, DataStatus Status)> DataReadSavedFilesAsync();
+        Task<(List<FileData> Data, DataStatus Status)> ReadSavedFilesAsync(Guid uuid, int start, int size, DateTime? from = null, DateTime? until = null, FileTypes? type = null, bool refresh = false);
         Task<(FileData Data, DataStatus Status)> ReadSavedFileAsync(string id);
         Task<(List<ThermostatData> Data, DataStatus Status)> ReadThermostatsAsync();
         Task<(ThermostatInfo Data, DataStatus Status)> ReadThermostatAsync(Guid uuid, ThermostatFlags flag = ThermostatFlags.ALL);
@@ -254,6 +257,7 @@ namespace ZipatoLib
 
         #region Public Create Methods
         Task<DataStatus> CreateAlarmMonitorAsync(MonitorData data);
+        Task<DataStatus> DeleteFilesBatchAsync(List<string> data);
         #endregion Public Create Methods
 
         #region Public Update Methods

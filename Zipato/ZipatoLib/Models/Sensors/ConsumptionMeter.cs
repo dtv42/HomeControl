@@ -14,6 +14,9 @@ namespace ZipatoLib.Models.Sensors
 
     #endregion
 
+    /// <summary>
+    /// This class represents a Zipato consumption meter.
+    /// </summary>
     public class ConsumptionMeter
     {
         #region Private Data Members

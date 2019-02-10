@@ -22,6 +22,7 @@ namespace ZipatoLib
     using ZipatoLib.Models.Info;
     using ZipatoLib.Models.Flags;
     using ZipatoLib.Models;
+    using System;
 
     #endregion
 
@@ -296,7 +297,7 @@ namespace ZipatoLib
                     }
                 }
 
-                Data.CleanAttributes(bindings.Select(a => a.Uuid.Value).ToList());
+                Data.CleanBindings(bindings.Select(b => b.Uuid.Value).ToList());
             }
             else
             {
@@ -354,9 +355,9 @@ namespace ZipatoLib
                         _logger?.LogError($"Error code {fullstatus.Code} in reading brands: {fullstatus.Explanation}.");
                         return (Data.Brands, Data.Status);
                     }
-
-                    Data.CleanBrands(brands.Select(b => b.Name).ToList());
                 }
+
+                Data.CleanBrands(brands.Select(b => b.Name).ToList());
             }
             else
             {
@@ -455,9 +456,9 @@ namespace ZipatoLib
                         _logger?.LogError($"Error code {fullstatus.Code} in reading cameras: {fullstatus.Explanation}.");
                         return (Data.Cameras, Data.Status);
                     }
-
-                    Data.CleanCameras(cameras.Select(a => a.Uuid.Value).ToList());
                 }
+
+                Data.CleanCameras(cameras.Select(a => a.Uuid.Value).ToList());
             }
             else
             {
@@ -527,9 +528,9 @@ namespace ZipatoLib
                         _logger?.LogError($"Error code {fullstatus.Code} in reading clusters: {fullstatus.Explanation}.");
                         return (Data.Clusters, Data.Status);
                     }
-
-                    Data.CleanClusters(clusters.Select(c => c.Id.Value).ToList());
                 }
+
+                Data.CleanClusters(clusters.Select(c => c.Id.Value).ToList());
             }
             else
             {
@@ -1129,9 +1130,9 @@ namespace ZipatoLib
                         _logger?.LogError($"Error code {fullstatus.Code} in reading schedules: {fullstatus.Explanation}.");
                         return (Data.Schedules, Data.Status);
                     }
-
-                    Data.CleanSchedules(schedules.Select(s => s.Uuid.Value).ToList());
                 }
+
+                Data.CleanSchedules(schedules.Select(s => s.Uuid.Value).ToList());
             }
             else
             {
@@ -1140,6 +1141,40 @@ namespace ZipatoLib
 
             Data.Status = status;
             return (Data.Schedules, Data.Status);
+        }
+
+        /// <summary>
+        /// Reads all saved files. Note that currently limited to first 100 files per camera.
+        /// </summary>
+        /// <remarks>The camers have to be read before.</remarks>
+        /// <returns></returns>
+        public async Task<(Dictionary<Guid, List<FileData>> Data, DataStatus Status)> DataReadSavedFilesAsync()
+        {
+            if (Data.IsGood && (Data.Cameras.Count > 0))
+            {
+                foreach (var camera in Data.Cameras)
+                {
+                    var uuid = camera.Uuid.Value;
+                    var (files, status) = await ReadSavedFilesAsync(uuid, 0, 100);
+
+                    if (status.IsGood)
+                    {
+                        foreach (var file in files)
+                        {
+                            Data.UpdateSavedFiles(uuid, file);
+                        }
+                    }
+                    else
+                    {
+                        _logger?.LogError($"Error code {status.Code} in reading saved files: {status.Explanation}.");
+                        break;
+                    }
+
+                    Data.Status = status;
+                }
+            }
+
+            return (Data.SavedFiles, Data.Status);
         }
 
         /// <summary>

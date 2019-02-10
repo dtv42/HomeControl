@@ -16,7 +16,7 @@ namespace ZipatoLib.Models
     #endregion
 
     /// <summary>
-    /// Helper class for attrbute values.
+    /// Helper class for attribute values.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ValueInfo<T> where T : new()

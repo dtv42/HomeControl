@@ -353,7 +353,7 @@ namespace ZipatoLib
         /// <param name="type"></param>
         /// <param name="refresh"></param>
         /// <returns></returns>
-        private string CreateQuery(int start, int size, DateTime? from = null, DateTime? until = null, FileTypes type = FileTypes.SNAPSHOT, bool refresh = false)
+        private string CreateQuery(int start, int size, DateTime? from = null, DateTime? until = null, FileTypes? type = null, bool refresh = false)
         {
             string query = string.Empty;
 
@@ -366,7 +366,11 @@ namespace ZipatoLib
                 query += $"&until={until.Value.ToString("o")}";
             }
 
-            query += $"&fileType={type.ToString().ToUpper()}";
+            if (type.HasValue)
+            {
+                query += $"&fileType={type.ToString().ToUpper()}";
+            }
+
             query += $"&refresh={refresh.ToString().ToLower()}";
 
             return query;

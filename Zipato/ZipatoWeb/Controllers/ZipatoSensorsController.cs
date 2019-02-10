@@ -70,11 +70,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ZipatoSensors), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetSensorsAsync(bool update = false)
@@ -83,9 +85,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSensorsAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -107,11 +114,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("virtual")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(List<VirtualMeter>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetVirtualMetersAsync(bool update = false)
@@ -120,9 +129,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetVirtualMetersAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -146,12 +160,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("virtual/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(VirtualMeter), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetVirtualMeterAsync(int index, bool update = false)
@@ -160,9 +176,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetVirtualMeterAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -170,9 +191,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.VirtualMeters.Count))
+                var count = _zipato.Sensors.VirtualMeters.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.VirtualMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.VirtualMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.VirtualMeters[index]);
@@ -192,12 +215,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("virtual/{index}/value{value}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetVirtualMeterValueAsync(int index, int value, bool update = false)
@@ -205,6 +230,11 @@ namespace ZipatoWeb.Controllers
             try
             {
                 _logger?.LogDebug("GetVirtualMeterValueAsync()...");
+
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
 
                 if ((value < 1) || (value > 16))
                 {
@@ -215,7 +245,7 @@ namespace ZipatoWeb.Controllers
 
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -223,9 +253,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.VirtualMeters.Count))
+                var count = _zipato.Sensors.VirtualMeters.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.VirtualMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.VirtualMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.VirtualMeters[index].GetValue(value));
@@ -245,14 +277,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">The operation was successful.</response>
         /// <response code="400">The request has missing/invalid values.</response>
-        /// <response code="404">The sensor cannot be found.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
-        /// <response code="502">The update procedure was unsuccessful.</response>
+        /// <response code="502">The write procedure was unsuccessful.</response>
         [HttpPut("virtual/{index}/value{value}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(VirtualMeter), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(typeof(string), 404)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public IActionResult SetVirtualMeterValue(int index, int value, double data)
@@ -261,9 +293,16 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetVirtualMeterValue({index}, {value})...");
 
-                if ((index < 0) || (index >= _zipato.Sensors.VirtualMeters.Count))
+                if (!_zipato.IsInitialized)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.VirtualMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.VirtualMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
+                var count = _zipato.Sensors.VirtualMeters.Count;
+
+                if ((index < 0) || (index >= count))
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 if ((value < 1) || (value > 16))
@@ -298,14 +337,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">The operation was successful.</response>
         /// <response code="400">The request has missing/invalid values.</response>
-        /// <response code="404">The sensor cannot be found.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
-        /// <response code="502">The update procedure was unsuccessful.</response>
+        /// <response code="502">The write procedure was unsuccessful.</response>
         [HttpPut("virtual/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(VirtualMeter), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(typeof(string), 404)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public IActionResult SetVirtualMeterValues(int index, [FromBody]double?[] data)
@@ -314,9 +353,16 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetVirtualMeterValues({index}, data)", data);
 
-                if ((index < 0) || (index >= _zipato.Sensors.VirtualMeters.Count))
+                if (!_zipato.IsInitialized)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.VirtualMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.VirtualMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
+                var count = _zipato.Sensors.VirtualMeters.Count;
+
+                if ((index < 0) || (index >= count))
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 if ((data == null) || data.Length != 16)
@@ -347,11 +393,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("meter")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(List<ConsumptionMeter>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetConsumptionMetersAsync(bool update = false)
@@ -360,9 +408,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -386,12 +439,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("meter/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ConsumptionMeter), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetConsumptionMeterAsync(int index, bool update = false)
@@ -400,9 +455,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMeterAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -410,9 +470,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.ConsumptionMeters.Count))
+                var count = _zipato.Sensors.ConsumptionMeters.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.ConsumptionMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.ConsumptionMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.ConsumptionMeters[index]);
@@ -431,12 +493,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("meter/{index}/cummulative")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetConsumptionMetersCummulativeAsync(int index, bool update = false)
@@ -445,9 +509,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersCummulativeAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -455,9 +524,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.ConsumptionMeters.Count))
+                var count = _zipato.Sensors.ConsumptionMeters.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.ConsumptionMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.ConsumptionMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.ConsumptionMeters[index].CummulativeConsumption);
@@ -476,12 +547,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("meter/{index}/current")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetConsumptionMetersCurrentAsync(int index, bool update = false)
@@ -490,9 +563,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersCurrentAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -500,9 +578,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.ConsumptionMeters.Count))
+                var count = _zipato.Sensors.ConsumptionMeters.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.ConsumptionMeters.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.ConsumptionMeters.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.ConsumptionMeters[index].CurrentConsumption);
@@ -519,11 +599,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("temperature")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(List<TemperatureSensor>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetTemperatureSensorsAsync(bool update = false)
@@ -532,9 +614,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorsAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -558,12 +645,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("temperature/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(TemperatureSensor), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetTemperatureSensorAsync(int index, bool update = false)
@@ -572,9 +661,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -582,9 +676,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.TemperatureSensors.Count))
+                var count = _zipato.Sensors.TemperatureSensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.TemperatureSensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.TemperatureSensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.TemperatureSensors[index]);
@@ -603,12 +699,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("temperature/{index}/value")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetTemperatureSensorValueAsync(int index, bool update = false)
@@ -617,9 +715,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorValueAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -627,9 +730,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.TemperatureSensors.Count))
+                var count = _zipato.Sensors.TemperatureSensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.TemperatureSensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.TemperatureSensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.TemperatureSensors[index].Temperature);
@@ -646,11 +751,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("humidity")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(List<HumiditySensor>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetHumiditySensorsAsync(bool update = false)
@@ -659,9 +766,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorsAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -685,12 +797,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("humidity/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(LuminanceSensor), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetHumiditySensorAsync(int index, bool update = false)
@@ -699,9 +813,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -709,9 +828,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.HumiditySensors.Count))
+                var count = _zipato.Sensors.HumiditySensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.HumiditySensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.HumiditySensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.HumiditySensors[index]);
@@ -730,12 +851,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("humidity/{index}/value")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetHumiditySensorValueAsync(int index, bool update = false)
@@ -744,9 +867,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorValueAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -754,9 +882,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.HumiditySensors.Count))
+                var count = _zipato.Sensors.HumiditySensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.HumiditySensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.HumiditySensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.HumiditySensors[index].Humidity);
@@ -773,11 +903,13 @@ namespace ZipatoWeb.Controllers
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("luminance")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(List<LuminanceSensor>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetLuminanceSensorsAsync(bool update = false)
@@ -786,9 +918,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorsAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -812,12 +949,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("luminance/{index}")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(LuminanceSensor), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetLuminanceSensorAsync(int index, bool update = false)
@@ -826,9 +965,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -836,9 +980,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.LuminanceSensors.Count))
+                var count = _zipato.Sensors.LuminanceSensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.LuminanceSensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.LuminanceSensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.LuminanceSensors[index]);
@@ -857,12 +1003,14 @@ namespace ZipatoWeb.Controllers
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
         /// <response code="400">The request has missing/invalid values.</response>
+        /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
         [HttpGet("luminance/{index}/value")]
         [SwaggerOperation(Tags = new[] { "Zipato Sensor API" })]
         [ProducesResponseType(typeof(ValueInfo<double>), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
         public async Task<IActionResult> GetLuminanceSensorValueAsync(int index, bool update = false)
@@ -871,9 +1019,14 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorValueAsync()...");
 
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {
@@ -881,9 +1034,11 @@ namespace ZipatoWeb.Controllers
                     }
                 }
 
-                if ((index < 0) || (index >= _zipato.Sensors.LuminanceSensors.Count))
+                var count = _zipato.Sensors.LuminanceSensors.Count;
+
+                if ((index < 0) || (index >= count))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(_zipato.Sensors.LuminanceSensors.Count == 0 ? "[0]" : "[0] - [" + (_zipato.Sensors.LuminanceSensors.Count - 1))}]).");
+                    return StatusCode(StatusCodes.Status400BadRequest, $"Index {index} not valid ({(count == 0 ? "[0]" : "[0] - [" + (count - 1))}]).");
                 }
 
                 return Ok(_zipato.Sensors.LuminanceSensors[index].Luminance);
