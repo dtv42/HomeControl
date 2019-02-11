@@ -42,7 +42,18 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetValues(System.Boolean)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetAllData(System.Boolean)">
+            <summary>
+            Returns Zipato minimal updated data.
+            </summary>
+            <param name="update">Indicates if an update is requested.</param>
+            <returns>The action method result.</returns>
+            <response code="200">Returns the requested data.</response>
+            <response code="406">An internal update is still in progress.</response>
+            <response code="500">An error or an unexpected exception occured.</response>
+            <response code="502">The update procedure was unsuccessful.</response>
+        </member>
+        <member name="M:ZipatoWeb.Controllers.ZipatoController.GetAllValues(System.Boolean)">
             <summary>
             Returns Zipato attribute values.
             </summary>
@@ -418,7 +429,7 @@
         </member>
         <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetDimmerIntensityAsync(System.Int32,System.Boolean)">
             <summary>
-            Returns Zipato dimmer state data.
+            Returns Zipato dimmer intensity value data.
             </summary>
             <param name="index">The device index.</param>
             <param name="update">Indicates if an update is requested.</param>
@@ -492,7 +503,7 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The write procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetOnOffSwitchToggle(System.Int32)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetOnOffSwitchToggle(System.Int32)">
             <summary>
             Writes the Zipato onoff switch toggled state data.
             </summary>
@@ -554,7 +565,7 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The write procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.GetWallplugToggle(System.Int32)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoDevicesController.SetWallplugToggle(System.Int32)">
             <summary>
             Writes the Zipato wallplug state data.
             </summary>
@@ -1405,7 +1416,7 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetTakeSnapshotAsync(System.Int32)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.SetTakeSnapshotAsync(System.Int32)">
             <summary>
             Takes a snapshot.
             </summary>
@@ -1417,7 +1428,7 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetTakeRecordingAsync(System.Int32)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.SetTakeRecordingAsync(System.Int32)">
             <summary>
             Takes a 10 sec recording.
             </summary>
@@ -1451,7 +1462,7 @@
             <response code="500">An error or an unexpected exception occured.</response>
             <response code="502">The update procedure was unsuccessful.</response>
         </member>
-        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.GetSceneRun(System.Int32)">
+        <member name="M:ZipatoWeb.Controllers.ZipatoOthersController.SetSceneRun(System.Int32)">
             <summary>
             Runs Zipato scene.
             </summary>

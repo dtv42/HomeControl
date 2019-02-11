@@ -405,14 +405,14 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
-        [HttpGet("camera/{index}/snapshot")]
+        [HttpPut("camera/{index}/snapshot")]
         [SwaggerOperation(Tags = new[] { "Zipato Others API" })]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetTakeSnapshotAsync(int index)
+        public IActionResult SetTakeSnapshotAsync(int index)
         {
             try
             {
@@ -448,14 +448,14 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
-        [HttpGet("camera/{index}/recording")]
+        [HttpPut("camera/{index}/recording")]
         [SwaggerOperation(Tags = new[] { "Zipato Others API" })]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetTakeRecordingAsync(int index)
+        public IActionResult SetTakeRecordingAsync(int index)
         {
             try
             {
@@ -567,14 +567,14 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
-        [HttpGet("scene/{index}/run")]
+        [HttpPut("scene/{index}/run")]
         [SwaggerOperation(Tags = new[] { "Zipato Others API" })]
         [ProducesResponseType(typeof(ValueInfo<bool>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetSceneRun(int index)
+        public IActionResult SetSceneRun(int index)
         {
             try
             {

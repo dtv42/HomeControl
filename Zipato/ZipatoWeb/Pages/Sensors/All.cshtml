@@ -6,8 +6,9 @@
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
-<tr id=""><td id="name"></td><td id="value"></td></tr>
+
 <div class="container">
+
     <table id="DataTable" class="table">
         <thead>
             <tr><th>Name</th><th>Value</th></tr>
@@ -18,9 +19,14 @@
             <tr id="Timestamp"><td id="name">Timestamp</td><td id="value"></td></tr>
         </tbody>
     </table>
+
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
+    </div>
+
 </div>
-@section Scripts
-    {
+@section Scripts {
     <script src="~/lib/signalr/signalr.js"></script>
     <script>
         const connection = new signalR.HubConnectionBuilder()
@@ -33,6 +39,16 @@
             $("table#DataTable tr[id='Values']").find("#value").html(json);
             $("table#DataTable tr[id='Status']").find("#value").html(data.status.name);
             $("table#DataTable tr[id='Timestamp']").find("#value").html(data.timestamp);
+
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+            if (data.status.code == 0) {
+                message.textContent = "Last updated at " + time;
+            }
+            else {
+                message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+            }
         });
 
         connection.start()

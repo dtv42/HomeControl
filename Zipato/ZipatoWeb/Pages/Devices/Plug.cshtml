@@ -6,23 +6,60 @@
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
+
 <div class="container">
+
     <table id="DataTable" class="table">
         <thead>
             <tr><th>Name</th><th>Uuid</th><th>State</th><th>Power</th><th>Total</th><th>Action</th></tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
         <tfoot>
             <tr><th>Status</th><th>Timestamp</th></tr>
             <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
         </tfoot>
     </table>
+
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
+    </div>
+
 </div>
-@section Scripts
-    {
+@section Scripts {
     <script src="~/lib/signalr/signalr.js"></script>
     <script>
+        function action(i) {
+            var state = "State" + i;
+            var currentConsumption = "CurrentConsumption" + i;
+            var cummulativeConsumption = "CummulativeConsumption" + i;
+            var field1 = $("table#DataTable tbody tr td[id='" + state + "']");
+            var field2 = $("table#DataTable tbody tr td[id='" + currentConsumption + "']");
+            var field3 = $("table#DataTable tbody tr td[id='" + cummulativeConsumption + "']");
+            var url = "/api/devices/plug/" + i + "/toggle";
+            fetch(url, { method: "PUT" })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    if (typeof (data) === "string") {
+                        message.textContent = time + ": Error '" + data + "' in toggle onoff switch.";
+                    } else if (typeof (data.code) === "integer") {
+                        message.textContent = time + ": Error '" + data.name + "' in toggle onoff switch.";
+                    } else {
+                        field1.text(data.state.value);
+                        field2.text(data.currentConsumption.value);
+                        field3.text(data.cummulativeConsumption.value);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    message.textContent = time + ": Error '" + error + "' in toggle onoff switch.";
+                });
+        }
+
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/hubs/monitor")
             .configureLogging(signalR.LogLevel.Trace)
@@ -37,10 +74,10 @@
 
                 cols += '<td>' + data.wallplugs[i].name + '</td>';
                 cols += '<td>' + data.wallplugs[i].uuid + '</td>';
-                cols += '<td>' + data.wallplugs[i].state.value + '</td>';
-                cols += '<td>' + data.wallplugs[i].currentConsumption.value + '</td>';
-                cols += '<td>' + data.wallplugs[i].cummulativeConsumption.value + '</td>';
-                cols += '<td><button onclick="fetch(\'/api/devices/plug/' + i + '/toggle\')">Toggle</button></td>';
+                cols += '<td id="State' + i + '">' + data.wallplugs[i].state.value + '</td>';
+                cols += '<td id="CurrentConsumption' + i + '">' + data.wallplugs[i].currentConsumption.value + '</td>';
+                cols += '<td id="CummulativeConsumption' + i + '">' + data.wallplugs[i].cummulativeConsumption.value + '</td>';
+                cols += '<td><button onclick="action(' + i + ')">Toggle</button></td>';
 
                 row.append(cols);
                 $("table#DataTable tbody").append(row);
@@ -48,6 +85,16 @@
 
             $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
             $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+            if (data.status.code == 0) {
+                message.textContent = "Last updated at " + time;
+            }
+            else {
+                message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+            }
         });
 
         connection.start()

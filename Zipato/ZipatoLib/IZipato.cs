@@ -37,7 +37,7 @@ namespace ZipatoLib
         bool IsInitialized { get; }
         bool IsSessionActive { get; }
 
-        void StartSession();
+        ZipatoSession StartSession();
         void EndSession();
 
         Task<DataStatus> ReadAllAsync();

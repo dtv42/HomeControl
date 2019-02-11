@@ -22,6 +22,7 @@ namespace ZipatoLib
     using DataValueLib;
     using ZipatoLib.Models;
     using ZipatoLib.Models.Data;
+    using System.Threading;
 
     #endregion
 
@@ -42,6 +43,12 @@ namespace ZipatoLib
         /// The Netatmo settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -226,7 +233,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -256,7 +263,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -286,7 +293,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -317,7 +324,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -355,7 +362,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -392,7 +399,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -428,7 +435,7 @@ namespace ZipatoLib
         {
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -461,7 +468,7 @@ namespace ZipatoLib
         /// <summary>
         /// Starts a Zipato sessions (logging in).
         /// </summary>
-        public void StartSession() => ZipatoSession.StartSession(_logger, _client, _settings);
+        public ZipatoSession StartSession() => ZipatoSession.StartSession(_logger, _client, _settings);
 
         /// <summary>
         /// Ends the current session (logging out).
@@ -475,9 +482,11 @@ namespace ZipatoLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
+            await _semaphore.WaitAsync();
+
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -533,7 +542,8 @@ namespace ZipatoLib
             }
             finally
             {
-                ZipatoSession.EndSession();
+                EndSession();
+                _semaphore.Release();
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
@@ -546,9 +556,11 @@ namespace ZipatoLib
         /// <returns></returns>
         public async Task<DataStatus> ReadAllDataAsync()
         {
+            await _semaphore.WaitAsync();
+
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -577,7 +589,8 @@ namespace ZipatoLib
             }
             finally
             {
-                ZipatoSession.EndSession();
+                EndSession();
+                _semaphore.Release();
                 _logger?.LogDebug("ReadAllDataAsync() finished.");
             }
 
@@ -590,9 +603,11 @@ namespace ZipatoLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllValuesAsync()
         {
+            await _semaphore.WaitAsync();
+
             try
             {
-                var session = ZipatoSession.StartSession(_logger, _client, _settings);
+                var session = StartSession();
 
                 if (session.IsActive)
                 {
@@ -617,7 +632,8 @@ namespace ZipatoLib
             }
             finally
             {
-                ZipatoSession.EndSession();
+                EndSession();
+                _semaphore.Release();
                 _logger?.LogDebug("ReadAllValuesAsync() finished.");
             }
 

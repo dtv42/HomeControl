@@ -122,6 +122,8 @@ namespace ZipatoLib.Models
                 var uuid = RGBControls[i].Uuid;
                 RGBControls[i] = new RGBControl(_zipato, uuid);
             }
+
+            Status = _zipato.Data?.Status ?? Uncertain;
         }
 
         /// <summary>

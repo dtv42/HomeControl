@@ -4,52 +4,167 @@
     ViewData["Title"] = "Monitor Zipato";
     ViewData["Header"] = "RGB Control";
 }
+@using Syncfusion.EJ2;
+
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
+
 <div class="container">
     <table id="DataTable" class="table">
         <thead>
-            <tr><th>Name</th><th>Uuid</th><th>Intensity</th><th>Cold White</th><th>Warm White</th><th>Red</th><th>Green</th><th>Blue</th></tr>
+            <tr><th>Name</th><th>Uuid</th><th>I</th><th>CW</th><th>WW</th><th>R</th><th>G</th><th>B</th><th>RGB</th></tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
         <tfoot>
             <tr><th>Status</th><th>Timestamp</th></tr>
             <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
         </tfoot>
     </table>
+
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
+    </div>
+
 </div>
-@section Scripts
-    {
+@section Scripts {
     <script src="~/lib/signalr/signalr.js"></script>
     <script>
+        function send(url) {
+            fetch(url, { method: "PUT" })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    if (typeof (data) === "string") {
+                        message.textContent = time + ": Error '" + data + "' in setting RGB value.";
+                    } else if (typeof (data.code) === "integer") {
+                        message.textContent = time + ": Error '" + data.name + "' in setting RGB value.";
+                    } else {
+                        return data;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    message.textContent = time + ": Error '" + error + "' in setting RGB value.";
+                });
+        }
+
+        function update(i, rgb) {
+            if (rgb !== "undefined" && rgb.name !== "undefined") {
+                $("input[id='I" + i + "']").val(rgb.intensity.value);
+                $("input[id='CW" + i + "']").val(rgb.coldWhite.value);
+                $("input[id='WW" + i + "']").val(rgb.warmWhite.value);
+                $("input[id='R" + i + "']").val(rgb.red.value);
+                $("input[id='G" + i + "']").val(rgb.green.value);
+                $("input[id='B" + i + "']").val(rgb.blue.value);
+                r.val(rgb.red.value);
+                g.val(rgb.red.value);
+                r.val(rgb.red.value);
+                var hex = '#' + ('0' + rgb.red.value.toString(16)).slice(-2).toUpperCase() +
+                    ('0' + rgb.green.value.toString(16)).slice(-2).toUpperCase() +
+                    ('0' + rgb.blue.value.toString(16)).slice(-2).toUpperCase();
+                $("#RGB" + i).val(hex);
+            }
+        }
+
+        function actionI(i) {
+            var input = $("input[id='I" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/intensity?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionCW(i) {
+            var input = $("input[id='CW" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/coldwhite?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionWW(i) {
+            var input = $("input[id='WW" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/warmwhite?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionR(i) {
+            var input = $("input[id='R" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/red?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionG(i) {
+            var input = $("input[id='G" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/green?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionB(i) {
+            var input = $("input[id='B" + i + "']");
+            var url = "/api/devices/rgb/" + i + "/blue?value=" + input.val();
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
+        function actionRGB(i) {
+            var url = "/api/devices/rgb/" + i + "/rgb?value=" + $("#RGB0").val().substr(1);
+            var rgb = send(url);
+            update(i, rgb);
+        }
+
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/hubs/monitor")
             .configureLogging(signalR.LogLevel.Trace)
             .build();
 
         connection.on('UpdateDevices', function (data) {
+            const style = 'type = "text" class="numbersOnly" maxlength = "3" size = "3"';
             $("table#DataTable tbody").empty();
 
             for (i = 0; i < data.rgbControls.length; i++) {
                 var row = $("<tr>");
                 var cols = "";
+                var rgb = data.rgbControls[i];
+                var hex = ('0' + rgb.red.value.toString(16)).slice(-2).toUpperCase() +
+                    ('0' + rgb.green.value.toString(16)).slice(-2).toUpperCase() +
+                    ('0' + rgb.blue.value.toString(16)).slice(-2).toUpperCase();
 
-                cols += '<td>' + data.rgbControls[i].name + '</td>';
-                cols += '<td>' + data.rgbControls[i].uuid + '</td>';
-                cols += '<td>' + data.rgbControls[i].intensity.value + '</td>';
-                cols += '<td>' + data.rgbControls[i].coldWhite.value + '</td>';
-                cols += '<td>' + data.rgbControls[i].warmWhite.value + '</td>';
-                cols += '<td>' + data.rgbControls[i].red.value + '</td>';
-                cols += '<td>' + data.rgbControls[i].green.value + '</td>';
-                cols += '<td>' + data.rgbControls[i].blue.value + '</td>';
+                cols += '<td nowrap>' + rgb.name + '</td>';
+                cols += '<td nowrap>' + rgb.uuid + '</td>';
+                cols += '<td nowrap><input id="I' + i + '" ' + style + ' value="' + rgb.intensity.value + '"/><button onclick="actionI(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><input id="CW' + i + '" ' + style + ' value="' + rgb.coldWhite.value + '"/><button onclick="actionCW(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><input id="WW' + i + '" ' + style + ' value="' + rgb.warmWhite.value + '"/><button onclick="actionWW(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><input id="R' + i + '" ' + style + ' value="' + rgb.red.value + '"/><button onclick="actionR(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><input id="G' + i + '" ' + style + ' value="' + rgb.green.value + '"/><button onclick="actionG(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><input id="B' + i + '" ' + style + ' value="' + rgb.blue.value + '"/><button onclick="actionB(' + i + ')">Set</button></td>';
+                cols += '<td nowrap><div id="RGB' + i + '"/><button onclick="actionRGB(' + i + ')">Set</button></td>';
 
                 row.append(cols);
                 $("table#DataTable tbody").append(row);
+
+                var picker = new ejs.inputs.ColorPicker();
+                picker.appendTo("#RGB" + i);
             }
+
 
             $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
             $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+            if (data.status.code == 0) {
+                message.textContent = "Last updated at " + time;
+            }
+            else {
+                message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+            }
         });
 
         connection.start()

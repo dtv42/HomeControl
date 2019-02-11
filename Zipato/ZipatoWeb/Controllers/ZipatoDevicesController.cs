@@ -208,7 +208,7 @@ namespace ZipatoWeb.Controllers
         }
 
         /// <summary>
-        /// Returns Zipato dimmer state data.
+        /// Returns Zipato dimmer intensity value data.
         /// </summary>
         /// <param name="index">The device index.</param>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -529,14 +529,14 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The write procedure was unsuccessful.</response>
-        [HttpGet("onoff/{index}/toggle")]
+        [HttpPut("onoff/{index}/toggle")]
         [SwaggerOperation(Tags = new[] { "Zipato Device API" })]
         [ProducesResponseType(typeof(OnOff), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetOnOffSwitchToggle(int index)
+        public IActionResult SetOnOffSwitchToggle(int index)
         {
             try
             {
@@ -786,14 +786,14 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The write procedure was unsuccessful.</response>
-        [HttpGet("plug/{index}/toggle")]
+        [HttpPut("plug/{index}/toggle")]
         [SwaggerOperation(Tags = new[] { "Zipato Device API" })]
         [ProducesResponseType(typeof(Plug), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetWallplugToggle(int index)
+        public IActionResult SetWallplugToggle(int index)
         {
             try
             {

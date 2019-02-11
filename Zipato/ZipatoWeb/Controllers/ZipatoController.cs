@@ -25,10 +25,10 @@ namespace ZipatoWeb.Controllers
     using ZipatoLib;
     using ZipatoLib.Models;
     using ZipatoLib.Models.Data;
+    using ZipatoLib.Models.Enums;
     using ZipatoWeb.Models;
 
     using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
-    using ZipatoLib.Models.Enums;
 
     #endregion
 
@@ -138,7 +138,7 @@ namespace ZipatoWeb.Controllers
         }
 
         /// <summary>
-        /// Returns Zipato attribute values.
+        /// Returns Zipato minimal updated data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
@@ -146,17 +146,17 @@ namespace ZipatoWeb.Controllers
         /// <response code="406">An internal update is still in progress.</response>
         /// <response code="500">An error or an unexpected exception occured.</response>
         /// <response code="502">The update procedure was unsuccessful.</response>
-        [HttpGet("values", Name = "GetValues")]
+        [HttpGet("data")]
         [SwaggerOperation(Tags = new[] { "Zipato API" })]
-        [ProducesResponseType(typeof(List<ValueData>), 200)]
+        [ProducesResponseType(typeof(ZipatoData), 200)]
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public async Task<IActionResult> GetValues(bool update = false)
+        public async Task<IActionResult> GetAllData(bool update = false)
         {
             try
             {
-                _logger?.LogDebug("GetValues()...");
+                _logger?.LogDebug("GetData()...");
 
                 if (!_zipato.IsInitialized)
                 {
@@ -165,7 +165,51 @@ namespace ZipatoWeb.Controllers
 
                 if (update)
                 {
-                    var (values, status) = await _zipato.DataReadValuesAsync();
+                    var status = await _zipato.ReadAllDataAsync();
+
+                    if (!status.IsGood)
+                    {
+                        return StatusCode(StatusCodes.Status502BadGateway, status);
+                    }
+                }
+
+                return Ok(_zipato.Data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Returns Zipato attribute values.
+        /// </summary>
+        /// <param name="update">Indicates if an update is requested.</param>
+        /// <returns>The action method result.</returns>
+        /// <response code="200">Returns the requested data.</response>
+        /// <response code="406">An internal update is still in progress.</response>
+        /// <response code="500">An error or an unexpected exception occured.</response>
+        /// <response code="502">The update procedure was unsuccessful.</response>
+        [HttpGet("values")]
+        [SwaggerOperation(Tags = new[] { "Zipato API" })]
+        [ProducesResponseType(typeof(List<ValueData>), 200)]
+        [ProducesResponseType(typeof(string), 406)]
+        [ProducesResponseType(typeof(string), 500)]
+        [ProducesResponseType(typeof(DataStatus), 502)]
+        public async Task<IActionResult> GetAllValues(bool update = false)
+        {
+            try
+            {
+                _logger?.LogDebug("GetAllValues()...");
+
+                if (!_zipato.IsInitialized)
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                }
+
+                if (update)
+                {
+                    var status = await _zipato.ReadAllValuesAsync();
 
                     if (!status.IsGood)
                     {

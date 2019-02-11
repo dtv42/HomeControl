@@ -6,29 +6,62 @@
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
+
 <div class="container">
+
     <table id="DataTable" class="table">
         <thead>
             <tr><th>Name</th><th>Uuid</th><th>Intensity</th></tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
         <tfoot>
             <tr><th>Status</th><th>Timestamp</th></tr>
             <tr><td id="Status">Status</td><td id="Timestamp">Timestamp</td></tr>
         </tfoot>
     </table>
+
+    <div class="text-center">
+        <hr />
+        <text class="h6" id="message">Zipato Home Control</text>
+    </div>
+
 </div>
-@section Scripts
-    {
+@section Scripts {
     <script src="~/lib/signalr/signalr.js"></script>
     <script>
+        function action(i) {
+            var input = $("input[id='I" + i + "']");
+            var value = parseInt(input.val());
+            var url = "/api/devices/dimmer/" + i + "/intensity?value=" + value;
+
+            fetch(url, { method: "PUT" })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    if (typeof (data) === "string") {
+                        message.textContent = time + ": Error '" + data + "' in toggle onoff switch.";
+                    } else if (typeof (data.code) === "integer") {
+                        message.textContent = time + ": Error '" + data.name + "' in toggle onoff switch.";
+                    } else {
+                        input.val(data.intensity.value);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    message.textContent = time + ": Error '" + error + "' in setting intensity value.";
+                });
+        }
+
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/hubs/monitor")
             .configureLogging(signalR.LogLevel.Trace)
             .build();
 
         connection.on('UpdateDevices', function (data) {
+            const style = 'type = "text" class="numbersOnly" maxlength = "3" size = "3"';
             $("table#DataTable tbody").empty();
 
             for (i = 0; i < data.dimmers.length; i++) {
@@ -37,7 +70,7 @@
 
                 cols += '<td>' + data.dimmers[i].name + '</td>';
                 cols += '<td>' + data.dimmers[i].uuid + '</td>';
-                cols += '<td>' + data.dimmers[i].intensity.value + '</td>';
+                cols += '<td nowrap><input id="I' + i + '" ' + style + ' value="' + data.dimmers[i].intensity.value + '"/><button onclick="action(' + i + ')">Set</button></td>';
 
                 row.append(cols);
                 $("table#DataTable tbody").append(row);
@@ -45,6 +78,16 @@
 
             $("table#DataTable tfoot tr td[id='Status']").text(data.status.name);
             $("table#DataTable tfoot tr td[id='Timestamp']").text(data.timestamp);
+
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+            if (data.status.code == 0) {
+                message.textContent = "Last updated at " + time;
+            }
+            else {
+                message.textContent = time + ": " + data.status.name + " - " + data.status.explanation;
+            }
         });
 
         connection.start()
