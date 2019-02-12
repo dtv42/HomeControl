@@ -13,6 +13,7 @@ namespace NetatmoLib
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -42,6 +43,12 @@ namespace NetatmoLib
         /// The Netatmo settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -179,6 +186,9 @@ namespace NetatmoLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
                 _logger?.LogDebug("ReadAllAsync() starting.");
@@ -207,21 +217,24 @@ namespace NetatmoLib
                     else
                     {
                         _logger?.LogDebug($"ReadAllAsync not OK.");
-                        Station.Status = DataValue.BadUnknownResponse;
+                        status = DataValue.BadUnknownResponse;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Station.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
+                _semaphore.Release();
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Station.Status;
+            Station.Status = status;
+            return status;
         }
 
         #endregion Public Methods

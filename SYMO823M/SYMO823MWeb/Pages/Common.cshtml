@@ -3,7 +3,6 @@
     ViewData["Title"] = "Monitor SYMO823M";
     ViewData["Header"] = "Common Data";
 }
-
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
 <tr id=""><td id="name"></td><td id="value"></td></tr>
@@ -19,7 +18,34 @@
         </tbody>
     </table>
 </div>
+<style type="text/css">
 
+    pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }
+</style>
 @section Scripts
     {
     <script src="~/lib/signalr/signalr.js"></script>

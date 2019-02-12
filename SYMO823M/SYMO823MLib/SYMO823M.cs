@@ -13,6 +13,7 @@ namespace SYMO823MLib
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -45,6 +46,12 @@ namespace SYMO823MLib
         /// The Modbus TCP/IP client instance.
         /// </summary>
         private readonly ITcpClient _client;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion Private Fields
 
@@ -152,10 +159,13 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadAllAsync() starting.");
+
                 if (_client.Connect())
                 {
                     SYMO823MData data = new SYMO823MData();
@@ -209,6 +219,8 @@ namespace SYMO823MLib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
             Data.Status = status;
@@ -221,7 +233,8 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadBlockAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
@@ -330,6 +343,8 @@ namespace SYMO823MLib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
             Data.Status = status;

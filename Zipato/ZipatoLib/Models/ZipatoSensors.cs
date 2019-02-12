@@ -82,7 +82,7 @@ namespace ZipatoLib.Models
                 LuminanceSensors.Add(new LuminanceSensor(zipato, uuid));
             }
 
-            Status = _zipato.Data?.Status ?? Uncertain;
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         #endregion
@@ -123,6 +123,8 @@ namespace ZipatoLib.Models
                 var uuid = LuminanceSensors[i].Uuid;
                 LuminanceSensors[i] = new LuminanceSensor(_zipato, uuid);
             }
+
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         /// <summary>

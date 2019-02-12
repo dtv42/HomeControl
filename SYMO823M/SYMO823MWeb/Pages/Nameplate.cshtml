@@ -3,7 +3,6 @@
     ViewData["Title"] = "Monitor SYMO823M";
     ViewData["Header"] = "Nameplate Data";
 }
-
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Header"]</h3>
 <tr id=""><td id="name"></td><td id="value"></td></tr>
@@ -19,12 +18,38 @@
         </tbody>
     </table>
 </div>
+<style type="text/css">
 
+    pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }
+</style>
 @section Scripts
     {
     <script src="~/lib/signalr/signalr.js"></script>
-    <script>
-        const connection = new signalR.HubConnectionBuilder()
+    <script>const connection = new signalR.HubConnectionBuilder()
             .withUrl("/hubs/monitor")
             .configureLogging(signalR.LogLevel.Trace)
             .build();
@@ -47,6 +72,5 @@
             .catch(error => {
                 console.log('Could not connect to SignalR server. Error: ' + error);
                 alert('Could not connect to monitor hub.');
-            });
-    </script>
+            });</script>
 }

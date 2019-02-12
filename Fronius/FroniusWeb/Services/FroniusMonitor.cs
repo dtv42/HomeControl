@@ -63,19 +63,35 @@ namespace FroniusWeb.Services
         #region Public Methods
 
         /// <summary>
+        /// Executes the startup operation.
+        /// </summary>
+        protected override async Task DoStartAsync()
+        {
+            try
+            {
+                // Update all data.
+                _logger?.LogDebug("FroniusMonitor: DoStart...");
+                await _fronius?.ReadAllAsync();
+                await _hub.Clients.All.SendAsync("UpdateCommon", _fronius.CommonData);
+                await _hub.Clients.All.SendAsync("UpdatePhase", _fronius.PhaseData);
+                await _hub.Clients.All.SendAsync("UpdateInverter", _fronius.InverterInfo);
+                await _hub.Clients.All.SendAsync("UpdateMinMax", _fronius.MinMaxData);
+                await _hub.Clients.All.SendAsync("UpdateData", _fronius.Data);
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogWarning(ex, "DoStartAsync: Exception");
+            }
+        }
+
+        /// <summary>
         /// Executes the update operation every minute.
         /// </summary>
         protected override async Task DoWorkAsync()
         {
             try
             {
-                // First run ReadAllAsync only once.
-                if (!_fronius.IsInitialized)
-                {
-                    await _fronius?.ReadAllAsync();
-                }
-
-                // Update the live data (common and phase data).
+                // Update the live data.
                 _logger?.LogDebug("FroniusMonitor: DoWork...");
                 await _fronius?.ReadCommonDataAsync();
                 await _fronius?.ReadPhaseDataAsync();

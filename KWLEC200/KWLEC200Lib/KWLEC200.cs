@@ -12,6 +12,8 @@ namespace KWLEC200Lib
 
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading;
 
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
@@ -23,7 +25,6 @@ namespace KWLEC200Lib
     using KWLEC200Lib.Models;
     using static DataValueLib.DataValue;
     using static KWLEC200Lib.Models.KWLEC200Data;
-    using System.Globalization;
 
     #endregion
 
@@ -41,6 +42,11 @@ namespace KWLEC200Lib
         /// The Modbus TCP/IP client instance.
         /// </summary>
         private readonly IHeliosClient _client;
+
+        /// <summary>
+        /// Instantiate a lock object.
+        /// </summary>
+        private static Object _lock = new Object();
 
         #endregion
 
@@ -106,66 +112,70 @@ namespace KWLEC200Lib
         /// <returns>The status indicating success or failure.</returns>
         public DataStatus ReadAll()
         {
-            DataStatus status = Good;
-
-            try
+            lock (_lock)
             {
-                if (_client.Connect())
+                DataStatus status = DataValue.Good;
+
+                try
                 {
-                    KWLEC200Data data = new KWLEC200Data();
+                    _logger?.LogDebug("ReadAllAsync() starting.");
 
-                    foreach (var property in KWLEC200Data.GetProperties())
+                    if (_client.Connect())
                     {
-                        if (KWLEC200Data.IsReadable(property))
-                        {
-                            status = _client.ReadProperty(data, property);
+                        KWLEC200Data data = new KWLEC200Data();
 
-                            if (!status.IsGood)
+                        foreach (var property in KWLEC200Data.GetProperties())
+                        {
+                            if (KWLEC200Data.IsReadable(property))
                             {
-                                _logger?.LogDebug($"ReadAllAsync('{property}') not OK.");
-                                break;
+                                status = _client.ReadProperty(data, property);
+
+                                if (!status.IsGood)
+                                {
+                                    _logger?.LogDebug($"ReadAllAsync('{property}') not OK.");
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    data.Status = status;
-
-                    if (status.IsGood)
-                    {
-                        Data.Refresh(data);
-                        OverviewData.Refresh(data);
-
-                        if (IsInitialized == false)
+                        if (status.IsGood)
                         {
-                            IsInitialized = true;
-                        }
+                            Data.Refresh(data);
+                            OverviewData.Refresh(data);
 
-                        _logger?.LogDebug("ReadAllAsync OK.");
+                            if (IsInitialized == false)
+                            {
+                                IsInitialized = true;
+                            }
+
+                            _logger?.LogDebug("ReadAllAsync OK.");
+                        }
+                        else
+                        {
+                            _logger?.LogDebug("ReadAllAsync not OK.");
+                        }
                     }
                     else
                     {
-                        _logger?.LogDebug("ReadAllAsync not OK.");
+                        _logger?.LogError("ReadAllAsync not connected.");
+                        status = BadNotConnected;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    _logger?.LogError("ReadAllAsync not connected.");
-                    Data.Status = BadNotConnected;
+                    _logger?.LogError(ex, $"ReadAllAsync exception.");
+                    status = BadInternalError;
+                    status.Explanation = $"Exception: {ex.Message}";
                 }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, $"ReadAllAsync exception.");
-                status = BadInternalError;
-                status.Explanation = $"Exception: {ex.Message}";
-            }
-            finally
-            {
-                _client.Disconnect();
-            }
+                finally
+                {
+                    _client.Disconnect();
+                    _logger?.LogDebug("ReadAllAsync() finished.");
+                }
 
-            Data.Status = status;
-            return status;
+                Data.Status = status;
+                return status;
+            }
         }
 
         /// <summary>
@@ -174,11 +184,19 @@ namespace KWLEC200Lib
         /// <returns></returns>
         public DataStatus ReadOverviewData()
         {
-            var status = ReadData(OverviewData.GetProperties());
+            DataStatus status = DataValue.Good;
 
-            if (status.IsGood)
+            lock (_lock)
             {
-                OverviewData.Refresh(Data);
+                _logger?.LogDebug("ReadOverviewData() starting.");
+                status = ReadData(OverviewData.GetProperties());
+
+                if (status.IsGood)
+                {
+                    OverviewData.Refresh(Data);
+                }
+
+                _logger?.LogDebug("ReadOverviewData() finished.");
             }
 
             return status;

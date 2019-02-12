@@ -13,6 +13,7 @@ namespace BControlLib
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -24,10 +25,10 @@ namespace BControlLib
     using DataValueLib;
     using NModbusLib;
     using NModbusLib.Models;
+    using SunSpecLib;
     using BControlLib.Models;
     using static DataValueLib.DataValue;
     using static BControlLib.Models.BControlData;
-    using SunSpecLib;
 
     #endregion
 
@@ -44,6 +45,12 @@ namespace BControlLib
         /// The Modbus TCP/IP client instance.
         /// </summary>
         private readonly ITcpClient _client;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion Private Fields
 
@@ -115,10 +122,13 @@ namespace BControlLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadAllAsync() starting.");
+
                 if (_client.Connect())
                 {
                     BControlData data = new BControlData();
@@ -145,7 +155,11 @@ namespace BControlLib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
+                        if (!IsInitialized)
+                        {
+                            IsInitialized = true;
+                        }
+
                         _logger?.LogDebug("ReadAllAsync OK.");
                     }
                     else
@@ -168,6 +182,8 @@ namespace BControlLib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
             Data.Status = status;
@@ -180,10 +196,13 @@ namespace BControlLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadBlockAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadBlockAsync() starting.");
+
                 if (_client.Connect())
                 {
                     BControlData data = new BControlData
@@ -284,6 +303,8 @@ namespace BControlLib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadBlockAsync() finished.");
             }
 
             Data.Status = status;
@@ -297,7 +318,7 @@ namespace BControlLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadDataAsync(string property)
         {
-            DataStatus status = Good;
+            DataStatus status = DataValue.Good;
 
             if (BControlData.IsProperty(property))
             {
@@ -358,7 +379,7 @@ namespace BControlLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadDataAsync(List<string> properties)
         {
-            DataStatus status = Good;
+            DataStatus status = DataValue.Good;
 
             try
             {

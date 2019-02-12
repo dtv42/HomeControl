@@ -82,6 +82,8 @@ namespace ZipatoLib.Models
             {
                 RGBControls.Add(new RGBControl(zipato, uuid));
             }
+
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         #endregion
@@ -123,7 +125,7 @@ namespace ZipatoLib.Models
                 RGBControls[i] = new RGBControl(_zipato, uuid);
             }
 
-            Status = _zipato.Data?.Status ?? Uncertain;
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace ZipatoLib.Models
                 item.Refresh();
             }
 
-            Status = _zipato.Data?.Status ?? Uncertain;
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         /// <summary>

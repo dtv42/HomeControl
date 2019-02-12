@@ -62,18 +62,38 @@ namespace NetatmoWeb.Services
         #region Public Methods
 
         /// <summary>
+        /// Executes the start operation just once.
+        /// </summary>
+        protected override async Task DoStartAsync()
+        {
+            try
+            {
+                _logger?.LogDebug("NetatmoMonitor: DoStart...");
+
+                // Update data.
+                await _netatmo?.ReadAllAsync();
+                await _hub.Clients.All.SendAsync("UpdateData", _netatmo.Station);
+                await _hub.Clients.All.SendAsync("UpdateMain", _netatmo.Station.Device.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateOutdoor", _netatmo.Station.Device.OutdoorModule.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateIndoor1", _netatmo.Station.Device.IndoorModule1.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateIndoor2", _netatmo.Station.Device.IndoorModule2.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateIndoor3", _netatmo.Station.Device.IndoorModule3.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateRain", _netatmo.Station.Device.RainGauge.DashboardData);
+                await _hub.Clients.All.SendAsync("UpdateWind", _netatmo.Station.Device.WindGauge.DashboardData);
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogWarning(ex, "DoStartAsync: Exception");
+            }
+        }
+
+        /// <summary>
         /// Executes the update operation every minute.
         /// </summary>
         protected override async Task DoWorkAsync()
         {
             try
             {
-                // First run ReadAllAsync only once.
-                if (!_netatmo.IsInitialized)
-                {
-                    await _netatmo?.ReadAllAsync();
-                }
-
                 _logger?.LogDebug("NetatmoMonitor: DoWork...");
 
                 if ((DateTime.Now.Minute % 5) == 0)

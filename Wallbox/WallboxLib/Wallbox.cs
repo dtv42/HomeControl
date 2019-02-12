@@ -12,8 +12,7 @@ namespace WallboxLib
 
     using System;
     using System.Collections.Generic;
-    using System.Net;
-    using System.Net.Sockets;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -50,6 +49,12 @@ namespace WallboxLib
         /// The Wallbox settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -166,6 +171,8 @@ namespace WallboxLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
+            DataStatus status = DataValue.Good;
+
             try
             {
                 _logger?.LogDebug("ReadAllAsync() starting.");
@@ -179,14 +186,13 @@ namespace WallboxLib
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
                 if (Report1.IsGood && Report2.IsGood && Report3.IsGood && Report100.IsGood)
                 {
-                    Data.Status = DataValue.Good;
-
                     if (IsInitialized == false)
                     {
                         IsInitialized = true;
@@ -196,7 +202,8 @@ namespace WallboxLib
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -206,31 +213,40 @@ namespace WallboxLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadReport1Async()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadReport1Async() starting.");
                 string json = await _client.SendReceiveAsync("report 1");
 
                 if (!string.IsNullOrEmpty(json))
                 {
                     Data.Report1 = JsonConvert.DeserializeObject<Report1Udp>(json);
-                    Data.Status = DataValue.Good;
                     Report1.Refresh(Data);
                     _logger?.LogDebug("ReadReport1Async OK.");
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadReport1Async not OK.");
-                    Data.Status = DataValue.BadUnknownResponse;
+                    status = DataValue.BadUnknownResponse;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadReport1Async exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                Report1.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadReport1Async() finished.");
             }
 
-            return Data.Status;
+            Report1.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -240,31 +256,40 @@ namespace WallboxLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadReport2Async()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadReport2Async() starting.");
                 string json = await _client.SendReceiveAsync("report 2");
 
                 if (!string.IsNullOrEmpty(json))
                 {
                     Data.Report2 = JsonConvert.DeserializeObject<Report2Udp>(json);
-                    Data.Status = DataValue.Good;
                     Report2.Refresh(Data);
                     _logger?.LogDebug("ReadReport2Async OK.");
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadReport2Async not OK.");
-                    Data.Status = DataValue.BadUnknownResponse;
+                    status = DataValue.BadUnknownResponse;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadReport2Async exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                Report2.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadReport2Async() finished.");
             }
 
-            return Data.Status;
+            Report2.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -274,31 +299,40 @@ namespace WallboxLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadReport3Async()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadReport3Async() starting.");
                 string json = await _client.SendReceiveAsync("report 3");
 
                 if (!string.IsNullOrEmpty(json))
                 {
                     Data.Report3 = JsonConvert.DeserializeObject<Report3Udp>(json);
-                    Data.Status = DataValue.Good;
                     Report3.Refresh(Data);
                     _logger?.LogDebug("ReadReport3Async OK.");
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadReport3Async not OK.");
-                    Data.Status = DataValue.BadUnknownResponse;
+                    status = DataValue.BadUnknownResponse;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadReport3Async exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                Report3.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadReport3Async() finished.");
             }
 
-            return Data.Status;
+            Report3.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -308,31 +342,40 @@ namespace WallboxLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadReport100Async()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadReport100Async() starting.");
                 string json = await _client.SendReceiveAsync("report 100");
 
                 if (!string.IsNullOrEmpty(json))
                 {
                     Data.Report100 = JsonConvert.DeserializeObject<ReportsUdp>(json);
-                    Data.Status = DataValue.Good;
                     Report100.Refresh(Data);
                     _logger?.LogDebug("ReadReport100Async OK.");
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadReport100Async not OK.");
-                    Data.Status = DataValue.BadUnknownResponse;
+                    status = DataValue.BadUnknownResponse;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadReport100Async exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                Report100.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadReport100Async() finished.");
             }
 
-            return Data.Status;
+            Report100.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>

@@ -11,11 +11,10 @@ namespace HomeDataLib
     #region Using Directives
 
     using System;
-    using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
-    using Microsoft.AspNetCore.SignalR.Client;
 
     using Newtonsoft.Json;
 
@@ -42,6 +41,12 @@ namespace HomeDataLib
         /// The Fronius settings used internally.
         /// </summary>
         private readonly Models.ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -149,6 +154,9 @@ namespace HomeDataLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync(bool update = false)
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
                 _logger?.LogDebug("ReadAllAsync() starting.");
@@ -166,23 +174,30 @@ namespace HomeDataLib
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
+                _semaphore.Release();
+
                 if (Meter1.Total.IsGood && Meter1.Phase1.IsGood && Meter1.Phase2.IsGood && Meter1.Phase3.IsGood &&
                     Meter2.Total.IsGood && Meter2.Phase1.IsGood && Meter2.Phase2.IsGood && Meter2.Phase3.IsGood)
                 {
                     Data.Status = DataValue.Good;
                     Data.Refresh(Meter1, Meter2);
 
-                    if (IsInitialized == false) IsInitialized = true;
+                    if (!IsInitialized)
+                    {
+                        IsInitialized = true;
+                    }
                 }
 
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         #endregion

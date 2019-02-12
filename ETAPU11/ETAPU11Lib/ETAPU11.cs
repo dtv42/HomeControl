@@ -13,6 +13,7 @@ namespace ETAPU11Lib
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -44,6 +45,12 @@ namespace ETAPU11Lib
         /// The Modbus TCP/IP client instance.
         /// </summary>
         private readonly ITcpClient _client;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion Private Fields
 
@@ -133,10 +140,13 @@ namespace ETAPU11Lib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadAllAsync() starting.");
+
                 if (_client.Connect())
                 {
                     ETAPU11Data data = new ETAPU11Data();
@@ -164,7 +174,11 @@ namespace ETAPU11Lib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
+                        if (!IsInitialized)
+                        {
+                            IsInitialized = true;
+                        }
+
                         _logger?.LogDebug($"ReadAllAsync OK.");
                     }
                     else
@@ -187,6 +201,8 @@ namespace ETAPU11Lib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
             Data.Status = status;
@@ -199,10 +215,13 @@ namespace ETAPU11Lib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadBlockAsync()
         {
-            DataStatus status = Good;
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadBlockAsync() starting.");
+
                 if (_client.Connect())
                 {
                     ETAPU11Data data = new ETAPU11Data
@@ -298,6 +317,8 @@ namespace ETAPU11Lib
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadBlockAsync() finished.");
             }
 
             Data.Status = status;

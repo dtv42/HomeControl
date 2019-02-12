@@ -11,6 +11,7 @@ namespace FroniusLib
     #region Using Directives
 
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -40,6 +41,12 @@ namespace FroniusLib
         /// The Fronius settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -173,6 +180,8 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
+            DataStatus status = DataValue.Good;
+
             try
             {
                 _logger?.LogDebug("ReadAllAsync() starting.");
@@ -186,21 +195,25 @@ namespace FroniusLib
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
                 if (CommonData.IsGood && InverterInfo.IsGood &&
                     LoggerInfo.IsGood && MinMaxData.IsGood && PhaseData.IsGood)
                 {
-                    Data.Status = DataValue.Good;
-                    if (IsInitialized == false) IsInitialized = true;
+                    if (!IsInitialized)
+                    {
+                        IsInitialized = true;
+                    }
                 }
 
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -210,8 +223,12 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadInverterInfoAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadInverterInfoAsync() starting.");
                 string json = await _client.GetStringAsync($"solar_api/v1/GetInverterInfo.cgi");
 
                 if (!string.IsNullOrEmpty(json))
@@ -221,25 +238,31 @@ namespace FroniusLib
 
                     if (Data.InverterInfo.Response.Status.Code == 0)
                     {
-                        Data.Status = DataValue.Good;
                         InverterInfo.Refresh(Data);
                         _logger?.LogDebug("ReadInverterInfoAsync OK.");
                     }
                     else
                     {
-                        Data.Status = DataValue.BadUnexpectedError;
-                        Data.Status.Explanation = Data.InverterInfo.Response.Status.UserMessage;
+                        status = DataValue.BadUnexpectedError;
+                        status.Explanation = Data.InverterInfo.Response.Status.UserMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadInverterInfoDataAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                InverterInfo.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadInverterInfoDataAsync() finished.");
             }
 
-            return Data.Status;
+            InverterInfo.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -249,8 +272,12 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadCommonDataAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadCommonDataAsync() starting.");
                 string json = await _client.GetStringAsync($"solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DeviceId={DeviceID}&DataCollection=CommonInverterData");
 
                 if (!string.IsNullOrEmpty(json))
@@ -260,25 +287,31 @@ namespace FroniusLib
 
                     if (Data.CommonData.Response.Status.Code == 0)
                     {
-                        Data.Status = DataValue.Good;
                         CommonData.Refresh(Data);
                         _logger?.LogDebug("ReadCommonDataAsync OK.");
                     }
                     else
                     {
-                        Data.Status = DataValue.BadUnexpectedError;
-                        Data.Status.Explanation = Data.CommonData.Response.Status.UserMessage;
+                        status = DataValue.BadUnexpectedError;
+                        status.Explanation = Data.CommonData.Response.Status.UserMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadCommonDataAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                CommonData.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadCommonDataAsync() finished.");
             }
 
-            return Data.Status;
+            CommonData.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -288,8 +321,12 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadPhaseDataAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadPhaseDataAsync() starting.");
                 string json = await _client.GetStringAsync($"solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DeviceId={DeviceID}&DataCollection=3PInverterData");
 
                 if (!string.IsNullOrEmpty(json))
@@ -299,25 +336,31 @@ namespace FroniusLib
 
                     if (Data.PhaseData.Response.Status.Code == 0)
                     {
-                        Data.Status = DataValue.Good;
                         PhaseData.Refresh(Data);
                         _logger?.LogDebug("ReadPhaseDataAsync OK.");
                     }
                     else
                     {
-                        Data.Status = DataValue.BadUnexpectedError;
-                        Data.Status.Explanation = Data.PhaseData.Response.Status.UserMessage;
+                        status = DataValue.BadUnexpectedError;
+                        status.Explanation = Data.PhaseData.Response.Status.UserMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadPhaseDataAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                PhaseData.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadPhaseDataAsync() finished.");
             }
 
-            return Data.Status;
+            PhaseData.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -327,8 +370,12 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadMinMaxDataAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadMinMaxDataAsync() starting.");
                 string json = await _client.GetStringAsync($"solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DeviceId={DeviceID}&DataCollection=MinMaxInverterData");
 
                 if (!string.IsNullOrEmpty(json))
@@ -338,25 +385,31 @@ namespace FroniusLib
 
                     if (Data.MinMaxData.Response.Status.Code == 0)
                     {
-                        Data.Status = DataValue.Good;
                         MinMaxData.Refresh(Data);
                         _logger?.LogDebug("ReadMinMaxDataAsync OK.");
                     }
                     else
                     {
-                        Data.Status = DataValue.BadUnexpectedError;
-                        Data.Status.Explanation = Data.MinMaxData.Response.Status.UserMessage;
+                        status = DataValue.BadUnexpectedError;
+                        status.Explanation = Data.MinMaxData.Response.Status.UserMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadMinMaxDataAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                MinMaxData.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadMinMaxDataAsync() finished.");
             }
 
-            return Data.Status;
+            MinMaxData.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -366,8 +419,12 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadLoggerInfoAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
+                _logger?.LogDebug("ReadLoggerInfoAsync() starting.");
                 string json = await _client.GetStringAsync($"solar_api/v1/GetLoggerInfo.cgi");
 
                 if (!string.IsNullOrEmpty(json))
@@ -377,25 +434,31 @@ namespace FroniusLib
 
                     if (Data.LoggerInfo.Response.Status.Code == 0)
                     {
-                        Data.Status = DataValue.Good;
                         LoggerInfo.Refresh(Data);
                         _logger?.LogDebug("ReadLoggerInfoAsync OK.");
                     }
                     else
                     {
-                        Data.Status = DataValue.BadUnexpectedError;
-                        Data.Status.Explanation = Data.LoggerInfo.Response.Status.UserMessage;
+                        status = DataValue.BadUnexpectedError;
+                        status.Explanation = Data.LoggerInfo.Response.Status.UserMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"ReadLoggerInfoAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-                LoggerInfo.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadLoggerInfoAsync() finished.");
             }
 
-            return Data.Status;
+            MinMaxData.Status = status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -404,6 +467,9 @@ namespace FroniusLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> GetAPIVersionAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
                 string json = await _client.GetStringAsync($"solar_api/GetAPIVersion.cgi");
@@ -411,17 +477,21 @@ namespace FroniusLib
                 if (!string.IsNullOrEmpty(json))
                 {
                     VersionInfo = JsonConvert.DeserializeObject<APIVersionData>(json);
-                    Data.Status = DataValue.Good;
+                    status = DataValue.Good;
                     _logger?.LogDebug("GetAPIVersionAsync OK.");
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, $"GetAPIVersionAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
+                status = DataValue.BadInternalError;
+            }
+            finally
+            {
+                _semaphore.Release();
             }
 
-            return Data.Status;
+            return status;
         }
 
         #endregion Public Methods

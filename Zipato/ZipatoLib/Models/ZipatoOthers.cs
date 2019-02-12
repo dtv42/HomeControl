@@ -87,6 +87,8 @@ namespace ZipatoLib.Models
                 var uuid = Scenes[i].Uuid;
                 Scenes[i] = new Scene(_zipato, uuid);
             }
+
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
 
@@ -105,7 +107,7 @@ namespace ZipatoLib.Models
                 item.Refresh();
             }
 
-            Status = _zipato.Data?.Status ?? Uncertain;
+            Status = _zipato?.Data?.Status ?? Uncertain;
         }
 
         /// <summary>

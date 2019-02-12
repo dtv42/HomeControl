@@ -11,6 +11,7 @@ namespace EM300LRLib
     #region Using Directives
 
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -37,9 +38,15 @@ namespace EM300LRLib
         private readonly IEM300LRClient _client;
 
         /// <summary>
-        /// The EM300LR settings used internally.
+        /// The EM300LR specific settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
+
+        /// <summary>
+        /// Instantiate a Singleton of the Semaphore with a value of 1.
+        /// This means that only 1 thread can be granted access at a time.
+        /// </summary>
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         #endregion Private Data Members
 
@@ -166,11 +173,14 @@ namespace EM300LRLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
+            await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
+
             try
             {
                 _logger?.LogDebug("ReadAllAsync() starting.");
 
-                var status = await GetStartAsync();
+                status = await GetStartAsync();
 
                 if (status.IsGood)
                 {
@@ -193,7 +203,7 @@ namespace EM300LRLib
                                 Phase2Data.Refresh(data);
                                 Phase3Data.Refresh(data);
 
-                                if (IsInitialized == false)
+                                if (!IsInitialized)
                                 {
                                     IsInitialized = true;
                                 }
@@ -202,8 +212,8 @@ namespace EM300LRLib
                             }
                             else
                             {
-                                Data.Status = DataValue.BadDeviceFailure;
-                                Data.Status.Explanation = $"EM300LR status code: {data.StatusCode}.";
+                                status = DataValue.BadDeviceFailure;
+                                status.Explanation = $"EM300LR status code: {data.StatusCode}.";
                                 _logger?.LogError($"EM300LR status code: {data.StatusCode}.");
                                 _logger?.LogDebug($"ReadAllAsync not OK.");
                             }
@@ -211,32 +221,37 @@ namespace EM300LRLib
                         else
                         {
                             _logger?.LogError("ReadAllAsync no data returned.");
-                            Data.Status = DataValue.BadUnknownResponse;
-                            Data.Status.Explanation = "EM300LR no data returned.";
+                            status = DataValue.BadUnknownResponse;
+                            status.Explanation = "EM300LR no data returned.";
                         }
                     }
                     else
                     {
                         _logger?.LogError("ReadAllAsync not authenticated.");
-                        Data.Status = DataValue.BadNotConnected;
-                        Data.Status.Explanation = "EM300LR not authenticated.";
+                        status = DataValue.BadNotConnected;
+                        status.Explanation = "EM300LR not authenticated.";
                     }
                 }
                 else
                 {
                     _logger?.LogError("ReadAllAsync invalid response.");
-                    Data.Status = DataValue.BadCommunicationError;
-                    Data.Status.Explanation = status.Explanation;
+                    status = DataValue.BadCommunicationError;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
-                Data.Status.Explanation = ex.Message;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
+            }
+            finally
+            {
+                _semaphore.Release();
+                _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         #endregion Public Methods

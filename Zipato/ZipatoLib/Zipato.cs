@@ -13,6 +13,7 @@ namespace ZipatoLib
     using System;
     using System.Collections.Generic;
     using System.Net;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -21,8 +22,6 @@ namespace ZipatoLib
     using BaseClassLib;
     using DataValueLib;
     using ZipatoLib.Models;
-    using ZipatoLib.Models.Data;
-    using System.Threading;
 
     #endregion
 
@@ -40,7 +39,7 @@ namespace ZipatoLib
         private readonly IZipatoClient _client;
 
         /// <summary>
-        /// The Netatmo settings used internally.
+        /// The Zipato specific settings used internally.
         /// </summary>
         private readonly ISettingsData _settings;
 
@@ -483,15 +482,15 @@ namespace ZipatoLib
         public async Task<DataStatus> ReadAllAsync()
         {
             await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadAllAsync() starting.");
                 var session = StartSession();
 
                 if (session.IsActive)
                 {
-                    _logger?.LogDebug("ReadAllAsync() starting.");
-
                     await DataReadAlarmAsync();
                     await DataReadAttributesFullAsync();
                     await DataReadBrandsFullAsync();
@@ -520,25 +519,29 @@ namespace ZipatoLib
                         await DataReadVirtualEndpointsAsync();
                     }
 
-                    if (IsInitialized == false)
+                    if (Data.Status.IsGood)
                     {
-                        IsInitialized = true;
-                    }
+                        if (!IsInitialized)
+                        {
+                            IsInitialized = true;
+                        }
 
-                    Others.Update();
-                    Devices.Update();
-                    Sensors.Update();
+                        Others.Update();
+                        Devices.Update();
+                        Sensors.Update();
+                    }
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadAllAsync(): Session not established.");
-                    Data.Status = DataValue.BadCommunicationError;
+                    status = DataValue.BadCommunicationError;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
+                status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
@@ -547,7 +550,8 @@ namespace ZipatoLib
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
@@ -557,35 +561,39 @@ namespace ZipatoLib
         public async Task<DataStatus> ReadAllDataAsync()
         {
             await _semaphore.WaitAsync();
+            DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadAllDataAsync() starting.");
+
                 var session = StartSession();
 
                 if (session.IsActive)
                 {
-                    _logger?.LogDebug("ReadAllDataAsync() starting.");
-
                     await DataReadAttributesEndpointsAsync();
                     await DataReadEndpointsAsync();
                     await DataReadCamerasAsync();
                     await DataReadSavedFilesAsync();
                     await DataReadScenesAsync();
 
-                    Others.Update();
-                    Devices.Update();
-                    Sensors.Update();
+                    if (Data.Status.IsGood)
+                    {
+                        Others.Update();
+                        Devices.Update();
+                        Sensors.Update();
+                    }
                 }
                 else
                 {
                     _logger?.LogDebug($"ReadAllDataAsync: Session not established.");
-                    Data.Status = DataValue.BadCommunicationError;
+                    status = DataValue.BadCommunicationError;
                 }
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Exception in ReadAllDataAsync().");
-                Data.Status = DataValue.BadUnexpectedError;
+                status = DataValue.BadUnexpectedError;
             }
             finally
             {
@@ -594,7 +602,8 @@ namespace ZipatoLib
                 _logger?.LogDebug("ReadAllDataAsync() finished.");
             }
 
-            return Data.Status;
+            Data.Status = status;
+            return status;
         }
 
         /// <summary>
