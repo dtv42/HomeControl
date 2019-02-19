@@ -21,6 +21,9 @@ namespace SYMO823MWeb.Pages
     {
         #region Public Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Message { get; set; }
 
         #endregion

@@ -21,22 +21,22 @@ namespace HomeControlLib.Zipato.Models.Sensors
         /// <summary>
         /// The name of the plug.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The UUID of the plug.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> CummulativeConsumption { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> CummulativeConsumption { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The current consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> CurrentConsumption { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> CurrentConsumption { get; set; } = new ValueInfo<double>();
 
         #endregion
     }

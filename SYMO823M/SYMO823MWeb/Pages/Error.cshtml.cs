@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Error.cshtml.cs" company="DTV-Online">
 //   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -18,7 +18,7 @@ namespace SYMO823MWeb.Pages
     #endregion
 
     /// <summary>
-    /// 
+    /// Default ASP.NET core error handling page.
     /// </summary>
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
@@ -26,12 +26,12 @@ namespace SYMO823MWeb.Pages
         #region Public Properties
 
         /// <summary>
-        /// 
+        /// The current request ID.
         /// </summary>
         public string RequestId { get; set; }
 
         /// <summary>
-        /// 
+        /// Flag indicating to show the current request ID.
         /// </summary>
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
@@ -40,7 +40,7 @@ namespace SYMO823MWeb.Pages
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Initializes the state needed for the page.
         /// </summary>
         public void OnGet()
         {

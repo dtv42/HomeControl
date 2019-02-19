@@ -258,6 +258,11 @@
             The Swagger info data objects provides metadata about the web API.
             </summary>
         </member>
+        <member name="P:SYMO823MWeb.Models.SwaggerOptions.Info">
+            <summary>
+            The Info object provides metadata about the API.
+            </summary>
+        </member>
         <member name="T:SYMO823MWeb.Pages.AboutModel">
             <summary>
             
@@ -290,22 +295,22 @@
         </member>
         <member name="T:SYMO823MWeb.Pages.ErrorModel">
             <summary>
-            
+            Default ASP.NET core error handling page.
             </summary>
         </member>
         <member name="P:SYMO823MWeb.Pages.ErrorModel.RequestId">
             <summary>
-            
+            The current request ID.
             </summary>
         </member>
         <member name="P:SYMO823MWeb.Pages.ErrorModel.ShowRequestId">
             <summary>
-            
+            Flag indicating to show the current request ID.
             </summary>
         </member>
         <member name="M:SYMO823MWeb.Pages.ErrorModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:SYMO823MWeb.Pages.ExtendedModel">
@@ -400,12 +405,12 @@
         </member>
         <member name="T:SYMO823MWeb.Pages.WebApiModel">
             <summary>
-            
+            Page to display the integrated Swagger UI.
             </summary>
         </member>
         <member name="M:SYMO823MWeb.Pages.WebApiModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:SYMO823MWeb.Program">

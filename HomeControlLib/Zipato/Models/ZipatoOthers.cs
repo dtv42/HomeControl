@@ -1,33 +1,31 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Index.cshtml.cs" company="DTV-Online">
+// <copyright file="ZipatoScenes.cs" company="DTV-Online">
 //   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
 // <license>
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
-namespace HomeDataWeb.Pages
+namespace ZipatoLib.Models
 {
     #region Using Directives
 
-    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.Collections.Generic;
+
+    using ZipatoLib.Models.Others;
+    using DataValueLib;
 
     #endregion
 
     /// <summary>
-    /// 
+    /// Class holding attribute data values from the Zipato home controller.
     /// </summary>
-    public class IndexModel : PageModel
+    public class ZipatoOthers : DataValue
     {
-        #region Public Methods
+        #region Public Properties
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void OnGet()
-        {
-
-        }
+        public List<Camera> Cameras { get; set; } = new List<Camera> { };
+        public List<Scene> Scenes { get; set; } = new List<Scene> { };
 
         #endregion
     }

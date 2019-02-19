@@ -202,6 +202,26 @@
             The Swagger info data objects provides metadata about the web API.
             </summary>
         </member>
+        <member name="P:ETAPU11Web.Models.SwaggerOptions.Info">
+            <summary>
+            The Info object provides metadata about the API.
+            </summary>
+        </member>
+        <member name="T:ETAPU11Web.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ETAPU11Web.Pages.AboutModel.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ETAPU11Web.Pages.AboutModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ETAPU11Web.Pages.BoilerModel">
             <summary>
             
@@ -210,6 +230,26 @@
         <member name="M:ETAPU11Web.Pages.BoilerModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:ETAPU11Web.Pages.ErrorModel">
+            <summary>
+            Default ASP.NET core error handling page.
+            </summary>
+        </member>
+        <member name="P:ETAPU11Web.Pages.ErrorModel.RequestId">
+            <summary>
+            The current request ID.
+            </summary>
+        </member>
+        <member name="P:ETAPU11Web.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Flag indicating to show the current request ID.
+            </summary>
+        </member>
+        <member name="M:ETAPU11Web.Pages.ErrorModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:ETAPU11Web.Pages.ETAPU11Model">
@@ -270,6 +310,16 @@
         <member name="M:ETAPU11Web.Pages.SystemModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:ETAPU11Web.Pages.WebApiModel">
+            <summary>
+            Page to display the integrated Swagger UI.
+            </summary>
+        </member>
+        <member name="M:ETAPU11Web.Pages.WebApiModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:ETAPU11Web.Program">

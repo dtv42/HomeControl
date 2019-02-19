@@ -1790,7 +1790,7 @@
         </member>
         <member name="P:ZipatoWeb.Models.SwaggerOptions.Info">
             <summary>
-            
+            The Info object provides metadata about the API.
             </summary>
         </member>
         <member name="T:ZipatoWeb.Pages.AboutModel">
@@ -1904,6 +1904,36 @@
             </summary>
         </member>
         <member name="M:ZipatoWeb.Pages.EndpointsModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.ErrorModel">
+            <summary>
+            Default ASP.NET core error handling page.
+            </summary>
+        </member>
+        <member name="P:ZipatoWeb.Pages.ErrorModel.RequestId">
+            <summary>
+            The current request ID.
+            </summary>
+        </member>
+        <member name="P:ZipatoWeb.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Flag indicating to show the current request ID.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.ErrorModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.IndexModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.IndexModel.OnGet">
             <summary>
             
             </summary>
@@ -2036,6 +2066,16 @@
         <member name="M:ZipatoWeb.Pages.ThermostatsModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:ZipatoWeb.Pages.WebApiModel">
+            <summary>
+            Page to display the integrated Swagger UI.
+            </summary>
+        </member>
+        <member name="M:ZipatoWeb.Pages.WebApiModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:ZipatoWeb.Pages.ZipatoModel">

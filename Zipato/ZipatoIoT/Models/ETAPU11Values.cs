@@ -84,9 +84,9 @@ namespace ZipatoIoT.Models
                     Values[8] = result.DraughtFanSpeed;                               // Value9:  Draught Fan Speed
                     Values[9] = result.ResidualO2;                                    // Value10: Residual O2
                     Values[10] = result.RoomTarget;                                   // Value11: Room Target
-                    Values[11] = result.Flow;                                         // Value12: Flow
-                    Values[12] = result.DayHeatingThreshold;                          // Value13: Day Heating Threshold
-                    Values[13] = result.NightHeatingThreshold;                        // Value14: Night Heating Threshold
+                    Values[11] = result.Flow;                                         // Value12: Flow Temperature
+                    Values[12] = result.HopperPelletBinContents / 10;                 // Value13: Bin Content
+                    Values[13] = result.Stock;                                        // Value14: Stock Content
                     Values[14] = result.HotwaterTarget;                               // Value15: Hotwater Target
                     Values[15] = result.OutsideTemperature;                           // Value16: Outside Temperature
 

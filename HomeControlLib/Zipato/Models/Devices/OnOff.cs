@@ -21,17 +21,17 @@ namespace HomeControlLib.Zipato.Models.Devices
         /// <summary>
         /// The UUID of the OnOff switch.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The name the OnOff switch.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The STATE value of the OnOff switch.
         /// </summary>
-        public ValueInfo<bool> State { get; private set; } = new ValueInfo<bool>();
+        public ValueInfo<bool> State { get; set; } = new ValueInfo<bool>();
 
         #endregion
     }

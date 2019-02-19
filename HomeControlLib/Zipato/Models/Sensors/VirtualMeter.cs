@@ -21,92 +21,92 @@ namespace HomeControlLib.Zipato.Models.Sensors
         /// <summary>
         /// The name of the meter.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The UUID of the meter.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value1 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value1 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value2 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value2 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value3 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value3 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value4 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value4 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value5 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value5 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value6 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value6 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value7 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value7 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value8 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value8 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value9 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value9 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value10 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value10 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value11 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value11 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value12 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value12 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value13 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value13 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value14 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value14 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value15 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value15 { get; set; } = new ValueInfo<double>();
 
         /// <summary>
         /// The cummulative consumption value of the meter.
         /// </summary>
-        public ValueInfo<double> Value16 { get; private set; } = new ValueInfo<double>();
+        public ValueInfo<double> Value16 { get; set; } = new ValueInfo<double>();
 
         #endregion
 

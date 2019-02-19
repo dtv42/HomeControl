@@ -137,38 +137,26 @@ namespace ZipatoLib.Models.Sensors
         public VirtualMeter(IZipato zipato, Guid uuid)
         {
             _zipato = zipato;
-            var endpoint = zipato.GetEndpoint(uuid);
+            Uuid = uuid;
+            Name = zipato.GetEndpoint(uuid)?.Name;
 
-            if (endpoint != null)
-            {
-                Uuid = uuid;
-                Name = endpoint.Name;
-
-                try
-                {
-                    Value1 =  zipato.GetAttributeByDefinition(uuid, "value1");
-                    Value2 =  zipato.GetAttributeByDefinition(uuid, "value2");
-                    Value3 =  zipato.GetAttributeByDefinition(uuid, "value3");
-                    Value4 =  zipato.GetAttributeByDefinition(uuid, "value4");
-                    Value5 =  zipato.GetAttributeByDefinition(uuid, "value5");
-                    Value6 =  zipato.GetAttributeByDefinition(uuid, "value6");
-                    Value7 =  zipato.GetAttributeByDefinition(uuid, "value7");
-                    Value8 =  zipato.GetAttributeByDefinition(uuid, "value8");
-                    Value9 =  zipato.GetAttributeByDefinition(uuid, "value9");
-                    Value10 = zipato.GetAttributeByDefinition(uuid, "value10");
-                    Value11 = zipato.GetAttributeByDefinition(uuid, "value11");
-                    Value12 = zipato.GetAttributeByDefinition(uuid, "value12");
-                    Value13 = zipato.GetAttributeByDefinition(uuid, "value13");
-                    Value14 = zipato.GetAttributeByDefinition(uuid, "value14");
-                    Value15 = zipato.GetAttributeByDefinition(uuid, "value15");
-                    Value16 = zipato.GetAttributeByDefinition(uuid, "value16");
-                }
-                catch (Exception) { }
-                finally
-                {
-                    Refresh();
-                }
-            }
+            Value1 = zipato.GetAttributeByDefinition(uuid, "value1");
+            Value2 = zipato.GetAttributeByDefinition(uuid, "value2");
+            Value3 = zipato.GetAttributeByDefinition(uuid, "value3");
+            Value4 = zipato.GetAttributeByDefinition(uuid, "value4");
+            Value5 = zipato.GetAttributeByDefinition(uuid, "value5");
+            Value6 = zipato.GetAttributeByDefinition(uuid, "value6");
+            Value7 = zipato.GetAttributeByDefinition(uuid, "value7");
+            Value8 = zipato.GetAttributeByDefinition(uuid, "value8");
+            Value9 = zipato.GetAttributeByDefinition(uuid, "value9");
+            Value10 = zipato.GetAttributeByDefinition(uuid, "value10");
+            Value11 = zipato.GetAttributeByDefinition(uuid, "value11");
+            Value12 = zipato.GetAttributeByDefinition(uuid, "value12");
+            Value13 = zipato.GetAttributeByDefinition(uuid, "value13");
+            Value14 = zipato.GetAttributeByDefinition(uuid, "value14");
+            Value15 = zipato.GetAttributeByDefinition(uuid, "value15");
+            Value16 = zipato.GetAttributeByDefinition(uuid, "value16");
+            Refresh();
         }
 
         #endregion

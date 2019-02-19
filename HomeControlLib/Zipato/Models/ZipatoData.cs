@@ -11,7 +11,6 @@ namespace HomeControlLib.Zipato.Models
     #region Using Directives
 
     using System.Collections.Generic;
-    using System.Linq;
 
     using DataValueLib;
     using HomeControlLib.Zipato.Extensions;
@@ -48,7 +47,7 @@ namespace HomeControlLib.Zipato.Models
         public List<ScheduleInfo> Schedules { get; set; } = new List<ScheduleInfo> { };
         public List<ThermostatInfo> Thermostats { get; set; } = new List<ThermostatInfo> { };
         public List<VirtualEndpointInfo> VirtualEndpoints { get; set; } = new List<VirtualEndpointInfo> { };
-        public List<ValueData> Values { get => Attributes?.Where(a => a.Value != null).Select(a => a.ToValueData()).ToList(); }
+        public List<ValueData> Values { get; set; } = new List<ValueData> { };
 
         #endregion
     }

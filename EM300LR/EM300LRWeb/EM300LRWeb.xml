@@ -158,6 +158,26 @@
             The Swagger info data objects provides metadata about the web API.
             </summary>
         </member>
+        <member name="P:EM300LRWeb.Models.SwaggerOptions.Info">
+            <summary>
+            The Info object provides metadata about the API.
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EM300LRWeb.Pages.AboutModel.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.AboutModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:EM300LRWeb.Pages.EM300LRModel">
             <summary>
             
@@ -166,6 +186,26 @@
         <member name="M:EM300LRWeb.Pages.EM300LRModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.ErrorModel">
+            <summary>
+            Default ASP.NET core error handling page.
+            </summary>
+        </member>
+        <member name="P:EM300LRWeb.Pages.ErrorModel.RequestId">
+            <summary>
+            The current request ID.
+            </summary>
+        </member>
+        <member name="P:EM300LRWeb.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Flag indicating to show the current request ID.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.ErrorModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:EM300LRWeb.Pages.IndexModel">
@@ -226,6 +266,16 @@
         <member name="M:EM300LRWeb.Pages.TotalModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:EM300LRWeb.Pages.WebApiModel">
+            <summary>
+            Page to display the integrated Swagger UI.
+            </summary>
+        </member>
+        <member name="M:EM300LRWeb.Pages.WebApiModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:EM300LRWeb.Program">
@@ -342,6 +392,13 @@
             This method gets called by the runtime. Use this method to add services to the container.
             </summary>
             <param name="services"></param>
+        </member>
+        <member name="M:EM300LRWeb.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
         </member>
     </members>
 </doc>

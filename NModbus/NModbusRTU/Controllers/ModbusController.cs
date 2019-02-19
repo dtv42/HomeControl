@@ -26,10 +26,16 @@ namespace NModbusRTU.Controllers
 
     #endregion
 
+    /// <summary>
+    /// Baseclass for all Modbus Gateway MVC Controller reading and writing data.
+    /// </summary>
     public class ModbusController : BaseController<AppSettings>
     {
         #region Protected Fields
 
+        /// <summary>
+        /// The Modbus RTU client instance.
+        /// </summary>
         protected readonly IRtuClient _client;
 
         #endregion Private Fields

@@ -22,7 +22,7 @@ namespace ZipatoWeb.Models
         #region Public Properties
 
         /// <summary>
-        /// 
+        /// The Info object provides metadata about the API.
         /// </summary>
         public Info Info { get; set; } = new Info { Title = "Web API", Version = "v1" };
 

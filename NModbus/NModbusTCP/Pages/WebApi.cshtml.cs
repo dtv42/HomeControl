@@ -15,11 +15,17 @@ namespace NModbusTCP.Pages
 
     #endregion
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     public class WebApiModel : PageModel
     {
         #region Public Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void OnGet()
         {
         }

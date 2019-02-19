@@ -167,7 +167,17 @@
             The Swagger info data objects provides metadata about the web API.
             </summary>
         </member>
+        <member name="P:NetatmoWeb.Models.SwaggerOptions.Info">
+            <summary>
+            The Info object provides metadata about the API.
+            </summary>
+        </member>
         <member name="T:NetatmoWeb.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:NetatmoWeb.Pages.AboutModel.Message">
             <summary>
             
             </summary>
@@ -179,22 +189,22 @@
         </member>
         <member name="T:NetatmoWeb.Pages.ErrorModel">
             <summary>
-            
+            Default ASP.NET core error handling page.
             </summary>
         </member>
         <member name="P:NetatmoWeb.Pages.ErrorModel.RequestId">
             <summary>
-            
+            The current request ID.
             </summary>
         </member>
         <member name="P:NetatmoWeb.Pages.ErrorModel.ShowRequestId">
             <summary>
-            
+            Flag indicating to show the current request ID.
             </summary>
         </member>
         <member name="M:NetatmoWeb.Pages.ErrorModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:NetatmoWeb.Pages.IndexModel">
@@ -289,12 +299,12 @@
         </member>
         <member name="T:NetatmoWeb.Pages.WebApiModel">
             <summary>
-            
+            Page to display the integrated Swagger UI.
             </summary>
         </member>
         <member name="M:NetatmoWeb.Pages.WebApiModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:NetatmoWeb.Pages.WindModel">
@@ -333,6 +343,11 @@
             <param name="logger">The application logger.</param>
             <param name="options">The application options.</param>
             <param name="environment"></param>
+        </member>
+        <member name="M:NetatmoWeb.Services.NetatmoMonitor.DoStartAsync">
+            <summary>
+            Executes the start operation just once.
+            </summary>
         </member>
         <member name="M:NetatmoWeb.Services.NetatmoMonitor.DoWorkAsync">
             <summary>

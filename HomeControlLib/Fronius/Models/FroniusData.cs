@@ -20,7 +20,7 @@ namespace HomeControlLib.Fronius.Models
     /// <summary>
     /// Class holding all data from the Fronius Symo 8.2-3-M inverter.
     /// </summary>
-    public class FroniusData : DataValue, IPropertyHelper
+    public class FroniusData : DataValue
     {
         #region Public Properties
 
@@ -50,45 +50,5 @@ namespace HomeControlLib.Fronius.Models
         public MinMaxDeviceData MinMaxData { get; set; } = new MinMaxDeviceData();
 
         #endregion Public Properties
-
-        #region Public Property Helper
-
-        /// <summary>
-        /// Gets the property list for the FroniusData class.
-        /// </summary>
-        /// <returns>The property list.</returns>
-        public static string[] GetProperties()
-            => typeof(FroniusData).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                .Select(p => p.Name).ToArray();
-
-        /// <summary>
-        /// Returns true if property with the specified name is found in the FroniusData class.
-        /// </summary>
-        /// <param name="property">The property name.</param>
-        /// <returns>Returns true if property is found.</returns>
-        public static bool IsProperty(string property) => PropertyValue.GetPropertyInfo(typeof(FroniusData), property) != null;
-
-        /// <summary>
-        /// Returns the <see cref="PropertyInfo"/> data for the property with the specified name.
-        /// </summary>
-        /// <param name="property">The property name.</param>
-        /// <returns>The property info.</returns>
-        public static PropertyInfo GetPropertyInfo(string property) => PropertyValue.GetPropertyInfo(typeof(FroniusData), property);
-
-        /// <summary>
-        /// Returns the value for the property with the specified name.
-        /// </summary>
-        /// <param name="property">The property name.</param>
-        /// <returns>The property value.</returns>
-        public object GetPropertyValue(string property) => PropertyValue.GetPropertyValue(this, property);
-
-        /// <summary>
-        /// Sets the value for the property with the specified name.
-        /// </summary>
-        /// <param name="property">The property name.</param>
-        /// <param name="value">The property value.</param>
-        public void SetPropertyValue(string property, object value) => PropertyValue.SetPropertyValue(this, property, value);
-
-        #endregion Public Property Helper
     }
 }

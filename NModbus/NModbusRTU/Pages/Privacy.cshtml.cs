@@ -21,6 +21,9 @@ namespace NModbusRTU.Pages
     {
         #region Public Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void OnGet()
         {
         }

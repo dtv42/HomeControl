@@ -1,10 +1,31 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="00000000000000_CreateIdentitySchema.cs" company="DTV-Online">
+//   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
+// </copyright>
+// <license>
+// Licensed under the MIT license. See the LICENSE file in the project root for more information.
+// </license>
+// --------------------------------------------------------------------------------------------------------------------
 namespace NModbusRTU.Data.Migrations
 {
+    #region Using Directives
+
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
+    #endregion
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class CreateIdentitySchema : Migration
     {
+        #region Protected Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -190,6 +211,10 @@ namespace NModbusRTU.Data.Migrations
                 unique: true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -213,5 +238,7 @@ namespace NModbusRTU.Data.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
         }
+
+        #endregion
     }
 }

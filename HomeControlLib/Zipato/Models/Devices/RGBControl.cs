@@ -22,17 +22,17 @@ namespace HomeControlLib.Zipato.Models.Devices
         /// <summary>
         /// The UUID of the RGB controller.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The name of the RGB controller.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The INTENSITY value of the RGB controller.
         /// </summary>
-        public ValueInfo<int> Intensity { get; private set; } = new ValueInfo<int>();
+        public ValueInfo<int> Intensity { get; set; } = new ValueInfo<int>();
 
         /// <summary>
         /// The RED value of the RGB controller.

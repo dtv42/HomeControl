@@ -15,14 +15,14 @@ namespace KWLEC200Web.Pages
     #endregion
 
     /// <summary>
-    /// 
+    /// Page to display the integrated Swagger UI.
     /// </summary>
     public class WebApiModel : PageModel
     {
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Initializes the state needed for the page.
         /// </summary>
         public void OnGet()
         {

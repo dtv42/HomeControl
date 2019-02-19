@@ -81,10 +81,19 @@ namespace ZipatoIoT
                     configuration.GetSection("AppSettings")?.Bind(_settings);
 
                     // Setting up the static Serilog logger.
+                    //Log.Logger = new LoggerConfiguration()
+                    //    .ReadFrom.Configuration(configuration)
+                    //    .Enrich.FromLogContext()
+                    //    .CreateLogger();
+
+                    StorageFolder folder = ApplicationData.Current.LocalFolder;
+                    string fullPath = folder.Path + "\\Logs\\{Date}.log";
+
                     Log.Logger = new LoggerConfiguration()
-                        .ReadFrom.Configuration(configuration)
-                        .Enrich.FromLogContext()
-                        .CreateLogger();
+                                .MinimumLevel.Debug()
+                                .Enrich.FromLogContext()
+                                .WriteTo.RollingFile(fullPath)
+                                .CreateLogger();
 
                     // Setting up the application logger.
                     var services = new ServiceCollection()

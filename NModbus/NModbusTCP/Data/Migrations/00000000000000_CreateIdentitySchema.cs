@@ -1,10 +1,23 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace NModbusTCP.Data.Migrations
+﻿namespace NModbusTCP.Data.Migrations
 {
+    #region Using Directives
+
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
+    #endregion
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class CreateIdentitySchema : Migration
     {
+        #region Protected Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -190,6 +203,10 @@ namespace NModbusTCP.Data.Migrations
                 unique: true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -213,5 +230,7 @@ namespace NModbusTCP.Data.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
         }
+
+        #endregion
     }
 }

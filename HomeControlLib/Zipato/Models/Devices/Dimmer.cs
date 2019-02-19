@@ -21,17 +21,17 @@ namespace HomeControlLib.Zipato.Models.Devices
         /// <summary>
         /// The UUID of the dimmer.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The name of the dimmer.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The INTENSITY value of the dimmer.
         /// </summary>
-        public ValueInfo<int> Intensity { get; private set; } = new ValueInfo<int>();
+        public ValueInfo<int> Intensity { get; set; } = new ValueInfo<int>();
 
         #endregion
     }

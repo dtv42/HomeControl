@@ -27,10 +27,16 @@ namespace NModbusTCP.Controllers
 
     #endregion
 
+    /// <summary>
+    /// Baseclass for all Modbus Gateway MVC Controller reading and writing data.
+    /// </summary>
     public class ModbusController : BaseController<AppSettings>
     {
         #region Protected Fields
 
+        /// <summary>
+        /// The Modbus TCP client instance.
+        /// </summary>
         protected readonly ITcpClient _client;
 
         #endregion Private Fields

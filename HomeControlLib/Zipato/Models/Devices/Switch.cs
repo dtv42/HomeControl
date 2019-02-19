@@ -21,17 +21,17 @@ namespace HomeControlLib.Zipato.Models.Devices
         /// <summary>
         /// The UUID of the boolean device.
         /// </summary>
-        public Guid Uuid { get; }
+        public Guid Uuid { get; set; }
 
         /// <summary>
         /// The name the boolean device.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The STATE value of the boolean device.
         /// </summary>
-        public ValueInfo<bool> State { get; private set; } = new ValueInfo<bool>();
+        public ValueInfo<bool> State { get; set; } = new ValueInfo<bool>();
 
         #endregion
     }

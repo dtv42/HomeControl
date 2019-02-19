@@ -190,7 +190,7 @@
         </member>
         <member name="P:WallboxWeb.Models.SwaggerOptions.Info">
             <summary>
-            The default Swagger options.
+            The Info object provides metadata about the API.
             </summary>
         </member>
         <member name="T:WallboxWeb.Pages.AboutModel">
@@ -198,9 +198,34 @@
             
             </summary>
         </member>
+        <member name="P:WallboxWeb.Pages.AboutModel.Message">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:WallboxWeb.Pages.AboutModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:WallboxWeb.Pages.ErrorModel">
+            <summary>
+            Default ASP.NET core error handling page.
+            </summary>
+        </member>
+        <member name="P:WallboxWeb.Pages.ErrorModel.RequestId">
+            <summary>
+            The current request ID.
+            </summary>
+        </member>
+        <member name="P:WallboxWeb.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Flag indicating to show the current request ID.
+            </summary>
+        </member>
+        <member name="M:WallboxWeb.Pages.ErrorModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:WallboxWeb.Pages.IndexModel">
@@ -285,12 +310,12 @@
         </member>
         <member name="T:WallboxWeb.Pages.WebApiModel">
             <summary>
-            
+            Page to display the integrated Swagger UI.
             </summary>
         </member>
         <member name="M:WallboxWeb.Pages.WebApiModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:WallboxWeb.Program">
