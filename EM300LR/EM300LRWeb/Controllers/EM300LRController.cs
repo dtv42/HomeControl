@@ -32,6 +32,7 @@ namespace EM300LRWeb.Controllers
     /// <summary>
     /// The EM300LR controller for reading EM300LR data items.
     /// </summary>
+    [ApiController]
     [Route("api/em300lr")]
     [Produces("application/json")]
     public class EM300LRController : BaseController<AppSettings>
@@ -63,20 +64,6 @@ namespace EM300LRWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "EM300LR API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_em300lr?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all EM300LR related data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -97,9 +84,9 @@ namespace EM300LRWeb.Controllers
             {
                 _logger?.LogDebug("GetEM300LRData()...");
 
-                if (!_em300lr.IsInitialized)
+                if (!_em300lr.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -141,9 +128,9 @@ namespace EM300LRWeb.Controllers
             {
                 _logger?.LogDebug("GetTotalData()...");
 
-                if (!_em300lr.IsInitialized)
+                if (!_em300lr.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -185,9 +172,9 @@ namespace EM300LRWeb.Controllers
             {
                 _logger?.LogDebug("GetPhase1Data()...");
 
-                if (!_em300lr.IsInitialized)
+                if (!_em300lr.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -229,9 +216,9 @@ namespace EM300LRWeb.Controllers
             {
                 _logger?.LogDebug("GetPhase2Data()...");
 
-                if (!_em300lr.IsInitialized)
+                if (!_em300lr.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -273,9 +260,9 @@ namespace EM300LRWeb.Controllers
             {
                 _logger?.LogDebug("GetPhase3Data()...");
 
-                if (!_em300lr.IsInitialized)
+                if (!_em300lr.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -331,9 +318,9 @@ namespace EM300LRWeb.Controllers
 
                 if (EM300LR.IsProperty(name))
                 {
-                    if (!_em300lr.IsInitialized)
+                    if (!_em300lr.IsLocked)
                     {
-                        return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                        return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                     }
 
                     if (update)

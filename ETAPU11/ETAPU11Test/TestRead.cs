@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestRead.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -76,7 +76,7 @@ namespace ETAPU11Test
         [Fact]
         public async Task TestETAPU11BlockRead()
         {
-            var status = await _etapu11.ReadBlockAsync();
+            var status = await _etapu11.ReadBlockAllAsync();
             Assert.True(status.IsGood);
             Assert.True(_etapu11.Data.IsGood);
             Assert.True(_etapu11.BoilerData.IsGood);
@@ -196,7 +196,7 @@ namespace ETAPU11Test
         {
             Assert.True(ETAPU11Data.IsProperty(property));
             Assert.True(ETAPU11Data.IsReadable(property));
-            var status = await _etapu11.ReadDataAsync(property);
+            var status = await _etapu11.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
         }
 

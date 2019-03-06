@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="HomeControl2App.FroniusPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HomeControl2App"
+    xmlns:custom="using:HomeControl2App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock FontSize="20">Total</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge01" Grid.Column="0" Title="Current Power" ValueFormat="0.000 W" LabelFormat="0.0" Minimum="0" Maximum="8"    Interval="1"    Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.CommonData.PowerAC),      Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge02" Grid.Column="1" Title="Daily Energy"  ValueFormat="0.0 kWh" LabelFormat="0"   Minimum="0" Maximum="50"   Interval="5"    Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.CommonData.DailyEnergy),  Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge03" Grid.Column="2" Title="Yearly Energy" ValueFormat="0.0 kWh" LabelFormat="0"   Minimum="0" Maximum="8000" Interval="1000" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.CommonData.YearlyEnergy), Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge04" Grid.Column="0" Title="Current DC" ValueFormat="0.000 A" LabelFormat="0.0"  Minimum="0"  Maximum="10"  Interval="1"  Value="{x:Bind Hub.CommonData.CurrentDC, Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge05" Grid.Column="1" Title="Voltage DC" ValueFormat="0.0 V"   LabelFormat="0"    Minimum="0"  Maximum="500" Interval="50" Value="{x:Bind Hub.CommonData.VoltageDC, Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge06" Grid.Column="2" Title="Frequency"  ValueFormat="0.00 Hz" LabelFormat="0.00" Minimum="48" Maximum="52"  Interval="1"  Value="{x:Bind Hub.CommonData.Frequency, Mode=OneWay}" />
+            </Grid>
+        
+            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind Hub.Message, Mode=OneWay}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

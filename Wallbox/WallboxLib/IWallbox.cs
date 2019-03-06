@@ -27,9 +27,19 @@ namespace WallboxLib
         ReportsData Report100 { get; }
         List<ReportsData> Reports { get; }
         InfoData Info { get; }
-        bool IsInitialized { get; }
 
-        Task<bool> CheckAccess();
+        bool IsLocked { get; }
+        bool CheckAccess();
+
+        DataStatus ReadAll();
+        DataStatus ReadReport1();
+        DataStatus ReadReport2();
+        DataStatus ReadReport3();
+        DataStatus ReadReport100();
+        DataStatus ReadReports();
+        DataStatus ReadReport(int id);
+        DataStatus ReadProperty(string property);
+
         Task<DataStatus> ReadAllAsync();
         Task<DataStatus> ReadReport1Async();
         Task<DataStatus> ReadReport2Async();
@@ -37,8 +47,8 @@ namespace WallboxLib
         Task<DataStatus> ReadReport100Async();
         Task<DataStatus> ReadReportsAsync();
         Task<DataStatus> ReadReportAsync(int id);
+        Task<DataStatus> ReadPropertyAsync(string property);
 
         object GetPropertyValue(string property);
-        Task<DataStatus> ReadPropertyAsync(string property);
     }
 }

@@ -116,7 +116,7 @@ namespace BControlApp.Commands
                     _bcontrol.TcpSlave.Port = Parent.Port;
                     _bcontrol.TcpSlave.ID = Parent.SlaveID;
 
-                    await _bcontrol.ReadBlockAsync();
+                    await _bcontrol.ReadBlockAllAsync();
 
                     if (OptionA)
                     {

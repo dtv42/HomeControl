@@ -72,9 +72,10 @@ namespace NetatmoLib
         public DateTimeOffset Expiration { get; private set; } = new DateTimeOffset(DateTime.UtcNow);
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Netatmo web service base uri.
@@ -180,6 +181,23 @@ namespace NetatmoLib
         #region Public Methods
 
         /// <summary>
+        /// Check if a valid Access Token can be retrieved.
+        /// </summary>
+        /// <returns>True if a valid Access Token is available.</returns>
+        public bool CheckAccess()
+        {
+            GetAccessTokenAsync().Wait();
+            return (!string.IsNullOrEmpty(Token.AccessToken) && (Token.ExpiresIn > 0));
+        }
+
+        /// <summary>
+        /// Updates all Netatmo station and thermostat properties reading the data from the Netatmo web service.
+        /// If successful the data value will be updated (timestamp).
+        /// </summary>
+        /// <returns>The status indicating success or failure.</returns>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+
+        /// <summary>
         /// Updates all Netatmo station and thermostat properties reading the data from the Netatmo web service.
         /// If successful the data value will be updated (timestamp).
         /// </summary>
@@ -210,8 +228,6 @@ namespace NetatmoLib
                     {
                         RawStationData data = JsonConvert.DeserializeObject<RawStationData>(json);
                         Station.Refresh(data);
-                        if (IsInitialized == false) IsInitialized = true;
-
                         _logger?.LogDebug($"ReadAllAsync OK: {json}");
                     }
                     else
@@ -235,20 +251,6 @@ namespace NetatmoLib
 
             Station.Status = status;
             return status;
-        }
-
-        #endregion Public Methods
-
-        #region Public Helpers
-
-        /// <summary>
-        /// Check if a valid Access Token can be retrieved.
-        /// </summary>
-        /// <returns>True if a valid Access Token is available.</returns>
-        public async Task<bool> CheckAccess()
-        {
-            await GetAccessTokenAsync();
-            return (!string.IsNullOrEmpty(Token.AccessToken) && (Token.ExpiresIn > 0));
         }
 
         /// <summary>
@@ -325,7 +327,7 @@ namespace NetatmoLib
             return null;
         }
 
-        #endregion Public Helpers
+        #endregion
 
         #region Private Methods
 

@@ -82,9 +82,10 @@ namespace EM300LRLib
         public Phase3Data Phase3Data { get; } = new Phase3Data();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the EM300LR web service base uri.
@@ -171,6 +172,13 @@ namespace EM300LRLib
         /// If successful the data values will be updated (timestamp).
         /// </summary>
         /// <returns>The status indicating success or failure.</returns>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+
+        /// <summary>
+        /// Updates all EM300LR properties reading the data from the EM300LR web service.
+        /// If successful the data values will be updated (timestamp).
+        /// </summary>
+        /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadAllAsync()
         {
             await _semaphore.WaitAsync();
@@ -202,11 +210,6 @@ namespace EM300LRLib
                                 Phase1Data.Refresh(data);
                                 Phase2Data.Refresh(data);
                                 Phase3Data.Refresh(data);
-
-                                if (!IsInitialized)
-                                {
-                                    IsInitialized = true;
-                                }
 
                                 _logger?.LogDebug($"ReadAllAsync OK.");
                             }

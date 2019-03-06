@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="HomeControl2App.KWLEC200Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HomeControl2App"
+    xmlns:custom="using:HomeControl2App.Controls"
+    xmlns:sys="using:System"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge01" Grid.Column="0" Title="Temperature Outdoor" ValueFormat="0.0 °C" LabelFormat="0" Minimum="-20" Maximum="40" Interval="5" Value="{x:Bind Hub.Data.TemperatureOutdoor, Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge02" Grid.Column="1" Title="Temperature Exhaust" ValueFormat="0.0 °C" LabelFormat="0" Minimum="-20" Maximum="40" Interval="5" Value="{x:Bind Hub.Data.TemperatureExhaust, Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge03" Grid.Column="2" Title="Temperature Extract" ValueFormat="0.0 °C" LabelFormat="0" Minimum="-20" Maximum="40" Interval="5" Value="{x:Bind Hub.Data.TemperatureExtract, Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge04" Grid.Column="0" Title="Temperature Supply" ValueFormat="0.0 °C"  LabelFormat="0" Minimum="-20" Maximum="40"  Interval="5"  Value="{x:Bind Hub.Data.TemperatureSupply,                               Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge05" Grid.Column="1" Title="Ventilation"        ValueFormat="0.0 \%"  LabelFormat="0" Minimum="0"   Maximum="100" Interval="10" Value="{x:Bind Hub.Data.VentilationPercentage,                           Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge06" Grid.Column="2" Title="Ventilation Level"  ValueFormat="Level 0" LabelFormat="0" Minimum="0"   Maximum="4"   Interval="1"  Value="{x:Bind local:Conversions.ConvertEnum(Hub.Data.VentilationLevel), Mode=OneWay}" />
+            </Grid>
+
+            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind Hub.Message, Mode=OneWay}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
     <CodeAnalysisRuleSet>NModbusApp.ruleset</CodeAnalysisRuleSet>
     <Description>Allows to read and write Modbus data using Modbus TCP or Modbus RTU.</Description>
     <Copyright>Copyright (c) 2018 Dr. Peter Trimmel - All rights reserved.</Copyright>

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="HomeControlApp.Views.ContentPage"
+    x:Class="HomeControlApp.ContentPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:custom="using:HomeControlApp.Controls"
@@ -436,7 +436,7 @@
             </StackPanel>
             <StackPanel x:Name="Control" Visibility="Visible">
                 <TextBlock FontSize="20">Scenes</TextBlock>
-                <Grid>
+                <Grid Margin="20,10,20,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -447,17 +447,17 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton x:Name="ZipatoScene1" Grid.Column="0" Content="Scene 1" Click="OnScene1Click" />
-                    <ToggleButton x:Name="ZipatoScene2" Grid.Column="1" Content="Scene 2" Click="OnScene2Click" />
-                    <ToggleButton x:Name="ZipatoScene3" Grid.Column="2" Content="Scene 3" Click="OnScene3Click" />
-                    <ToggleButton x:Name="ZipatoScene4" Grid.Column="3" Content="Scene 4" Click="OnScene4Click" />
-                    <ToggleButton x:Name="ZipatoScene5" Grid.Column="4" Content="Scene 5" Click="OnScene5Click" />
-                    <ToggleButton x:Name="ZipatoScene6" Grid.Column="5" Content="Scene 6" Click="OnScene6Click" />
-                    <ToggleButton x:Name="ZipatoScene7" Grid.Column="6" Content="Scene 7" Click="OnScene7Click" />
-                    <ToggleButton x:Name="ZipatoScene8" Grid.Column="7" Content="Scene 8" Click="OnScene8Click" />
+                    <Button x:Name="ZipatoScene1" Grid.Column="0" Tag="0" Content="Scene 1" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene2" Grid.Column="1" Tag="1" Content="Scene 2" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene3" Grid.Column="2" Tag="2" Content="Scene 3" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene4" Grid.Column="3" Tag="3" Content="Scene 4" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene5" Grid.Column="4" Tag="4" Content="Scene 5" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene6" Grid.Column="5" Tag="5" Content="Scene 6" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene7" Grid.Column="6" Tag="6" Content="Scene 7" Click="OnSceneClick" />
+                    <Button x:Name="ZipatoScene8" Grid.Column="7" Tag="7" Content="Scene 8" Click="OnSceneClick" />
                 </Grid>
-                <TextBlock FontSize="20">Controls</TextBlock>
-                <Grid>
+                <TextBlock FontSize="20">Switches</TextBlock>
+                <Grid Margin="20,10,20,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -468,25 +468,50 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton x:Name="ZipatoSwitch1" Grid.Column="0" Content="Switch 1" Click="OnSwitch1Click" />
-                    <ToggleButton x:Name="ZipatoSwitch2" Grid.Column="1" Content="Switch 2" Click="OnSwitch2Click" />
-                    <ToggleButton x:Name="ZipatoSwitch3" Grid.Column="2" Content="Switch 3" Click="OnSwitch3Click" />
-                    <ToggleButton x:Name="ZipatoSwitch4" Grid.Column="3" Content="Switch 4" Click="OnSwitch4Click" />
-                    <ToggleButton x:Name="ZipatoSwitch5" Grid.Column="4" Content="Switch 5" Click="OnSwitch5Click" />
-                    <ToggleButton x:Name="ZipatoSwitch6" Grid.Column="5" Content="Switch 6" Click="OnSwitch6Click" />
-                    <ToggleButton x:Name="ZipatoSwitch7" Grid.Column="6" Content="Switch 7" Click="OnSwitch7Click" />
-                    <ToggleButton x:Name="ZipatoSwitch8" Grid.Column="7" Content="Switch 8" Click="OnSwitch8Click" />
+                    <ToggleButton x:Name="ZipatoSwitch1" Grid.Column="0" Tag="0" Content="Switch 1" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch2" Grid.Column="1" Tag="1" Content="Switch 2" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch3" Grid.Column="2" Tag="2" Content="Switch 3" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch4" Grid.Column="3" Tag="3" Content="Switch 4" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch5" Grid.Column="4" Tag="4" Content="Switch 5" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch6" Grid.Column="5" Tag="5" Content="Switch 6" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch7" Grid.Column="6" Tag="6" Content="Switch 7" Click="OnSwitchClick" />
+                    <ToggleButton x:Name="ZipatoSwitch8" Grid.Column="7" Tag="7" Content="Switch 8" Click="OnSwitchClick" />
                 </Grid>
-            <TextBlock FontSize="20">Dimmer</TextBlock>
+                <TextBlock FontSize="20">Wallplugs</TextBlock>
+                <Grid Margin="20,10,20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="ZipatoPlug1" Grid.Column="0" Tag="0" Content="Plug 1" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug2" Grid.Column="1" Tag="1" Content="Plug 2" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug3" Grid.Column="2" Tag="2" Content="Plug 3" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug4" Grid.Column="3" Tag="3" Content="Plug 4" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug5" Grid.Column="4" Tag="4" Content="Plug 5" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug6" Grid.Column="5" Tag="5" Content="Plug 6" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug7" Grid.Column="6" Tag="6" Content="Plug 7" Click="OnPlugClick" />
+                    <ToggleButton x:Name="ZipatoPlug8" Grid.Column="7" Tag="7" Content="Plug 8" Click="OnPlugClick" />
+                </Grid>
+                <TextBlock FontSize="20">Dimmer</TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                     <Slider x:Name="ZipatoDimmer1"
                             Grid.Column="0"
-                            Minimum="0" Maximum="100"
+                            Margin="20,10,20,10"
+                            Tag="0"
+                            Minimum="0"
+                            Maximum="100"
                             TickFrequency="10"
-                            TickPlacement="Outside" ValueChanged="OnValueChanged" />
+                            TickPlacement="Outside"
+                            ValueChanged="OnValueChanged" />
                 </Grid>
             </StackPanel>
         </StackPanel>

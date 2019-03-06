@@ -17,17 +17,11 @@
             <param name="options">The application options.</param>
             <param name="logger">The application logger.</param>
         </member>
-        <member name="M:BControlWeb.Controllers.BControlController.GetIsInitialized">
-            <summary>
-            Returns flag indicating that the data have been sucessfully initialized.
-            </summary>
-            <returns>The action method result.</returns>
-            <response code="200">Returns the requested data.</response>
-        </member>
-        <member name="M:BControlWeb.Controllers.BControlController.GetBControlData(System.Boolean)">
+        <member name="M:BControlWeb.Controllers.BControlController.GetBControlData(System.Boolean,System.Boolean)">
             <summary>
             Returns all BControl related data.
             </summary>
+            <param name="block">Indicates thet a block read is requested.</param>
             <param name="update">Indicates if an update is requested.</param>
             <returns>The action method result.</returns>
             <response code="200">Returns the requested data.</response>
@@ -169,6 +163,26 @@
             The Swagger info data objects provides metadata about the web API.
             </summary>
         </member>
+        <member name="P:BControlWeb.Models.SwaggerOptions.Info">
+            <summary>
+            The Info object provides metadata about the API.
+            </summary>
+        </member>
+        <member name="T:BControlWeb.Pages.AboutModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BControlWeb.Pages.AboutModel.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BControlWeb.Pages.AboutModel.OnGet">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BControlWeb.Pages.BControlModel">
             <summary>
             
@@ -187,6 +201,26 @@
         <member name="M:BControlWeb.Pages.EnergyModel.OnGet">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:BControlWeb.Pages.ErrorModel">
+            <summary>
+            Default ASP.NET core error handling page.
+            </summary>
+        </member>
+        <member name="P:BControlWeb.Pages.ErrorModel.RequestId">
+            <summary>
+            The current request ID.
+            </summary>
+        </member>
+        <member name="P:BControlWeb.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Flag indicating to show the current request ID.
+            </summary>
+        </member>
+        <member name="M:BControlWeb.Pages.ErrorModel.OnGet">
+            <summary>
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:BControlWeb.Pages.IndexModel">
@@ -241,12 +275,12 @@
         </member>
         <member name="T:BControlWeb.Pages.WebApiModel">
             <summary>
-            
+            Page to display the integrated Swagger UI.
             </summary>
         </member>
         <member name="M:BControlWeb.Pages.WebApiModel.OnGet">
             <summary>
-            
+            Initializes the state needed for the page.
             </summary>
         </member>
         <member name="T:BControlWeb.Program">
@@ -285,6 +319,22 @@
             <summary>
             Executes the update operation every minute.
             </summary>
+        </member>
+        <member name="M:BControlWeb.Services.HealthCheck.#ctor(BControlLib.IBControl,Microsoft.Extensions.Options.IOptions{BControlWeb.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{BControlWeb.Services.HealthCheck})">
+            <summary>
+            Initializes a new instance of the <see cref="T:BControlWeb.Services.HealthCheck"/> class.
+            </summary>
+            <param name="bcontrol">The IBControl instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:BControlWeb.Services.HealthCheck.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <summary>
+            Checks the current health state.
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
         </member>
         <member name="T:BControlWeb.Services.TimedService">
             <summary>

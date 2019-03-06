@@ -31,6 +31,7 @@ namespace SYMO823MWeb.Controllers
     /// <summary>
     /// The SYMO823M controller for reading SYMO823M data items.
     /// </summary>
+    [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class SYMO823MController : BaseController<AppSettings>
@@ -62,22 +63,9 @@ namespace SYMO823MWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "SYMO823M API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_symo823m?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all SYMO823M related data.
         /// </summary>
+        /// <param name="block">Indicates thet a block read is requested.</param>
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
@@ -90,20 +78,20 @@ namespace SYMO823MWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public async Task<IActionResult> GetSYMO823MData(bool update = false)
+        public async Task<IActionResult> GetSYMO823MData(bool block = true, bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetSYMO823MData()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    var status = await _symo823m.ReadBlockAsync();
+                    var status = block ? await _symo823m.ReadBlockAllAsync() : await _symo823m.ReadAllAsync();
 
                     if (!status.IsGood)
                     {
@@ -140,14 +128,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetCommonModel()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.CommonModel.IsGood)
                     {
@@ -184,14 +172,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetInverterModel()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.InverterModel.IsGood)
                     {
@@ -228,14 +216,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetNameplateModel()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.NameplateModel.IsGood)
                     {
@@ -272,14 +260,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetSettingsModel()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.SettingsModel.IsGood)
                     {
@@ -316,14 +304,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetExtendedModel()...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.ExtendedModel.IsGood)
                     {
@@ -360,14 +348,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetControlModel...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.ControlModel.IsGood)
                     {
@@ -404,14 +392,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetMultipleModel...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.MultipleModel.IsGood)
                     {
@@ -448,14 +436,14 @@ namespace SYMO823MWeb.Controllers
             {
                 _logger?.LogDebug("GetFroniusRegister...");
 
-                if (!_symo823m.IsInitialized)
+                if (!_symo823m.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (!_symo823m.FroniusRegister.IsGood)
                     {
@@ -512,12 +500,12 @@ namespace SYMO823MWeb.Controllers
                     {
                         if (SYMO823MData.IsReadable(name))
                         {
-                            if (!_symo823m.IsInitialized)
+                            if (!_symo823m.IsLocked)
                             {
-                                return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                                return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                             }
 
-                            var status = await _symo823m.ReadDataAsync(name);
+                            var status = await _symo823m.ReadPropertyAsync(name);
 
                             if (!status.IsGood)
                             {
@@ -590,12 +578,12 @@ namespace SYMO823MWeb.Controllers
                 {
                     if (SYMO823MData.IsWritable(name))
                     {
-                        if (!_symo823m.IsInitialized)
+                        if (!_symo823m.IsLocked)
                         {
-                            return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                            return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                         }
 
-                        var status = await _symo823m.WriteDataAsync(name, value);
+                        var status = await _symo823m.WritePropertyAsync(name, value);
 
                         if (!status.IsGood)
                         {

@@ -1,9 +1,18 @@
-﻿namespace SYMO823MWeb
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="DTV-Online">
+//   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
+// </copyright>
+// <license>
+// Licensed under the MIT license. See the LICENSE file in the project root for more information.
+// </license>
+// --------------------------------------------------------------------------------------------------------------------
+namespace SYMO823MWeb
 {
     #region Using Directives
 
-    using BaseClassLib;
     using System.Threading.Tasks;
+
+    using BaseClassLib;
 
     #endregion
 

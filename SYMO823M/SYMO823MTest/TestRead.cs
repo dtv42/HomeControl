@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestRead.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -33,8 +33,8 @@ namespace SYMO823MTest
     {
         #region Private Data Members
 
-        private ILogger<SYMO823M> _logger;
-        private ISYMO823M _symo823m;
+        private readonly ILogger<SYMO823M> _logger;
+        private readonly ISYMO823M _symo823m;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace SYMO823MTest
         [Fact]
         public async Task TestSYMO823MBlockRead()
         {
-            var status = await _symo823m.ReadBlockAsync();
+            var status = await _symo823m.ReadBlockAllAsync();
             Assert.True(status.IsGood);
             Assert.True(_symo823m.Data.IsGood);
             Assert.True(_symo823m.CommonModel.IsGood);
@@ -321,7 +321,7 @@ namespace SYMO823MTest
         {
             Assert.True(SYMO823MData.IsProperty(property));
             Assert.True(SYMO823MData.IsReadable(property));
-            var status = await _symo823m.ReadDataAsync(property);
+            var status = await _symo823m.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
         }
 

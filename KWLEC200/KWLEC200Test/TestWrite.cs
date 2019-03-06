@@ -250,7 +250,7 @@ namespace KWLEC200Test
         {
             Assert.True(KWLEC200Data.IsProperty(property));
             Assert.True(KWLEC200Data.IsWritable(property));
-            var status = _kwlec200.WriteData(property, data);
+            var status = _kwlec200.WriteProperty(property, data);
             Assert.True(status.IsGood);
         }
     }

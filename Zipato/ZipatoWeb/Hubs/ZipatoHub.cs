@@ -116,6 +116,51 @@ namespace ZipatoWeb.Hubs
             await Clients.All.SendAsync("UpdateOthers", _zipato.Others);
         }
 
+        /// <summary>
+        /// Callback to run a single scene.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public async Task RunScene(int index)
+        {
+            var ok = _zipato.Others.Scenes[index].Run();
+            await Clients.All.SendAsync("RunScene", (ok, index));
+        }
+
+        /// <summary>
+        /// Callback to toggle a single onoff switch.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public async Task ToggleOnOff(int index)
+        {
+            var ok = _zipato.Devices.OnOffSwitches[index].Toggle();
+            await Clients.All.SendAsync("ToggleOnOff", (ok, index, _zipato.Devices.OnOffSwitches[index].State.Value));
+        }
+
+        /// <summary>
+        /// Callback to toggle a single wallplug.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public async Task TogglePlug(int index)
+        {
+            var ok = _zipato.Devices.Wallplugs[index].Toggle();
+            await Clients.All.SendAsync("TogglePlug", (ok, index, _zipato.Devices.Wallplugs[index].State.Value));
+        }
+
+        /// <summary>
+        /// Callback to set a dimmer intensity.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public async Task SetDimmer(int index, int value)
+        {
+            var ok = _zipato.Devices.Dimmers[index].SetIntensity(value);
+            await Clients.All.SendAsync("SetDimmer", (ok, index, _zipato.Devices.Dimmers[index].Intensity.Value));
+        }
+
         #endregion
     }
 }

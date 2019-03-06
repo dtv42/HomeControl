@@ -22,9 +22,12 @@ namespace HomeDataLib
         HomeValues Data { get; }
         MeterData Meter1 { get; }
         MeterData Meter2 { get; }
-        bool IsInitialized { get; }
 
-        Task<bool> CheckAccess();
+        bool IsLocked { get; }
+        bool CheckAccess();
+
+        DataStatus ReadAll();
+
         Task<DataStatus> ReadAllAsync(bool update = false);
 
         object GetPropertyValue(string property);

@@ -67,9 +67,10 @@ namespace BControlLib
         public SunSpecData SunSpecData { get; } = new SunSpecData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Modbus TCP/IP master options.
@@ -109,8 +110,13 @@ namespace BControlLib
 
         #region Public Methods
 
-        public DataStatus ReadAll(bool block = true) => block? ReadAllAsync().Result : ReadBlockAsync().Result;
-        public DataStatus ReadData(string property) => ReadDataAsync(property).Result;
+        /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+        public DataStatus ReadBlockAll() => ReadBlockAllAsync().Result;
+        public DataStatus ReadProperty(string property) => ReadPropertyAsync(property).Result;
+        public DataStatus ReadProperties(List<string> properties) => ReadPropertiesAsync(properties).Result;
         public DataStatus ReadInternalData() => ReadInternalDataAsync().Result;
         public DataStatus ReadEnergyData() => ReadEnergyDataAsync().Result;
         public DataStatus ReadPnPData() => ReadPnPDataAsync().Result;
@@ -155,11 +161,6 @@ namespace BControlLib
 
                     if (status.IsGood)
                     {
-                        if (!IsInitialized)
-                        {
-                            IsInitialized = true;
-                        }
-
                         _logger?.LogDebug("ReadAllAsync OK.");
                     }
                     else
@@ -194,7 +195,7 @@ namespace BControlLib
         /// Updates all properties reading the data in blocks from TQ Energy Manager.
         /// </summary>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadBlockAsync()
+        public async Task<DataStatus> ReadBlockAllAsync()
         {
             await _semaphore.WaitAsync();
             DataStatus status = DataValue.Good;
@@ -226,7 +227,6 @@ namespace BControlLib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
                         _logger?.LogDebug("ReadBlockAsync OK.");
                     }
                     else
@@ -316,14 +316,17 @@ namespace BControlLib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(string property)
+        public async Task<DataStatus> ReadPropertyAsync(string property)
         {
             DataStatus status = DataValue.Good;
+            _logger?.LogDebug($"ReadPropertyAsync('{property}') starting.");
 
             if (BControlData.IsProperty(property))
             {
                 if (BControlData.IsReadable(property))
                 {
+                    await _semaphore.WaitAsync();
+
                     try
                     {
                         if (_client.Connect())
@@ -332,40 +335,44 @@ namespace BControlLib
 
                             if (status.IsGood)
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') OK.");
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') not OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') not OK.");
                             }
                         }
                         else
                         {
-                            _logger?.LogError($"ReadDataAsync('{property}') not connected.");
+                            _logger?.LogError($"ReadPropertyAsync('{property}') not connected.");
                             status = BadNotConnected;
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger?.LogError(ex, $"ReadDataAsync('{property}') exception: {ex.Message}.");
+                        _logger?.LogError(ex, $"ReadPropertyAsync('{property}') exception: {ex.Message}.");
                         status = BadInternalError;
                         status.Explanation = $"Exception: {ex.Message}";
                     }
                     finally
                     {
                         _client.Disconnect();
+                        _semaphore.Release();
+                        _logger?.LogDebug($"ReadPropertyAsync('{property}') finished.");
                     }
                 }
                 else
                 {
-                    _logger?.LogDebug($"ReadDataAsync('{property}') property not readable.");
+                    _logger?.LogDebug($"ReadPropertyAsync('{property}') property not readable.");
                     status = BadNotReadable;
+                    status.Explanation = $"Property '{property}' not readable.";
                 }
             }
             else
             {
-                _logger?.LogDebug($"ReadDataAsync('{property}') property not found.");
+                _logger?.LogDebug($"ReadPropertyAsync('{property}') property not found.");
                 status = BadNotFound;
+                status.Explanation = $"Property '{property}' not found.";
             }
 
             Data.Status = status;
@@ -377,12 +384,15 @@ namespace BControlLib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(List<string> properties)
+        public async Task<DataStatus> ReadPropertiesAsync(List<string> properties)
         {
+            await _semaphore.WaitAsync();
             DataStatus status = DataValue.Good;
 
             try
             {
+                _logger?.LogDebug("ReadPropertiesAsync(List<property>) starting.");
+
                 if (_client.Connect())
                 {
                     BControlData data = Data;
@@ -398,23 +408,23 @@ namespace BControlLib
 
                                 if (status.IsGood)
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' OK.");
                                 }
                                 else
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not OK.");
                                 }
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not readable.");
+                                _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not readable.");
                                 status = BadNotReadable;
                                 status.Explanation = $"Property '{property}' not readable.";
                             }
                         }
                         else
                         {
-                            _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not found.");
+                            _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not found.");
                             status = BadNotFound;
                             status.Explanation = $"Property '{property}' not found.";
                         }
@@ -424,28 +434,30 @@ namespace BControlLib
 
                     if ((data.IsGood) && (status.IsGood))
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) OK.");
                     }
                     else
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) not OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) not OK.");
                     }
                 }
                 else
                 {
-                    _logger?.LogError("ReadDataAsync(List<property>) not connected.");
+                    _logger?.LogError("ReadPropertiesAsync(List<property>) not connected.");
                     status = BadNotConnected;
                 }
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, $"ReadDataAsync(List<property>).");
+                _logger?.LogError(ex, $"ReadPropertiesAsync(List<property>).");
                 status = BadInternalError;
                 status.Explanation = $"Exception: {ex.Message}";
             }
             finally
             {
                 _client.Disconnect();
+                _semaphore.Release();
+                _logger?.LogDebug("ReadPropertiesAsync(List<property>) finished.");
             }
 
             Data.Status = status;
@@ -458,7 +470,7 @@ namespace BControlLib
         /// <returns></returns>
         public async Task<DataStatus> ReadInternalDataAsync()
         {
-            var status = await ReadDataAsync(InternalData.GetProperties());
+            var status = await ReadPropertiesAsync(InternalData.GetProperties());
 
             if (status.IsGood)
             {
@@ -474,7 +486,7 @@ namespace BControlLib
         /// <returns></returns>
         public async Task<DataStatus> ReadEnergyDataAsync()
         {
-            var status = await ReadDataAsync(EnergyData.GetProperties());
+            var status = await ReadPropertiesAsync(EnergyData.GetProperties());
 
             if (status.IsGood)
             {
@@ -490,7 +502,7 @@ namespace BControlLib
         /// <returns></returns>
         public async Task<DataStatus> ReadPnPDataAsync()
         {
-            var status = await ReadDataAsync(PnPData.GetProperties());
+            var status = await ReadPropertiesAsync(PnPData.GetProperties());
 
             if (status.IsGood)
             {
@@ -506,7 +518,7 @@ namespace BControlLib
         /// <returns></returns>
         public async Task<DataStatus> ReadSunSpecDataAsync()
         {
-            var status = await ReadDataAsync(SunSpecData.GetProperties());
+            var status = await ReadPropertiesAsync(SunSpecData.GetProperties());
 
             if (status.IsGood)
             {

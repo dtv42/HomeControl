@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestRead.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -62,7 +62,6 @@ namespace FroniusTest
         [Fact]
         public async Task TestFroniusRead()
         {
-            Assert.True(_fronius.IsInitialized);
             await _fronius.ReadAllAsync();
             Assert.True(_fronius.Data.Status.IsGood);
             Assert.True(_fronius.CommonData.Status.IsGood);
@@ -76,7 +75,6 @@ namespace FroniusTest
         [Fact]
         public async Task TestReadData()
         {
-            Assert.True(_fronius.IsInitialized);
             var status = await _fronius.ReadCommonDataAsync();
             Assert.True(status.IsGood);
             Assert.True(_fronius.CommonData.Status.IsGood);
@@ -216,7 +214,6 @@ namespace FroniusTest
         [InlineData("Phase.VoltageL3N")]
         public async Task TestFroniusReadProperty(string property)
         {
-            Assert.True(_fronius.IsInitialized);
             Assert.True(Fronius.IsProperty(property));
             var status = await _fronius.ReadPropertyAsync(property);
             Assert.True(status.IsGood);

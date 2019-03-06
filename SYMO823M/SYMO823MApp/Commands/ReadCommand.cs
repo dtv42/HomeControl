@@ -110,7 +110,7 @@ namespace SYMO823MApp.Commands
 
                         if (OptionB)
                         {
-                            await _symo823m.ReadBlockAsync();
+                            await _symo823m.ReadBlockAllAsync();
                         }
                         else
                         {
@@ -123,7 +123,7 @@ namespace SYMO823MApp.Commands
                     if (Property.Length > 0)
                     {
                         Console.WriteLine($"Reading property '{Property}' from SYMO823M inverter");
-                        _symo823m.ReadDataAsync(Property).Wait();
+                        _symo823m.ReadPropertyAsync(Property).Wait();
                         Console.WriteLine($"Value of property '{Property}' = {_symo823m.Data.GetPropertyValue(Property)}");
                     }
                 }

@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="StartupTask.cs" company="DTV-Online">
+//   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
+// </copyright>
+// <license>
+// Licensed under the MIT license. See the LICENSE file in the project root for more information.
+// </license>
+// --------------------------------------------------------------------------------------------------------------------
+
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 
 namespace ZipatoIoT

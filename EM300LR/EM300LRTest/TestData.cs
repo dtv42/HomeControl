@@ -62,7 +62,6 @@ namespace EM300LRTest
         public void TestBControlData()
         {
             Assert.True(_em300lr.Data.IsGood);
-            Assert.True(_em300lr.IsInitialized);
         }
 
         [Theory]

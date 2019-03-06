@@ -111,7 +111,7 @@ namespace ETAPU11App.Commands
 
                         if (OptionB)
                         {
-                            status = await _etapu11.ReadBlockAsync();
+                            status = await _etapu11.ReadBlockAllAsync();
                         }
                         else
                         {
@@ -131,7 +131,7 @@ namespace ETAPU11App.Commands
                     else if (Property.Length > 0)
                     {
                         Console.WriteLine($"Reading property '{Property}' from ETAPU11 boiler");
-                        _etapu11.ReadDataAsync(Property).Wait();
+                        _etapu11.ReadPropertyAsync(Property).Wait();
 
                         if (_etapu11.Data.Status.IsGood)
                         {

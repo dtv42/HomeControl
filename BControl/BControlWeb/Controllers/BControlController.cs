@@ -11,6 +11,7 @@ namespace BControlWeb.Controllers
     #region Using Directives
 
     using System;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,7 @@ namespace BControlWeb.Controllers
     /// <summary>
     /// The BControl controller for reading BControl data items.
     /// </summary>
+    [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class BControlController : BaseController<AppSettings>
@@ -61,22 +63,9 @@ namespace BControlWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "BControl API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_bcontrol?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all BControl related data.
         /// </summary>
+        /// <param name="block">Indicates thet a block read is requested.</param>
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
@@ -89,20 +78,20 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetBControlData(bool update = false)
+        public async Task<IActionResult> GetBControlData(bool block = true, bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetBControlData()...");
 
-                if (!_bcontrol.IsInitialized)
+                if (!_bcontrol.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    var status = _bcontrol.ReadAll();
+                    var status = block ? await _bcontrol.ReadBlockAllAsync() : await _bcontrol.ReadAllAsync();
 
                     if (!status.IsGood)
                     {
@@ -133,20 +122,20 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetInternalData(bool update = false)
+        public async Task<IActionResult> GetInternalData(bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetInternalData()...");
 
-                if (!_bcontrol.IsInitialized)
+                if (!_bcontrol.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    _bcontrol.ReadInternalData();
+                    await _bcontrol.ReadInternalDataAsync();
 
                     if (!_bcontrol.InternalData.IsGood)
                     {
@@ -177,20 +166,20 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetEnergyData(bool update = false)
+        public async Task<IActionResult> GetEnergyData(bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetEnergyData()...");
 
-                if (!_bcontrol.IsInitialized)
+                if (!_bcontrol.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    _bcontrol.ReadEnergyData();
+                    await _bcontrol.ReadEnergyDataAsync();
 
                     if (!_bcontrol.EnergyData.IsGood)
                     {
@@ -221,20 +210,20 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetPnPData(bool update = false)
+        public async Task<IActionResult> GetPnPData(bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetPnPData()...");
 
-                if (!_bcontrol.IsInitialized)
+                if (!_bcontrol.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    _bcontrol.ReadPnPData();
+                    await _bcontrol.ReadPnPDataAsync();
 
                     if (!_bcontrol.PnPData.IsGood)
                     {
@@ -265,20 +254,20 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetSunSpecData(bool update = false)
+        public async Task<IActionResult> GetSunSpecData(bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetSunSpecData()...");
 
-                if (!_bcontrol.IsInitialized)
+                if (!_bcontrol.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    _bcontrol.ReadSunSpecData();
+                    await _bcontrol.ReadSunSpecDataAsync();
 
                     if (!_bcontrol.SunSpecData.IsGood)
                     {
@@ -317,7 +306,7 @@ namespace BControlWeb.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public IActionResult GetBControlData(string name, bool update = false)
+        public async Task<IActionResult> GetBControlData(string name, bool update = false)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -335,12 +324,12 @@ namespace BControlWeb.Controllers
                     {
                         if (BControlData.IsReadable(name))
                         {
-                            if (!_bcontrol.IsInitialized)
+                            if (!_bcontrol.IsLocked)
                             {
-                                return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                                return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                             }
 
-                            var status = _bcontrol.ReadData(name);
+                            var status = await _bcontrol.ReadPropertyAsync(name);
 
                             if (!status.IsGood)
                             {

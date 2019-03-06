@@ -6,6 +6,7 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
+[assembly: Microsoft.AspNetCore.Mvc.ApiConventionType(typeof(Microsoft.AspNetCore.Mvc.DefaultApiConventions))]
 namespace EM300LRWeb
 {
     #region Using Directives
@@ -76,6 +77,10 @@ namespace EM300LRWeb
         services.AddSingleton<IEM300LR, EM300LR>();
         services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, EM300LRMonitor>();
 
+        // Adding Healthchecks.
+        services.AddHealthChecks()
+            .AddCheck<HealthCheck>("health");
+
         // Adding SignalR support.
         services.AddSignalR();
 
@@ -135,6 +140,10 @@ namespace EM300LRWeb
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration["Syncfusion:LicenseKey"]);
 
+            // Display health check status at the specified endpoint.
+            app.UseHealthChecks("/health");
+
+            // Enable static files.
             app.UseStaticFiles();
 
             // Use SignalR and setup the route to the hubs.

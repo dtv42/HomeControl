@@ -42,8 +42,8 @@ namespace KWLEC200Web.Hubs
         /// <param name="logger">The application logger.</param>
         /// <param name="options">The application options.</param>
         public KWLEC200Hub(IKWLEC200 kwlec200,
-                          ILogger<KWLEC200Hub> logger,
-                          IOptions<AppSettings> options)
+                           ILogger<KWLEC200Hub> logger,
+                           IOptions<AppSettings> options)
             : base(logger, options)
         {
             _kwlec200 = kwlec200;

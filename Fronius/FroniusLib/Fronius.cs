@@ -11,6 +11,7 @@ namespace FroniusLib
     #region Using Directives
 
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -94,9 +95,10 @@ namespace FroniusLib
         public APIVersionData VersionInfo { get; private set; } = new APIVersionData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Fronius web service base uri.
@@ -170,8 +172,20 @@ namespace FroniusLib
         /// Helper method to check for the Fronius Web service.
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckAccess()
-            => (await GetAPIVersionAsync() == DataValue.Good);
+        public bool CheckAccess()
+            => (GetAPIVersionAsync().Result == DataValue.Good);
+
+        /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+        public DataStatus ReadInverterInfo() => ReadInverterInfoAsync().Result;
+        public DataStatus ReadCommonData() => ReadCommonDataAsync().Result;
+        public DataStatus ReadPhaseData() => ReadPhaseDataAsync().Result;
+        public DataStatus ReadMinMaxData() => ReadMinMaxDataAsync().Result;
+        public DataStatus ReadLoggerInfo() => ReadLoggerInfoAsync().Result;
+        public DataStatus ReadProperty(string property) => ReadPropertyAsync(property).Result;
+        public DataStatus GetAPIVersion() => GetAPIVersionAsync().Result;
 
         /// <summary>
         /// Updates all Fronius properties reading the data from the Fronius web service.
@@ -200,15 +214,6 @@ namespace FroniusLib
             }
             finally
             {
-                if (CommonData.IsGood && InverterInfo.IsGood &&
-                    LoggerInfo.IsGood && MinMaxData.IsGood && PhaseData.IsGood)
-                {
-                    if (!IsInitialized)
-                    {
-                        IsInitialized = true;
-                    }
-                }
-
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
@@ -494,10 +499,6 @@ namespace FroniusLib
             return status;
         }
 
-        #endregion Public Methods
-
-        #region Public Helpers
-
         /// <summary>
         /// Async method to retrieve just the necessary data depending on the property.
         /// </summary>
@@ -616,6 +617,6 @@ namespace FroniusLib
             return null;
         }
 
-        #endregion Public Helpers
+        #endregion
     }
 }

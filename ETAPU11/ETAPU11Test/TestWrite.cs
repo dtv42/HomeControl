@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestWrite.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -91,7 +91,7 @@ namespace ETAPU11Test
         {
             Assert.True(ETAPU11Data.IsProperty(property));
             Assert.True(ETAPU11Data.IsWritable(property));
-            var status = await _etapu11.WriteDataAsync(property, data);
+            var status = await _etapu11.WritePropertyAsync(property, data);
             Assert.True(status.IsGood);
         }
     }

@@ -17,13 +17,6 @@
             <param name="options">The application options.</param>
             <param name="logger">The application logger.</param>
         </member>
-        <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetIsInitialized">
-            <summary>
-            Returns flag indicating that the data have been sucessfully initialized.
-            </summary>
-            <returns>The action method result.</returns>
-            <response code="200">Returns the requested data.</response>
-        </member>
         <member name="M:KWLEC200Web.Controllers.KWLEC200Controller.GetKWLEC200Data(System.Boolean)">
             <summary>
             Returns all KWLEC200 related data.
@@ -235,6 +228,22 @@
             </summary>
             <param name="args">The command line arguments.</param>
             <returns>The exit code.</returns>
+        </member>
+        <member name="M:KWLEC200Web.Services.HealthCheck.#ctor(KWLEC200Lib.IKWLEC200,Microsoft.Extensions.Options.IOptions{KWLEC200Web.Models.AppSettings},Microsoft.Extensions.Logging.ILogger{KWLEC200Web.Services.HealthCheck})">
+            <summary>
+            Initializes a new instance of the <see cref="T:KWLEC200Web.Services.HealthCheck"/> class.
+            </summary>
+            <param name="kwlec200">The IKWLEC200 instance.</param>
+            <param name="options">The application options.</param>
+            <param name="logger">The application logger.</param>
+        </member>
+        <member name="M:KWLEC200Web.Services.HealthCheck.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <summary>
+            Checks the current health state.
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
         </member>
         <member name="T:KWLEC200Web.Services.KWLEC200Monitor">
             <summary>

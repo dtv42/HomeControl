@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestWrite.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -80,7 +80,7 @@ namespace SYMO823MTest
         {
             Assert.True(SYMO823MData.IsProperty(property));
             Assert.True(SYMO823MData.IsWritable(property));
-            var status = await _symo823m.WriteDataAsync(property, data);
+            var status = await _symo823m.WritePropertyAsync(property, data);
             Assert.True(status.IsGood);
         }
     }

@@ -36,20 +36,22 @@ namespace BControlLib
         [JsonIgnore]
         SunSpecData SunSpecData { get; }
 
-        bool IsInitialized { get; }
+        bool IsLocked { get; }
         bool Connect();
 
-        DataStatus ReadAll(bool block = true);
-        DataStatus ReadData(string property);
+        DataStatus ReadAll();
+        DataStatus ReadBlockAll();
+        DataStatus ReadProperty(string property);
+        DataStatus ReadProperties(List<string> properties);
         DataStatus ReadInternalData();
         DataStatus ReadEnergyData();
         DataStatus ReadPnPData();
         DataStatus ReadSunSpecData();
 
         Task<DataStatus> ReadAllAsync();
-        Task<DataStatus> ReadBlockAsync();
-        Task<DataStatus> ReadDataAsync(string property);
-        Task<DataStatus> ReadDataAsync(List<string> properties);
+        Task<DataStatus> ReadBlockAllAsync();
+        Task<DataStatus> ReadPropertyAsync(string property);
+        Task<DataStatus> ReadPropertiesAsync(List<string> properties);
         Task<DataStatus> ReadInternalDataAsync();
         Task<DataStatus> ReadEnergyDataAsync();
         Task<DataStatus> ReadPnPDataAsync();

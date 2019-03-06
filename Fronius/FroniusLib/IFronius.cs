@@ -1,5 +1,6 @@
 ﻿namespace FroniusLib
 {
+    using System.Collections.Generic;
     #region Using Directives
 
     using System.Threading.Tasks;
@@ -18,17 +19,27 @@
         InverterInfo InverterInfo { get; }
         LoggerInfo LoggerInfo { get; }
         APIVersionData VersionInfo { get; }
-        bool IsInitialized { get; }
 
-        Task<bool> CheckAccess();
+        bool IsLocked { get; }
+        bool CheckAccess();
+
+        DataStatus ReadAll();
+        DataStatus ReadInverterInfo();
+        DataStatus ReadCommonData();
+        DataStatus ReadPhaseData();
+        DataStatus ReadMinMaxData();
+        DataStatus ReadLoggerInfo();
+        DataStatus ReadProperty(string property);
+        DataStatus GetAPIVersion();
+
         Task<DataStatus> ReadAllAsync();
         Task<DataStatus> ReadInverterInfoAsync();
         Task<DataStatus> ReadCommonDataAsync();
         Task<DataStatus> ReadPhaseDataAsync();
         Task<DataStatus> ReadMinMaxDataAsync();
         Task<DataStatus> ReadLoggerInfoAsync();
-        Task<DataStatus> GetAPIVersionAsync();
         Task<DataStatus> ReadPropertyAsync(string property);
+        Task<DataStatus> GetAPIVersionAsync();
 
         object GetPropertyValue(string property);
     }

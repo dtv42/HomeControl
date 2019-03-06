@@ -102,9 +102,10 @@ namespace WallboxLib
         public InfoData Info { get; private set; } = new InfoData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Wallbox UDP service hostname.
@@ -165,6 +166,29 @@ namespace WallboxLib
         #region Public Methods
 
         /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+        public DataStatus ReadReport1() => ReadReport1Async().Result;
+        public DataStatus ReadReport2() => ReadReport2Async().Result;
+        public DataStatus ReadReport3() => ReadReport3Async().Result;
+        public DataStatus ReadReport100() => ReadReport100Async().Result;
+        public DataStatus ReadReports() => ReadReportsAsync().Result;
+        public DataStatus ReadReport(int id) => ReadReportAsync(id).Result;
+        public DataStatus ReadProperty(string property) => ReadPropertyAsync(property).Result;
+
+        /// <summary>
+        /// Check if a valid Access Token can be retrieved.
+        /// </summary>
+        /// <returns>True if a valid Access Token is available.</returns>
+        public bool CheckAccess()
+        {
+            string json = "{ " + _client.SendReceiveAsync("i").Result + " }";
+            Info = JsonConvert.DeserializeObject<InfoData>(json);
+            return (Info.Firmware.Length > 0);
+        }
+
+        /// <summary>
         /// Updates all Wallbox properties reading the data from the Wallbox UDP service.
         /// If successful the data value will be updated (timestamp).
         /// </summary>
@@ -191,14 +215,6 @@ namespace WallboxLib
             }
             finally
             {
-                if (Report1.IsGood && Report2.IsGood && Report3.IsGood && Report100.IsGood)
-                {
-                    if (IsInitialized == false)
-                    {
-                        IsInitialized = true;
-                    }
-                }
-
                 _logger?.LogDebug("ReadAllAsync() finished.");
             }
 
@@ -455,21 +471,6 @@ namespace WallboxLib
             return Data.Status;
         }
 
-        #endregion Public Methods
-
-        #region Public Helpers
-
-        /// <summary>
-        /// Check if a valid Access Token can be retrieved.
-        /// </summary>
-        /// <returns>True if a valid Access Token is available.</returns>
-        public async Task<bool> CheckAccess()
-        {
-            string json = "{ " + await _client.SendReceiveAsync("i") + " }";
-            Info = JsonConvert.DeserializeObject<InfoData>(json);
-            return (Info.Firmware.Length > 0);
-        }
-
         /// <summary>
         /// Async method to retrieve just the necessary data depending on the property.
         /// </summary>
@@ -639,6 +640,6 @@ namespace WallboxLib
             return null;
         }
 
-        #endregion Public Helpers
+        #endregion
     }
 }

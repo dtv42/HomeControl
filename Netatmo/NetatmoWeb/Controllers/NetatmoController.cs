@@ -32,6 +32,7 @@ namespace NetatmoWeb.Controllers
     /// <summary>
     /// The Netatmo controller for reading Netatmo data items.
     /// </summary>
+    [ApiController]
     [Route("api/netatmo")]
     [Produces("application/json")]
     public class NetatmoController : BaseController<AppSettings>
@@ -63,20 +64,6 @@ namespace NetatmoWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "Netatmo API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_netatmo?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all Netatmo related data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -97,9 +84,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetNetatmoData()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -141,9 +128,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetMainModuleData()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -185,9 +172,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetOutdoorModuleData()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -229,9 +216,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetIndoorModule1Data()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -273,9 +260,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetIndoorModule2Data()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -317,9 +304,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetIndoorModule3Data()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -361,9 +348,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetRainGaugeData()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -405,9 +392,9 @@ namespace NetatmoWeb.Controllers
             {
                 _logger?.LogDebug("GetWindGaugeData()...");
 
-                if (!_netatmo.IsInitialized)
+                if (!_netatmo.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -463,9 +450,9 @@ namespace NetatmoWeb.Controllers
 
                 if (Netatmo.IsProperty(name))
                 {
-                    if (!_netatmo.IsInitialized)
+                    if (!_netatmo.IsLocked)
                     {
-                        return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                        return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                     }
 
                     if (update)

@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestRead.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -61,7 +61,6 @@ namespace EM300LRTest
         [Fact]
         public async Task TestEM300LRRead()
         {
-            Assert.True(_em300lr.IsInitialized);
             await _em300lr.ReadAllAsync();
             Assert.True(_em300lr.Data.IsGood);
             Assert.True(_em300lr.TotalData.IsGood);

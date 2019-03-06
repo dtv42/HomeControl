@@ -260,7 +260,7 @@ namespace KWLEC200Test
         {
             Assert.True(KWLEC200Data.IsProperty(property));
             Assert.True(KWLEC200Data.IsReadable(property));
-            var status = _kwlec200.ReadData(property);
+            var status = _kwlec200.ReadProperty(property);
             Assert.True(status.IsGood);
         }
 

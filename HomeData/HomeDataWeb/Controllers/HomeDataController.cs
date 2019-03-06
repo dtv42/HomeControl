@@ -32,6 +32,7 @@ namespace HomeDataWeb.Controllers
     /// <summary>
     /// The Home Data controller for reading home data items.
     /// </summary>
+    [ApiController]
     [Route("api/homedata")]
     [Produces("application/json")]
     public class HomeDataController : BaseController<AppSettings>
@@ -63,20 +64,6 @@ namespace HomeDataWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "HomeData API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_homedata?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all Home related data.
         /// </summary>
         /// <returns>The action method result.</returns>
@@ -96,9 +83,9 @@ namespace HomeDataWeb.Controllers
             {
                 _logger?.LogDebug("GetHomeData()...");
 
-                if (!_homedata.IsInitialized)
+                if (!_homedata.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (!_homedata.Data.IsGood)
@@ -148,9 +135,9 @@ namespace HomeDataWeb.Controllers
 
                 if (HomeValues.IsProperty(name))
                 {
-                    if (!_homedata.IsInitialized)
+                    if (!_homedata.IsLocked)
                     {
-                        return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                        return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                     }
 
                     if (!_homedata.Data.IsGood)

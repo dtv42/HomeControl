@@ -14,7 +14,6 @@ namespace HomeDataLib.Models
     using System.Reflection;
 
     using DataValueLib;
-    using EM300LRLib.Models;
 
     #endregion
 

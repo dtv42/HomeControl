@@ -34,6 +34,7 @@ namespace ZipatoWeb.Controllers
     /// <summary>
     /// The Zipato controller for reading Zipato sensors (and meters).
     /// </summary>
+    [ApiController]
     [Route("api/sensors")]
     [Produces("application/json")]
     public class ZipatoSensorsController : BaseController<AppSettings>
@@ -85,9 +86,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSensorsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -129,9 +130,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetVirtualMetersAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -176,9 +177,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetVirtualMeterAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -231,9 +232,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetVirtualMeterValueAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if ((value < 1) || (value > 16))
@@ -293,9 +294,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetVirtualMeterValue({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Sensors.VirtualMeters.Count;
@@ -353,9 +354,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetVirtualMeterValues({index}, data)", data);
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Sensors.VirtualMeters.Count;
@@ -408,9 +409,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -455,9 +456,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMeterAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -509,9 +510,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersCummulativeAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -563,9 +564,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetConsumptionMetersCurrentAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -614,9 +615,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -661,9 +662,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -715,9 +716,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTemperatureSensorValueAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -766,9 +767,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -813,9 +814,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -867,9 +868,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetHumiditySensorValueAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -918,9 +919,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -965,9 +966,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1019,9 +1020,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetLuminanceSensorValueAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)

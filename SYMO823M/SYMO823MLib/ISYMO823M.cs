@@ -46,12 +46,31 @@ namespace SYMO823MLib
 
         TcpMasterData Master { get; set; }
         TcpSlaveData Slave { get; set; }
-        bool IsInitialized { get; }
+
+        bool IsLocked { get; }
         bool Connect();
 
+        DataStatus ReadAll();
+        DataStatus ReadBlockAll();
+        DataStatus ReadProperty(string property);
+        DataStatus ReadProperties(List<string> properties);
+        DataStatus ReadCommonModel();
+        DataStatus ReadInverterModel();
+        DataStatus ReadNameplateModel();
+        DataStatus ReadSettingsModel();
+        DataStatus ReadExtendedModel();
+        DataStatus ReadControlModel();
+        DataStatus ReadMultipleModel();
+        DataStatus ReadFroniusRegister();
+        DataStatus WriteAll();
+        DataStatus WriteProperty(string property, string data);
+        DataStatus WriteProperty(string property);
+        DataStatus WriteProperties(List<string> properties);
+
         Task<DataStatus> ReadAllAsync();
-        Task<DataStatus> ReadBlockAsync();
-        Task<DataStatus> ReadDataAsync(string property);
+        Task<DataStatus> ReadBlockAllAsync();
+        Task<DataStatus> ReadPropertyAsync(string property);
+        Task<DataStatus> ReadPropertiesAsync(List<string> properties);
         Task<DataStatus> ReadCommonModelAsync();
         Task<DataStatus> ReadInverterModelAsync();
         Task<DataStatus> ReadNameplateModelAsync();
@@ -61,9 +80,9 @@ namespace SYMO823MLib
         Task<DataStatus> ReadMultipleModelAsync();
         Task<DataStatus> ReadFroniusRegisterAsync();
         Task<DataStatus> WriteAllAsync();
-        Task<DataStatus> WriteDataAsync(string property, string data);
-        Task<DataStatus> WriteDataAsync(string property);
-        Task<DataStatus> WriteDataAsync(List<string> properties);
+        Task<DataStatus> WritePropertyAsync(string property, string data);
+        Task<DataStatus> WritePropertyAsync(string property);
+        Task<DataStatus> WritePropertiesAsync(List<string> properties);
 
         object GetPropertyValue(string property);
     }

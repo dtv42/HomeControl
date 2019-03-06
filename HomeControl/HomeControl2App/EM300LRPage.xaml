@@ -1,0 +1,108 @@
+﻿<Page
+    x:Class="HomeControl2App.EM300LRPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HomeControl2App"
+    xmlns:custom="using:HomeControl2App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock FontSize="20">Total</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge01" Grid.Column="0" Title="Apparent Power +" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ApparentPowerPlus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge02" Grid.Column="1" Title="Active Power +"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ActivePowerPlus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge03" Grid.Column="2" Title="Reactive Power +" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ReactivePowerPlus), Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge04" Grid.Column="0" Title="Apparent Power -" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ApparentPowerMinus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge05" Grid.Column="1" Title="Active Power -"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ActivePowerMinus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge06" Grid.Column="2" Title="Reactive Power -" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="12" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.TotalData.ReactivePowerMinus), Mode=OneWay}" />
+            </Grid>
+            <TextBlock FontSize="20">Phase L1</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge07" Grid.Column="0" Title="Apparent Power +" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ApparentPowerPlus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge08" Grid.Column="1" Title="Active Power +"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ActivePowerPlus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge09" Grid.Column="2" Title="Reactive Power +" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ReactivePowerPlus), Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge10" Grid.Column="0" Title="Apparent Power -" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ApparentPowerMinus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge11" Grid.Column="1" Title="Active Power -"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ActivePowerMinus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge12" Grid.Column="2" Title="Reactive Power -" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase1Data.ReactivePowerMinus), Mode=OneWay}" />
+            </Grid>
+            <TextBlock FontSize="20">Phase L2</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge13" Grid.Column="0" Title="Apparent Power +" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ApparentPowerPlus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge14" Grid.Column="1" Title="Active Power +"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ActivePowerPlus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge15" Grid.Column="2" Title="Reactive Power +" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ReactivePowerPlus), Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge16" Grid.Column="0" Title="Apparent Power -" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ApparentPowerMinus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge17" Grid.Column="1" Title="Active Power -"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ActivePowerMinus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge18" Grid.Column="2" Title="Reactive Power -" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase2Data.ReactivePowerMinus), Mode=OneWay}" />
+            </Grid>
+            <TextBlock FontSize="20">Phase L3</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge19" Grid.Column="0" Title="Apparent Power +" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ApparentPowerPlus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge20" Grid.Column="1" Title="Active Power +"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ActivePowerPlus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge21" Grid.Column="2" Title="Reactive Power +" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ReactivePowerPlus), Mode=OneWay}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <custom:CircularGauge x:Name="Gauge22" Grid.Column="0" Title="Apparent Power -" ValueFormat="0.000 kVA"  LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ApparentPowerMinus), Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge23" Grid.Column="1" Title="Active Power -"   ValueFormat="0.000 kW"   LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ActivePowerMinus),   Mode=OneWay}" />
+                <custom:CircularGauge x:Name="Gauge24" Grid.Column="2" Title="Reactive Power -" ValueFormat="0.000 kvar" LabelFormat="0.0" Minimum="0" Maximum="6" Interval="1" Value="{x:Bind local:Conversions.ApplyScale(0.001, Hub.Phase3Data.ReactivePowerMinus), Mode=OneWay}" />
+            </Grid>
+            
+            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind Hub.Message, Mode=OneWay}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

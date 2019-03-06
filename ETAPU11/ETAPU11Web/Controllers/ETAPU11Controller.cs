@@ -31,6 +31,7 @@ namespace ETAPU11Web.Controllers
     /// <summary>
     /// The ETAPU11 controller for reading ETAPU11 data items.
     /// </summary>
+    [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class ETAPU11Controller : BaseController<AppSettings>
@@ -62,22 +63,9 @@ namespace ETAPU11Web.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "ETAPU11 API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_etapu11?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all ETAPU11 related data.
         /// </summary>
+        /// <param name="block">Indicates thet a block read is requested.</param>
         /// <param name="update">Indicates if an update is requested.</param>
         /// <returns>The action method result.</returns>
         /// <response code="200">Returns the requested data.</response>
@@ -90,20 +78,20 @@ namespace ETAPU11Web.Controllers
         [ProducesResponseType(typeof(string), 406)]
         [ProducesResponseType(typeof(string), 500)]
         [ProducesResponseType(typeof(DataStatus), 502)]
-        public async Task<IActionResult> GetETAPU11Data(bool update = false)
+        public async Task<IActionResult> GetETAPU11Data(bool block = true, bool update = false)
         {
             try
             {
                 _logger?.LogDebug("GetETAPU11Data()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    var status = await _etapu11.ReadBlockAsync();
+                    var status = block ? await _etapu11.ReadBlockAllAsync() : await _etapu11.ReadAllAsync();
 
                     if (!status.IsGood)
                     {
@@ -140,14 +128,14 @@ namespace ETAPU11Web.Controllers
             {
                 _logger?.LogDebug("GetBoilerData()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (!_etapu11.BoilerData.IsGood)
                     {
@@ -184,14 +172,14 @@ namespace ETAPU11Web.Controllers
             {
                 _logger?.LogDebug("GetHotwaterData()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (!_etapu11.HotwaterData.IsGood)
                     {
@@ -228,14 +216,14 @@ namespace ETAPU11Web.Controllers
             {
                 _logger?.LogDebug("GetHeatingData()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (!_etapu11.HeatingData.IsGood)
                     {
@@ -272,14 +260,14 @@ namespace ETAPU11Web.Controllers
             {
                 _logger?.LogDebug("GetStorageData()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (!_etapu11.StorageData.IsGood)
                     {
@@ -316,14 +304,14 @@ namespace ETAPU11Web.Controllers
             {
                 _logger?.LogDebug("GetSystemData()...");
 
-                if (!_etapu11.IsInitialized)
+                if (!_etapu11.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
                 {
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (!_etapu11.SystemData.IsGood)
                     {
@@ -380,12 +368,12 @@ namespace ETAPU11Web.Controllers
                     {
                         if (ETAPU11Data.IsReadable(name))
                         {
-                            if (!_etapu11.IsInitialized)
+                            if (!_etapu11.IsLocked)
                             {
-                                return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                                return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                             }
 
-                            var status = await _etapu11.ReadDataAsync(name);
+                            var status = await _etapu11.ReadPropertyAsync(name);
 
                             if (status.IsGood)
                             {
@@ -458,12 +446,12 @@ namespace ETAPU11Web.Controllers
                 {
                     if (ETAPU11Data.IsWritable(name))
                     {
-                        if (!_etapu11.IsInitialized)
+                        if (!_etapu11.IsLocked)
                         {
-                            return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                            return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                         }
 
-                        var status = await _etapu11.WriteDataAsync(name, value);
+                        var status = await _etapu11.WritePropertyAsync(name, value);
 
                         if (!status.IsGood)
                         {

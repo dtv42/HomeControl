@@ -117,7 +117,7 @@ namespace WallboxApp.Commands
         /// Method to run when the root command is executed.
         /// </summary>
         /// <returns>Zero if ok.</returns>
-        public async Task<int> OnExecuteAsync(CommandLineApplication app)
+        public int OnExecute(CommandLineApplication app)
         {
             Console.WriteLine($"Settings: {JsonConvert.SerializeObject(this, Formatting.Indented)}");
 
@@ -130,7 +130,7 @@ namespace WallboxApp.Commands
                     _wallbox.Port = Port;
                     _wallbox.Timeout = Timeout;
 
-                    if (await _wallbox.CheckAccess())
+                    if (_wallbox.CheckAccess())
                     {
                         Console.WriteLine($"Wallbox UDP service with firmware '{_wallbox.Info.Firmware}' found at {HostName}:{Port}.");
                     }

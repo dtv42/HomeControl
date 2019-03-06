@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestRead.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -62,7 +62,6 @@ namespace WallboxTest
         [Fact]
         public async Task TestWallboxRead()
         {
-            Assert.True(_wallbox.IsInitialized);
             await _wallbox.ReadAllAsync();
             Assert.True(_wallbox.Data.Status.IsGood);
             Assert.True(_wallbox.Report1.Status.IsGood);
@@ -79,7 +78,6 @@ namespace WallboxTest
         [Fact]
         public async Task TestReadData()
         {
-            Assert.True(_wallbox.IsInitialized);
             var status = await _wallbox.ReadReport1Async();
             Assert.True(status.IsGood);
             Assert.True(_wallbox.Report1.Status.IsGood);
@@ -272,7 +270,6 @@ namespace WallboxTest
         [InlineData("Wallbox.Data.Reports[0].Sec")]
         public async Task TestWallboxReadProperty(string property)
         {
-            Assert.True(_wallbox.IsInitialized);
             Assert.True(Wallbox.IsProperty(property));
             var status = await _wallbox.ReadPropertyAsync(property);
             Assert.True(status.IsGood);

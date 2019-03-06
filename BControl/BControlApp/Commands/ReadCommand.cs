@@ -111,7 +111,7 @@ namespace BControlApp.Commands
 
                         if (OptionB)
                         {
-                            status = await _bcontrol.ReadBlockAsync();
+                            status = await _bcontrol.ReadBlockAllAsync();
                         }
                         else
                         {
@@ -131,7 +131,7 @@ namespace BControlApp.Commands
                     else if (Property.Length > 0)
                     {
                         Console.WriteLine($"Reading property '{Property}' from BControl energy meter:");
-                        await _bcontrol.ReadDataAsync(Property);
+                        await _bcontrol.ReadPropertyAsync(Property);
 
                         if (_bcontrol.Data.Status.IsGood)
                         {

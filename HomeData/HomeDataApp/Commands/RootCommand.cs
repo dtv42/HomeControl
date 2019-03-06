@@ -114,7 +114,7 @@ namespace HomeDataApp.Commands
         /// Method to run when the root command is executed.
         /// </summary>
         /// <returns>Zero if ok.</returns>
-        public async Task<int> OnExecuteAsync(CommandLineApplication app)
+        public int OnExecute(CommandLineApplication app)
         {
             Console.WriteLine($"Settings: {JsonConvert.SerializeObject(this, Formatting.Indented)}");
 
@@ -127,7 +127,7 @@ namespace HomeDataApp.Commands
                     _homedata.Meter1Address = Meter1Address;
                     _homedata.Meter2Address = Meter2Address;
 
-                    if (await _homedata.CheckAccess())
+                    if (_homedata.CheckAccess())
                     {
                         Console.WriteLine($"EM300LR web services found.");
                     }

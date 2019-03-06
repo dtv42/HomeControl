@@ -10,8 +10,9 @@ namespace NetatmoWeb
 {
     #region Using Directives
 
-    using BaseClassLib;
     using System.Threading.Tasks;
+
+    using BaseClassLib;
 
     #endregion
 

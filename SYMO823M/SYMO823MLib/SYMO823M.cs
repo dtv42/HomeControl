@@ -111,9 +111,10 @@ namespace SYMO823MLib
         public FroniusRegisterData FroniusRegister { get; } = new FroniusRegisterData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Modbus TCP/IP master options.
@@ -152,6 +153,26 @@ namespace SYMO823MLib
         #endregion Constructors
 
         #region Public Methods
+
+        /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;                                       
+        public DataStatus ReadBlockAll() => ReadBlockAllAsync().Result;
+        public DataStatus ReadProperty(string property) => ReadPropertyAsync(property).Result;
+        public DataStatus ReadProperties(List<string> properties) => ReadPropertiesAsync(properties).Result;
+        public DataStatus ReadCommonModel() => ReadCommonModelAsync().Result;
+        public DataStatus ReadInverterModel() => ReadInverterModelAsync().Result;
+        public DataStatus ReadNameplateModel() => ReadNameplateModelAsync().Result;
+        public DataStatus ReadSettingsModel() => ReadSettingsModelAsync().Result;
+        public DataStatus ReadExtendedModel() => ReadExtendedModelAsync().Result;
+        public DataStatus ReadControlModel() => ReadControlModelAsync().Result;
+        public DataStatus ReadMultipleModel() => ReadMultipleModelAsync().Result;
+        public DataStatus ReadFroniusRegister() => ReadFroniusRegisterAsync().Result;
+        public DataStatus WriteAll() => WriteAllAsync().Result;
+        public DataStatus WriteProperty(string property, string data) => WritePropertyAsync(property, data).Result;
+        public DataStatus WriteProperty(string property) => WritePropertyAsync(property).Result;
+        public DataStatus WriteProperties(List<string> properties) => WritePropertiesAsync(properties).Result;
 
         /// <summary>
         /// Updates all properties reading the data from Fronius Symo 8.2-3-M inverter.
@@ -196,7 +217,6 @@ namespace SYMO823MLib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
                         _logger?.LogDebug("ReadAllAsync OK.");
                     }
                     else
@@ -231,7 +251,7 @@ namespace SYMO823MLib
         /// Updates all properties reading the data in blocks from Fronius Symo 8.2-3-M inverter.
         /// </summary>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadBlockAsync()
+        public async Task<DataStatus> ReadBlockAllAsync()
         {
             await _semaphore.WaitAsync();
             DataStatus status = DataValue.Good;
@@ -266,7 +286,6 @@ namespace SYMO823MLib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
                         _logger?.LogDebug("BlockReadAsync OK.");
                     }
                     else
@@ -356,7 +375,7 @@ namespace SYMO823MLib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(string property)
+        public async Task<DataStatus> ReadPropertyAsync(string property)
         {
             DataStatus status = Good;
 
@@ -372,22 +391,22 @@ namespace SYMO823MLib
 
                             if (status.IsGood)
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') OK.");
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') not OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') not OK.");
                             }
                         }
                         else
                         {
-                            _logger?.LogError("ReadDataAsync('{property}') not connected.");
+                            _logger?.LogError("ReadPropertyAsync('{property}') not connected.");
                             status = BadNotConnected;
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger?.LogError(ex, $"ReadDataAsync('{property}') exception: {ex.Message}.");
+                        _logger?.LogError(ex, $"ReadPropertyAsync('{property}') exception: {ex.Message}.");
                         status = BadInternalError;
                         status.Explanation = $"Exception: {ex.Message}";
                     }
@@ -398,13 +417,13 @@ namespace SYMO823MLib
                 }
                 else
                 {
-                    _logger?.LogDebug($"ReadDataAsync('{property}') property not readable.");
+                    _logger?.LogDebug($"ReadPropertyAsync('{property}') property not readable.");
                     status = BadNotReadable;
                 }
             }
             else
             {
-                _logger?.LogDebug($"ReadDataAsync('{property}') property not found.");
+                _logger?.LogDebug($"ReadPropertyAsync('{property}') property not found.");
                 status = BadNotFound;
             }
 
@@ -417,7 +436,7 @@ namespace SYMO823MLib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(List<string> properties)
+        public async Task<DataStatus> ReadPropertiesAsync(List<string> properties)
         {
             DataStatus status = Good;
 
@@ -438,22 +457,22 @@ namespace SYMO823MLib
 
                                 if (status.IsGood)
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' OK.");
                                 }
                                 else
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not OK.");
                                 }
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not readable.");
+                                _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not readable.");
                                 status = BadNotReadable;
                             }
                         }
                         else
                         {
-                            _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not found.");
+                            _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not found.");
                             status = BadNotFound;
                         }
                     }
@@ -462,22 +481,22 @@ namespace SYMO823MLib
 
                     if ((data.IsGood) && (status.IsGood))
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) OK.");
                     }
                     else
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) not OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) not OK.");
                     }
                 }
                 else
                 {
-                    _logger?.LogError("ReadDataAsync(List<property>) not connected.");
+                    _logger?.LogError("ReadPropertiesAsync(List<property>) not connected.");
                     status = BadNotConnected;
                 }
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, $"ReadDataAsync(List<property>).");
+                _logger?.LogError(ex, $"ReadPropertiesAsync(List<property>).");
                 status = BadInternalError;
                 status.Explanation = $"Exception: {ex.Message}";
             }
@@ -496,7 +515,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadCommonModelAsync()
         {
-            var status = await ReadDataAsync(CommonModelData.GetProperties());
+            var status = await ReadPropertiesAsync(CommonModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -512,7 +531,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadInverterModelAsync()
         {
-            var status = await ReadDataAsync(InverterModelData.GetProperties());
+            var status = await ReadPropertiesAsync(InverterModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -528,7 +547,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadNameplateModelAsync()
         {
-            var status = await ReadDataAsync(NameplateModelData.GetProperties());
+            var status = await ReadPropertiesAsync(NameplateModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -544,7 +563,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadSettingsModelAsync()
         {
-            var status = await ReadDataAsync(SettingsModelData.GetProperties());
+            var status = await ReadPropertiesAsync(SettingsModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -560,7 +579,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadExtendedModelAsync()
         {
-            var status = await ReadDataAsync(ExtendedModelData.GetProperties());
+            var status = await ReadPropertiesAsync(ExtendedModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -576,7 +595,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadControlModelAsync()
         {
-            var status = await ReadDataAsync(ControlModelData.GetProperties());
+            var status = await ReadPropertiesAsync(ControlModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -592,7 +611,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadMultipleModelAsync()
         {
-            var status = await ReadDataAsync(MultipleModelData.GetProperties());
+            var status = await ReadPropertiesAsync(MultipleModelData.GetProperties());
 
             if (status.IsGood)
             {
@@ -608,7 +627,7 @@ namespace SYMO823MLib
         /// <returns>The status indicating success or failure.</returns>
         public async Task<DataStatus> ReadFroniusRegisterAsync()
         {
-            var status = await ReadDataAsync(FroniusRegisterData.GetProperties());
+            var status = await ReadPropertiesAsync(FroniusRegisterData.GetProperties());
 
             if (status.IsGood)
             {
@@ -671,7 +690,7 @@ namespace SYMO823MLib
         /// <param name="property">The name of the property.</param>
         /// <param name="data">The data value of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(string property, string data)
+        public async Task<DataStatus> WritePropertyAsync(string property, string data)
         {
             DataStatus status = Good;
 
@@ -687,19 +706,19 @@ namespace SYMO823MLib
                         {
                             case ushort u when ushort.TryParse(data, out ushort ushortData):
                                 Data.SetPropertyValue(property, ushortData);
-                                status = await WriteDataAsync(property);
+                                status = await WritePropertyAsync(property);
                                 break;
                             case uint16 u when UInt16.TryParse(data, out UInt16 uint16Data):
                                 uint16 u16 = new uint16();
                                 u16 = uint16Data;
                                 Data.SetPropertyValue(property, u16);
-                                status = await WriteDataAsync(property);
+                                status = await WritePropertyAsync(property);
                                 break;
                             case int16 i when Int16.TryParse(data, out Int16 int16Data):
                                 int16 i16 = new int16();
                                 i16 = int16Data;
                                 Data.SetPropertyValue(property, i16);
-                                status = await WriteDataAsync(property);
+                                status = await WritePropertyAsync(property);
                                 break;
                             default:
                                 _logger?.LogDebug($"WriteDataAsync {data} to '{property}' not OK.");
@@ -743,7 +762,7 @@ namespace SYMO823MLib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(string property)
+        public async Task<DataStatus> WritePropertyAsync(string property)
         {
             DataStatus status = Good;
 
@@ -797,7 +816,7 @@ namespace SYMO823MLib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(List<string> properties)
+        public async Task<DataStatus> WritePropertiesAsync(List<string> properties)
         {
             DataStatus status = Good;
 

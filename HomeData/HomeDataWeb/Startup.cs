@@ -6,6 +6,7 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
+[assembly: Microsoft.AspNetCore.Mvc.ApiConventionType(typeof(Microsoft.AspNetCore.Mvc.DefaultApiConventions))]
 namespace HomeDataWeb
 {
     #region Using Directives
@@ -76,6 +77,10 @@ namespace HomeDataWeb
             services.AddSingleton<IHomeData, HomeData>();
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, HomeDataMonitor>();
 
+            // Adding Healthchecks.
+            services.AddHealthChecks()
+                .AddCheck<HealthCheck>("health");
+
             // Adding SignalR support.
             services.AddSignalR();
 
@@ -88,10 +93,10 @@ namespace HomeDataWeb
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
             })
-            .AddPolicyHandler(HttpPolicyExtensions
-            .HandleTransientHttpError()
-            .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-            .WaitAndRetryAsync(_settings.Retries, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt))));
+            .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotAcceptable)
+                .WaitAndRetryAsync(_settings.Retries, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt))));
 
             // Adds support for HTTP client and sets up policies.
             services.AddHttpClient<IHomeDataClient2, HomeDataClient2>(client =>
@@ -102,10 +107,10 @@ namespace HomeDataWeb
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
             })
-            .AddPolicyHandler(HttpPolicyExtensions
-            .HandleTransientHttpError()
-            .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-            .WaitAndRetryAsync(_settings.Retries, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt))));
+            .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotAcceptable)
+                .WaitAndRetryAsync(_settings.Retries, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt))));
 
             // Adds MVC support.
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -149,6 +154,10 @@ namespace HomeDataWeb
             // Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration["Syncfusion:LicenseKey"]);
 
+            // Display health check status at the specified endpoint.
+            app.UseHealthChecks("/health");
+
+            // Enable static files.
             app.UseStaticFiles();
 
             // Use SignalR and setup the route to the hubs.

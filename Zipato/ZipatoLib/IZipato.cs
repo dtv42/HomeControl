@@ -34,15 +34,20 @@ namespace ZipatoLib
         ZipatoOthers Others { get; }
         ZipatoDevices Devices { get; }
         ZipatoSensors Sensors { get; }
-        bool IsInitialized { get; }
+
+        bool IsLocked { get; }
         bool IsSessionActive { get; }
 
         ZipatoSession StartSession();
         void EndSession();
 
+        DataStatus ReadAll();
+        DataStatus ReadAllData();
+        DataStatus ReadAllValues();
+
         Task<DataStatus> ReadAllAsync();
-        Task<DataStatus> ReadAllValuesAsync();
         Task<DataStatus> ReadAllDataAsync();
+        Task<DataStatus> ReadAllValuesAsync();
 
         #region Read Data Methods
         Task<(AttributeInfo Data, DataStatus Status)> DataReadAttributeAsync(Guid uuid);

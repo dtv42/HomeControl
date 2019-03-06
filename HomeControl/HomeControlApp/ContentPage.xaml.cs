@@ -9,15 +9,17 @@
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace HomeControlApp.Views
+namespace HomeControlApp
 {
     #region Using Directives
 
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
 
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
 
     using Newtonsoft.Json;
     using Serilog;
@@ -30,10 +32,10 @@ namespace HomeControlApp.Views
     using HomeControlLib.EM300LR.Models;
     using HomeControlLib.Wallbox.Models;
     using HomeControlLib.Zipato.Models;
-    using HomeControlApp.Models;
-    using System.Collections.Generic;
     using HomeControlLib.Zipato.Models.Data;
     using HomeControlLib.Zipato.Models.Devices;
+
+    using HomeControlApp.Models;
 
     #endregion
 
@@ -65,6 +67,9 @@ namespace HomeControlApp.Views
         private HttpClient _clientEM300LR2;
         private HttpClient _clientWallbox;
         private HttpClient _clientZipato;
+        private List<SceneData> _scenes = new List<SceneData> { };
+        private List<OnOff> _switches = new List<OnOff> { };
+        private List<Plug> _plugs = new List<Plug> { };
 
         #endregion
 
@@ -1217,35 +1222,47 @@ namespace HomeControlApp.Views
 
                 if (result1.Status.IsGood)
                 {
-                    ZipatoSwitch1.IsChecked = result1.OnOffSwitches[0].State.Value;  // Plug 1
-                    ZipatoSwitch2.IsChecked = result1.OnOffSwitches[1].State.Value;  // Plug 2
-                    ZipatoSwitch3.IsChecked = result1.OnOffSwitches[2].State.Value;  // Plug 3
-                    ZipatoSwitch4.IsChecked = result1.OnOffSwitches[3].State.Value;  // Plug 4
-                    ZipatoSwitch5.IsChecked = result1.OnOffSwitches[4].State.Value;  // Plug 5
-                    ZipatoSwitch6.IsChecked = result1.OnOffSwitches[5].State.Value;  // Plug 6
-                    ZipatoSwitch7.IsChecked = result1.OnOffSwitches[6].State.Value;  // Plug 7
-                    ZipatoSwitch8.IsChecked = result1.OnOffSwitches[7].State.Value;  // Plug 8
+                    _switches = result1.OnOffSwitches;
+                    ZipatoSwitch1.IsChecked = result1.OnOffSwitches[0].State.Value;
+                    ZipatoSwitch2.IsChecked = result1.OnOffSwitches[1].State.Value;
+                    ZipatoSwitch3.IsChecked = result1.OnOffSwitches[2].State.Value;
+                    ZipatoSwitch4.IsChecked = result1.OnOffSwitches[3].State.Value;
+                    ZipatoSwitch5.IsChecked = result1.OnOffSwitches[4].State.Value;
+                    ZipatoSwitch6.IsChecked = result1.OnOffSwitches[5].State.Value;
+                    ZipatoSwitch7.IsChecked = result1.OnOffSwitches[6].State.Value;
+                    ZipatoSwitch8.IsChecked = result1.OnOffSwitches[7].State.Value;
+
+                    _plugs = result1.Wallplugs;
+                    ZipatoPlug1.IsChecked = result1.Wallplugs[0].State.Value;
+                    ZipatoPlug2.IsChecked = result1.Wallplugs[1].State.Value;
+                    ZipatoPlug3.IsChecked = result1.Wallplugs[2].State.Value;
+                    ZipatoPlug4.IsChecked = result1.Wallplugs[3].State.Value;
+                    ZipatoPlug5.IsChecked = result1.Wallplugs[4].State.Value;
+                    ZipatoPlug6.IsChecked = result1.Wallplugs[5].State.Value;
+                    ZipatoPlug7.IsChecked = result1.Wallplugs[6].State.Value;
+                    ZipatoPlug8.IsChecked = result1.Wallplugs[7].State.Value;
 
                     var json2 = _clientZipato.GetStringAsync("api/zipato/scenes").Result;
                     var result2 = JsonConvert.DeserializeObject<List<SceneData>>(json2);
 
                     if (result2.Count > 7)
                     {
-                        ZipatoScene1.Content = result2[0].Name;  // Scene 1
-                        ZipatoScene2.Content = result2[1].Name;  // Scene 2
-                        ZipatoScene3.Content = result2[2].Name;  // Scene 3
-                        ZipatoScene4.Content = result2[3].Name;  // Scene 4
-                        ZipatoScene5.Content = result2[4].Name;  // Scene 5
-                        ZipatoScene6.Content = result2[5].Name;  // Scene 6
-                        ZipatoScene7.Content = result2[6].Name;  // Scene 7
-                        ZipatoScene8.Content = result2[7].Name;  // Scene 8
+                        _scenes = result2;
+                        ZipatoScene1.Content = result2[0].Name;
+                        ZipatoScene2.Content = result2[1].Name;
+                        ZipatoScene3.Content = result2[2].Name;
+                        ZipatoScene4.Content = result2[3].Name;
+                        ZipatoScene5.Content = result2[4].Name;
+                        ZipatoScene6.Content = result2[5].Name;
+                        ZipatoScene7.Content = result2[6].Name;
+                        ZipatoScene8.Content = result2[7].Name;
 
                         var json3 = _clientZipato.GetStringAsync("api/zipato/dimmer").Result;
                         var result3 = JsonConvert.DeserializeObject<List<Dimmer>>(json3);
 
                         if (result3.Count > 0)
                         {
-                            ZipatoDimmer1.Value = result3[0].Intensity.Value;  // Dimmer1
+                            ZipatoDimmer1.Value = result3[0].Intensity.Value;
                             Log.Debug("UpdateControl() done.");
                         }
                         else
@@ -1271,19 +1288,112 @@ namespace HomeControlApp.Views
 
         #endregion
 
-        private void OnScene1Click(object sender, RoutedEventArgs e)
+        #region Event Handler
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSceneClick(object sender, RoutedEventArgs e)
         {
-            Log.Debug("OnScene1Click() started.");
+            Log.Debug("OnSceneClick() started.");
+            var button = sender as Button;
+
             try
             {
-                var json = _clientZipato.PostAsync("api/zipato/scenes/").Result;
-                var result = JsonConvert.DeserializeObject<Report3Data>(json);
-
+                var index = (int)button.Tag;
+                var uuid = _scenes[index].Uuid;
+                var response = _clientZipato.GetAsync($"api/zipato/scenes/{uuid}/run").Result;
+                response.EnsureSuccessStatusCode();
+                Log.Debug("OnSceneClick() done.");
             }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"OnSceneClick() exception: {ex.Message}.");
+            }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSwitchClick(object sender, RoutedEventArgs e)
         {
+            Log.Debug("OnSwitchClick() started.");
+            var button = sender as ToggleButton;
 
+            try
+            {
+                var index = int.Parse((string)button.Tag);
+                var response = _clientZipato.PutAsync($"api/devices/onoff/{index}/toggle", new StringContent("")).Result;
+                response.EnsureSuccessStatusCode();
+                var json = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<OnOff>(json);
+                button.IsChecked = result.State.Value;
+                Log.Debug("OnSwitchClick() done.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"OnSwitchClick() exception: {ex.Message}.");
+                button.IsChecked = false;
+            }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnPlugClick(object sender, RoutedEventArgs e)
+        {
+            Log.Debug("OnPlugClick() started.");
+            var button = sender as ToggleButton;
+
+            try
+            {
+                var index = int.Parse((string)button.Tag);
+                var response = _clientZipato.PutAsync($"api/devices/plug/{index}/toggle", new StringContent("")).Result;
+                response.EnsureSuccessStatusCode();
+                var json = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<OnOff>(json);
+                button.IsChecked = result.State.Value;
+                Log.Debug("OnPlugClick() done.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"OnPlugClick() exception: {ex.Message}.");
+                button.IsChecked = false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            Log.Debug("OnValueChanged() started.");
+            var slider = sender as Slider;
+
+            try
+            {
+                var index = int.Parse((string)slider.Tag);
+                var intensity = slider.Value;
+                var response = _clientZipato.PutAsync($"api/devices/dimmer/{index}/intensity?value={intensity}", new StringContent("")).Result;
+                response.EnsureSuccessStatusCode();
+                var json = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<Dimmer>(json);
+                Log.Debug("OnValueChanged() done.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"OnValueChanged() exception: {ex.Message}.");
+            }
+        }
+
+        #endregion
     }
 }

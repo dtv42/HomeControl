@@ -38,21 +38,36 @@ namespace ETAPU11Lib
         [JsonIgnore]
         SystemData SystemData { get; }
 
-        bool IsInitialized { get; }
+        bool IsLocked { get; }
         bool Connect();
 
+        DataStatus ReadAll();
+        DataStatus ReadBlockAll();
+        DataStatus ReadProperty(string property);
+        DataStatus ReadProperties(List<string> properties);
+        DataStatus ReadBoilerData();
+        DataStatus ReadHotwaterData();
+        DataStatus ReadHeatingData();
+        DataStatus ReadStorageData();
+        DataStatus ReadSystemData();
+        DataStatus WriteAll();
+        DataStatus WriteProperty(string property, string data);
+        DataStatus WriteProperty(string property);
+        DataStatus WriteProperties(List<string> properties);
+
         Task<DataStatus> ReadAllAsync();
-        Task<DataStatus> ReadBlockAsync();
-        Task<DataStatus> ReadDataAsync(string property);
+        Task<DataStatus> ReadBlockAllAsync();
+        Task<DataStatus> ReadPropertyAsync(string property);
+        Task<DataStatus> ReadPropertiesAsync(List<string> properties);
         Task<DataStatus> ReadBoilerDataAsync();
         Task<DataStatus> ReadHotwaterDataAsync();
         Task<DataStatus> ReadHeatingDataAsync();
         Task<DataStatus> ReadStorageDataAsync();
         Task<DataStatus> ReadSystemDataAsync();
         Task<DataStatus> WriteAllAsync();
-        Task<DataStatus> WriteDataAsync(string property, string data);
-        Task<DataStatus> WriteDataAsync(string property);
-        Task<DataStatus> WriteDataAsync(List<string> properties);
+        Task<DataStatus> WritePropertyAsync(string property, string data);
+        Task<DataStatus> WritePropertyAsync(string property);
+        Task<DataStatus> WritePropertiesAsync(List<string> properties);
 
         object GetPropertyValue(string property);
     }

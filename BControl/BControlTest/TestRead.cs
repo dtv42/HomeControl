@@ -1,4 +1,4 @@
-namespace BControlTest
+﻿namespace BControlTest
 {
     #region Using Directives
 
@@ -51,7 +51,6 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadAll()
         {
-            Assert.True(_bcontrol.IsInitialized);
             await _bcontrol.ReadAllAsync();
             Assert.True(_bcontrol.Data.IsGood);
             Assert.True(_bcontrol.InternalData.IsGood);
@@ -63,8 +62,7 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadBlock()
         {
-            Assert.True(_bcontrol.IsInitialized);
-            await _bcontrol.ReadBlockAsync();
+            await _bcontrol.ReadBlockAllAsync();
             Assert.True(_bcontrol.Data.IsGood);
             Assert.True(_bcontrol.InternalData.IsGood);
             Assert.True(_bcontrol.EnergyData.IsGood);
@@ -75,7 +73,6 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadInternal()
         {
-            Assert.True(_bcontrol.IsInitialized);
             await _bcontrol.ReadInternalDataAsync();
             Assert.True(_bcontrol.InternalData.IsGood);
         }
@@ -83,7 +80,6 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadPnP()
         {
-            Assert.True(_bcontrol.IsInitialized);
             await _bcontrol.ReadPnPDataAsync();
             Assert.True(_bcontrol.PnPData.IsGood);
         }
@@ -91,7 +87,6 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadEnergy()
         {
-            Assert.True(_bcontrol.IsInitialized);
             await _bcontrol.ReadEnergyDataAsync();
             Assert.True(_bcontrol.EnergyData.IsGood);
         }
@@ -99,7 +94,6 @@ namespace BControlTest
         [Fact]
         public async Task TestBControlReadSunSpec()
         {
-            Assert.True(_bcontrol.IsInitialized);
             await _bcontrol.ReadSunSpecDataAsync();
             Assert.True(_bcontrol.SunSpecData.IsGood);
         }
@@ -266,7 +260,7 @@ namespace BControlTest
         public async Task TestReadProperty(string property)
         {
             Assert.True(BControl.IsProperty(property));
-            var status = await _bcontrol.ReadDataAsync(property);
+            var status = await _bcontrol.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
         }
     }

@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestReadWrite.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -68,10 +68,10 @@ namespace ETAPU11Test
         [InlineData("AshRemovalDurationIdleTime", "10:00:00")]
         public async Task TestETAPU11ReadWriteTimeSpan(string property, string data)
         {
-            var status = await _etapu11.WriteDataAsync(property, data);
+            var status = await _etapu11.WritePropertyAsync(property, data);
             Assert.True(status.IsGood);
             _etapu11.Data = new ETAPU11Data();
-            status = await _etapu11.ReadDataAsync(property);
+            status = await _etapu11.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, ((TimeSpan)_etapu11.Data.GetPropertyValue(property)).ToString());
         }
@@ -81,10 +81,10 @@ namespace ETAPU11Test
         [InlineData("HeatingHolidayEnd", "2018-08-02T23:59:00")]
         public async Task TestETAPU11ReadWriteDateTime(string property, string data)
         {
-            var status = await _etapu11.WriteDataAsync(property, data);
+            var status = await _etapu11.WritePropertyAsync(property, data);
             Assert.True(status.IsGood);
             _etapu11.Data = new ETAPU11Data();
-            status = await _etapu11.ReadDataAsync(property);
+            status = await _etapu11.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, ((DateTimeOffset)_etapu11.Data.GetPropertyValue(property)).DateTime.ToString("yyyy-MM-ddTHH:mm:ss"));
         }
@@ -104,10 +104,10 @@ namespace ETAPU11Test
         [InlineData("OutsideTemperature", 22.0)]
         public async Task TestETAPU11ReadWriteDouble(string property, double data)
         {
-            var status = await _etapu11.WriteDataAsync(property, data.ToString());
+            var status = await _etapu11.WritePropertyAsync(property, data.ToString());
             Assert.True(status.IsGood);
             _etapu11.Data = new ETAPU11Data();
-            status = await _etapu11.ReadDataAsync(property);
+            status = await _etapu11.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, (double)_etapu11.Data.GetPropertyValue(property));
         }
@@ -125,10 +125,10 @@ namespace ETAPU11Test
         [InlineData("HeatingAwayButton", ETAPU11Data.OnOffStates.On)]
         public async Task TestETAPU11ReadWriteEnum(string property, dynamic data)
         {
-            var status = await _etapu11.WriteDataAsync(property, data.ToString());
+            var status = await _etapu11.WritePropertyAsync(property, data.ToString());
             Assert.True(status.IsGood);
             _etapu11.Data = new ETAPU11Data();
-            status = await _etapu11.ReadDataAsync(property);
+            status = await _etapu11.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal((int)data, (int)_etapu11.Data.GetPropertyValue(property));
         }

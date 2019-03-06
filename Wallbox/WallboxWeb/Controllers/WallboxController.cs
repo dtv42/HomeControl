@@ -11,6 +11,7 @@ namespace WallboxWeb.Controllers
     #region Using Directives
 
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -26,13 +27,13 @@ namespace WallboxWeb.Controllers
     using WallboxWeb.Models;
 
     using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
-    using System.Collections.Generic;
 
     #endregion
 
     /// <summary>
     /// The Wallbox controller for reading Wallbox data items.
     /// </summary>
+    [ApiController]
     [Route("api/wallbox")]
     [Produces("application/json")]
     public class WallboxController : BaseController<AppSettings>
@@ -64,20 +65,6 @@ namespace WallboxWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "Wallbox API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_wallbox?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all Wallbox related data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -98,9 +85,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetWallboxData()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -142,9 +129,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetReport1Data()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -186,9 +173,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetReport2Data()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -230,9 +217,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetReport3Data()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -274,9 +261,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetReport100Data()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -318,9 +305,9 @@ namespace WallboxWeb.Controllers
             {
                 _logger?.LogDebug("GetReportsData()...");
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -370,9 +357,9 @@ namespace WallboxWeb.Controllers
                     return NotFound($"Report ID '{id}' not supported.");
                 }
 
-                if (!_wallbox.IsInitialized)
+                if (!_wallbox.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -428,9 +415,9 @@ namespace WallboxWeb.Controllers
 
                 if (Wallbox.IsProperty(name))
                 {
-                    if (!_wallbox.IsInitialized)
+                    if (!_wallbox.IsLocked)
                     {
-                        return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                        return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                     }
 
                     if (update)

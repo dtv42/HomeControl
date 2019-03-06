@@ -30,6 +30,7 @@ namespace KWLEC200Web.Controllers
     /// <summary>
     /// The KWLEC200 controller for reading KWLEC200 data items.
     /// </summary>
+    [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class KWLEC200Controller : BaseController<AppSettings>
@@ -61,20 +62,6 @@ namespace KWLEC200Web.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "KWLEC200 API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_kwlec200?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all KWLEC200 related data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -95,9 +82,9 @@ namespace KWLEC200Web.Controllers
             {
                 _logger?.LogDebug("GetKWLEC200Data()...");
 
-                if (!_kwlec200.IsInitialized)
+                if (!_kwlec200.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -139,9 +126,9 @@ namespace KWLEC200Web.Controllers
             {
                 _logger?.LogDebug("GetOverviewData()...");
 
-                if (!_kwlec200.IsInitialized)
+                if (!_kwlec200.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -203,12 +190,12 @@ namespace KWLEC200Web.Controllers
                     {
                         if (KWLEC200Data.IsReadable(name))
                         {
-                            if (!_kwlec200.IsInitialized)
+                            if (!_kwlec200.IsLocked)
                             {
-                                return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                                return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                             }
 
-                            var status = _kwlec200.ReadData(name);
+                            var status = _kwlec200.ReadProperty(name);
 
                             if (!status.IsGood)
                             {
@@ -281,12 +268,12 @@ namespace KWLEC200Web.Controllers
                 {
                     if (KWLEC200Data.IsWritable(name))
                     {
-                        if (!_kwlec200.IsInitialized)
+                        if (!_kwlec200.IsLocked)
                         {
-                            return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                            return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                         }
 
-                        var status = _kwlec200.WriteData(name, value);
+                        var status = _kwlec200.WriteProperty(name, value);
 
                         if (!status.IsGood)
                         {

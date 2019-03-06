@@ -153,7 +153,7 @@ namespace SYMO823MApp.Commands
                         var cancellationToken = source.Token;
 
                         await Task.Factory.StartNew(async () => {
-                            await _symo823m?.ReadBlockAsync();
+                            await _symo823m?.ReadBlockAllAsync();
 
                             // Wait if necessary to reach 60 seconds.
                             var start = DateTime.UtcNow;
@@ -165,7 +165,7 @@ namespace SYMO823MApp.Commands
                                 try
                                 {
                                     _logger?.LogDebug("SYMO823MMonitor: Update data...");
-                                    var status = await _symo823m?.ReadBlockAsync();
+                                    var status = await _symo823m?.ReadBlockAllAsync();
                                 }
                                 catch (Exception ex)
                                 {

@@ -68,9 +68,10 @@ namespace HomeDataLib
         public MeterData Meter2 { get; }
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the meter 1 web service base uri.
@@ -141,11 +142,19 @@ namespace HomeDataLib
         #region Public Methods
 
         /// <summary>
-        /// Helper method to check for the EM300LR Web service.
+        /// Helper method to check for the EM300LR Web services.
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckAccess()
-            => await IsMeter1InitializedAsync() && await IsMeter2InitializedAsync();
+        public bool CheckAccess()
+            => !string.IsNullOrEmpty(_client1.GetStringAsync("health").Result) &&
+               !string.IsNullOrEmpty(_client2.GetStringAsync("health").Result);
+
+        /// <summary>
+        /// Updates all HomeData properties reading the data from the EM300LR web services.
+        /// If successful the data values will be updated (timestamp).
+        /// </summary>
+        /// <returns>The status indicating success or failure.</returns>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
 
         /// <summary>
         /// Updates all HomeData properties reading the data from the EM300LR web services.
@@ -186,11 +195,6 @@ namespace HomeDataLib
                 {
                     Data.Status = DataValue.Good;
                     Data.Refresh(Meter1, Meter2);
-
-                    if (!IsInitialized)
-                    {
-                        IsInitialized = true;
-                    }
                 }
 
                 _logger?.LogDebug("ReadAllAsync() finished.");
@@ -263,28 +267,11 @@ namespace HomeDataLib
 
         #region Private Methods
 
-        private async Task<bool> IsMeter1InitializedAsync()
-        {
-            try
-            {
-                string json = await _client1.GetStringAsync("api/isinitialized");
-
-                if (!string.IsNullOrEmpty(json))
-                {
-                    bool result = JsonConvert.DeserializeObject<bool>(json);
-                    _logger?.LogDebug($"IsMeter1InitializedAsync() OK.");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, $"IsMeter1InitializedAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-            }
-
-            return false;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter1TotalAsync(bool update = false)
         {
             try
@@ -306,6 +293,11 @@ namespace HomeDataLib
             return Meter1.Total.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter1Phase1Async(bool update = false)
         {
             try
@@ -327,6 +319,11 @@ namespace HomeDataLib
             return Meter1.Phase1.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter1Phase2Async(bool update = false)
         {
             try
@@ -348,6 +345,11 @@ namespace HomeDataLib
             return Meter1.Phase2.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter1Phase3Async(bool update = false)
         {
             try
@@ -369,28 +371,11 @@ namespace HomeDataLib
             return Meter1.Phase3.Status;
         }
 
-        private async Task<bool> IsMeter2InitializedAsync()
-        {
-            try
-            {
-                string json = await _client2.GetStringAsync("api/isinitialized");
-
-                if (!string.IsNullOrEmpty(json))
-                {
-                    bool result = JsonConvert.DeserializeObject<bool>(json);
-                    _logger?.LogDebug($"IsMeter2InitializedAsync() OK.");
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, $"IsMeter2InitializedAsync exception: {ex.Message}.");
-                Data.Status = DataValue.BadInternalError;
-            }
-
-            return false;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter2TotalAsync(bool update = false)
         {
             try
@@ -412,6 +397,11 @@ namespace HomeDataLib
             return Meter2.Total.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter2Phase1Async(bool update = false)
         {
             try
@@ -433,6 +423,11 @@ namespace HomeDataLib
             return Meter2.Phase1.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter2Phase2Async(bool update = false)
         {
             try
@@ -454,6 +449,11 @@ namespace HomeDataLib
             return Meter2.Phase2.Status;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private async Task<DataStatus> ReadMeter2Phase3Async(bool update = false)
         {
             try

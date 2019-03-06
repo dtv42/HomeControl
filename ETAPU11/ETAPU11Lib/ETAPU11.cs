@@ -92,9 +92,10 @@ namespace ETAPU11Lib
         public SystemData SystemData { get; } = new SystemData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Gets or sets the Modbus TCP/IP master options.
@@ -133,6 +134,23 @@ namespace ETAPU11Lib
         #endregion Constructors
 
         #region Public Methods
+
+        /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+        public DataStatus ReadBlockAll() => ReadBlockAllAsync().Result;
+        public DataStatus ReadProperty(string property) => ReadPropertyAsync(property).Result;
+        public DataStatus ReadProperties(List<string> properties) => ReadPropertiesAsync(properties).Result;
+        public DataStatus ReadBoilerData() => ReadBoilerDataAsync().Result;
+        public DataStatus ReadHotwaterData() => ReadHotwaterDataAsync().Result;
+        public DataStatus ReadHeatingData() => ReadHeatingDataAsync().Result;
+        public DataStatus ReadStorageData() => ReadStorageDataAsync().Result;
+        public DataStatus ReadSystemData() => ReadSystemDataAsync().Result;
+        public DataStatus WriteAll() => WriteAllAsync().Result;
+        public DataStatus WriteProperty(string property, string data) => WritePropertyAsync(property, data).Result;
+        public DataStatus WriteProperty(string property) => WritePropertyAsync(property).Result;
+        public DataStatus WriteProperties(List<string> properties) => WritePropertiesAsync(properties).Result;
 
         /// <summary>
         /// Updates all properties reading the data from ETA PU 11 pellet boiler unit.
@@ -174,11 +192,6 @@ namespace ETAPU11Lib
 
                     if (status.IsGood)
                     {
-                        if (!IsInitialized)
-                        {
-                            IsInitialized = true;
-                        }
-
                         _logger?.LogDebug($"ReadAllAsync OK.");
                     }
                     else
@@ -213,7 +226,7 @@ namespace ETAPU11Lib
         /// Updates all properties reading the data in blocks from ETA PU 11 pellet boiler unit.
         /// </summary>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadBlockAsync()
+        public async Task<DataStatus> ReadBlockAllAsync()
         {
             await _semaphore.WaitAsync();
             DataStatus status = DataValue.Good;
@@ -240,7 +253,6 @@ namespace ETAPU11Lib
 
                     if (status.IsGood)
                     {
-                        if (IsInitialized == false) IsInitialized = true;
                         _logger?.LogDebug("BlockReadAsync OK.");
                     }
                     else
@@ -330,9 +342,10 @@ namespace ETAPU11Lib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(string property)
+        public async Task<DataStatus> ReadPropertyAsync(string property)
         {
             DataStatus status = Good;
+            _logger?.LogDebug($"ReadPropertyAsync('{property}') starting.");
 
             if (ETAPU11Data.IsProperty(property))
             {
@@ -340,46 +353,50 @@ namespace ETAPU11Lib
                 {
                     try
                     {
+                        await _semaphore.WaitAsync();
+
                         if (_client.Connect())
                         {
                             status = await ReadPropertyAsync(Data, property);
 
                             if (status.IsGood)
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') OK.");
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync('{property}') not OK.");
+                                _logger?.LogDebug($"ReadPropertyAsync('{property}') not OK.");
                             }
                         }
                         else
                         {
-                            _logger?.LogError($"ReadDataAsync('{property}') not connected.");
+                            _logger?.LogError($"ReadPropertyAsync('{property}') not connected.");
                             status = BadNotConnected;
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger?.LogError(ex, $"ReadDataAsync('{property}') exception: {ex.Message}.");
+                        _logger?.LogError(ex, $"ReadPropertyAsync('{property}') exception: {ex.Message}.");
                         status = BadInternalError;
                         status.Explanation = $"Exception: {ex.Message}";
                     }
                     finally
                     {
                         _client.Disconnect();
+                        _semaphore.Release();
+                        _logger?.LogDebug($"ReadPropertyAsync('{property}') finished.");
                     }
                 }
                 else
                 {
-                    _logger?.LogDebug($"ReadDataAsync('{property}') property not readable.");
+                    _logger?.LogDebug($"ReadPropertyAsync('{property}') property not readable.");
                     status = BadNotReadable;
                     status.Explanation = $"Property '{property}' not readable.";
                 }
             }
             else
             {
-                _logger?.LogDebug($"ReadDataAsync('{property}') property not found.");
+                _logger?.LogDebug($"ReadPropertyAsync('{property}') property not found.");
                 status = BadNotFound;
                 status.Explanation = $"Property '{property}' not found.";
             }
@@ -393,7 +410,7 @@ namespace ETAPU11Lib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> ReadDataAsync(List<string> properties)
+        public async Task<DataStatus> ReadPropertiesAsync(List<string> properties)
         {
             DataStatus status = Good;
 
@@ -414,23 +431,23 @@ namespace ETAPU11Lib
 
                                 if (status.IsGood)
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' OK.");
                                 }
                                 else
                                 {
-                                    _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not OK.");
+                                    _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not OK.");
                                 }
                             }
                             else
                             {
-                                _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not readable.");
+                                _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not readable.");
                                 status = BadNotReadable;
                                 status.Explanation = $"Property '{property}' not readable.";
                             }
                         }
                         else
                         {
-                            _logger?.LogDebug($"ReadDataAsync(List<property>) property '{property}' not found.");
+                            _logger?.LogDebug($"ReadPropertiesAsync(List<property>) property '{property}' not found.");
                             status = BadNotFound;
                             status.Explanation = $"Property '{property}' not found.";
                         }
@@ -440,22 +457,22 @@ namespace ETAPU11Lib
 
                     if ((data.IsGood) && (status.IsGood))
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) OK.");
                     }
                     else
                     {
-                        _logger?.LogDebug("ReadDataAsync(List<property>) not OK.");
+                        _logger?.LogDebug("ReadPropertiesAsync(List<property>) not OK.");
                     }
                 }
                 else
                 {
-                    _logger?.LogError("ReadDataAsync(List<property>) not connected.");
+                    _logger?.LogError("ReadPropertiesAsync(List<property>) not connected.");
                     status = BadNotConnected;
                 }
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, $"ReadDataAsync(List<property>) exception: {ex.Message}.");
+                _logger?.LogError(ex, $"ReadPropertiesAsync(List<property>) exception: {ex.Message}.");
                 status = BadInternalError;
                 status.Explanation = $"Exception: {ex.Message}";
             }
@@ -474,7 +491,7 @@ namespace ETAPU11Lib
         /// <returns></returns>
         public async Task<DataStatus> ReadBoilerDataAsync()
         {
-            var status = await ReadDataAsync(BoilerData.GetProperties());
+            var status = await ReadPropertiesAsync(BoilerData.GetProperties());
 
             if (status.IsGood)
             {
@@ -490,7 +507,7 @@ namespace ETAPU11Lib
         /// <returns></returns>
         public async Task<DataStatus> ReadHotwaterDataAsync()
         {
-            var status = await ReadDataAsync(HotwaterData.GetProperties());
+            var status = await ReadPropertiesAsync(HotwaterData.GetProperties());
 
             if (status.IsGood)
             {
@@ -506,7 +523,7 @@ namespace ETAPU11Lib
         /// <returns></returns>
         public async Task<DataStatus> ReadHeatingDataAsync()
         {
-            var status = await ReadDataAsync(HeatingData.GetProperties());
+            var status = await ReadPropertiesAsync(HeatingData.GetProperties());
 
             if (status.IsGood)
             {
@@ -522,7 +539,7 @@ namespace ETAPU11Lib
         /// <returns></returns>
         public async Task<DataStatus> ReadStorageDataAsync()
         {
-            var status = await ReadDataAsync(StorageData.GetProperties());
+            var status = await ReadPropertiesAsync(StorageData.GetProperties());
 
             if (status.IsGood)
             {
@@ -538,7 +555,7 @@ namespace ETAPU11Lib
         /// <returns></returns>
         public async Task<DataStatus> ReadSystemDataAsync()
         {
-            var status = await ReadDataAsync(SystemData.GetProperties());
+            var status = await ReadPropertiesAsync(SystemData.GetProperties());
 
             if (status.IsGood)
             {
@@ -595,7 +612,7 @@ namespace ETAPU11Lib
         /// <param name="property">The name of the property.</param>
         /// <param name="data">The data value of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(string property, string data)
+        public async Task<DataStatus> WritePropertyAsync(string property, string data)
         {
             DataStatus status = Good;
 
@@ -741,7 +758,7 @@ namespace ETAPU11Lib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(string property)
+        public async Task<DataStatus> WritePropertyAsync(string property)
         {
             DataStatus status = Good;
 
@@ -795,7 +812,7 @@ namespace ETAPU11Lib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public async Task<DataStatus> WriteDataAsync(List<string> properties)
+        public async Task<DataStatus> WritePropertiesAsync(List<string> properties)
         {
             DataStatus status = Good;
 

@@ -106,12 +106,12 @@ namespace KWLEC200App.Commands
                     _kwlec200.Slave.ID = Parent.SlaveID;
 
                     Console.WriteLine($"Writing value '{Value}' to property '{Property}' at KWLEC200 hvac.");
-                    var status = _kwlec200.WriteData(Property, Value);
+                    var status = _kwlec200.WriteProperty(Property, Value);
 
                     if (status.IsGood)
                     {
                         Console.WriteLine($"Reading property '{Property}' from KWLEC200 hvac.");
-                        status = _kwlec200.ReadData(Property);
+                        status = _kwlec200.ReadProperty(Property);
 
                         if (status.IsGood)
                         {

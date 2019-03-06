@@ -6,14 +6,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
-namespace ZipatoLib.Models
+namespace HomeControlLib.Zipato.Models
 {
     #region Using Directives
 
     using System.Collections.Generic;
 
-    using ZipatoLib.Models.Others;
     using DataValueLib;
+    using HomeControlLib.Zipato.Models.Others;
 
     #endregion
 

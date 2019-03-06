@@ -132,7 +132,7 @@ namespace NetatmoApp.Commands
         /// Method to run when the root command is executed.
         /// </summary>
         /// <returns>Zero if ok.</returns>
-        public async Task<int> OnExecuteAsync(CommandLineApplication app)
+        public int OnExecute(CommandLineApplication app)
         {
             Console.WriteLine($"Settings: {JsonConvert.SerializeObject(this, Formatting.Indented)}");
 
@@ -148,7 +148,7 @@ namespace NetatmoApp.Commands
                     _netatmo.ClientID = ClientID;
                     _netatmo.ClientSecret = ClientSecret;
 
-                    if (await _netatmo.CheckAccess())
+                    if (_netatmo.CheckAccess())
                     {
                         Console.WriteLine($"Netatmo web service found at {BaseAddress}.");
                     }

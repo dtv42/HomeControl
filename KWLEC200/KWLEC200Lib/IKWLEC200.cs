@@ -24,16 +24,18 @@
 
         TcpMasterData Master { get; set; }
         TcpSlaveData Slave { get; set; }
-        bool IsInitialized { get; }
+
+        bool IsLocked { get; }
         bool Connect();
 
         DataStatus ReadAll();
-        DataStatus ReadData(string property);
+        DataStatus ReadProperty(string property);
+        DataStatus ReadProperties(List<string> properties);
         DataStatus ReadOverviewData();
         DataStatus WriteAll();
-        DataStatus WriteData(string property, string data);
-        DataStatus WriteData(string property);
-        DataStatus WriteData(List<string> properties);
+        DataStatus WriteProperty(string property, string data);
+        DataStatus WriteProperty(string property);
+        DataStatus WriteProperties(List<string> properties);
 
         object GetPropertyValue(string property);
     }

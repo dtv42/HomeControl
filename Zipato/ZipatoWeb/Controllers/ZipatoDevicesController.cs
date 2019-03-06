@@ -35,6 +35,7 @@ namespace ZipatoWeb.Controllers
     /// <summary>
     /// The Zipato controller for reading Zipato devices.
     /// </summary>
+    [ApiController]
     [Route("api/devices")]
     [Produces("application/json")]
     public class ZipatoDevicesController : BaseController<AppSettings>
@@ -86,9 +87,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetDevicesAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -130,9 +131,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetDimmersAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -177,9 +178,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetDimmerAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -231,9 +232,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetDimmerIntensityAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -285,9 +286,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetDimmerIntensity({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.Dimmers.Count;
@@ -335,9 +336,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetOnOffSwitchesAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -382,9 +383,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetOnOffSwitchAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -436,9 +437,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetOnOffSwitchStateAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -490,9 +491,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetOnOffSwitchState({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.OnOffSwitches.Count;
@@ -542,9 +543,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"GetOnOffSwitchToggle({index})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.OnOffSwitches.Count;
@@ -592,9 +593,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetWallplugsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -639,9 +640,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetWallplugAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -693,9 +694,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetWallplugStateAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -747,9 +748,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetWallplugState({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.Wallplugs.Count;
@@ -799,9 +800,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"GetWallplugToggle({index})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.Wallplugs.Count;
@@ -849,9 +850,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSwitchesAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -896,9 +897,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSwitchAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -950,9 +951,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSwitchStateAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1001,9 +1002,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlsAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1048,9 +1049,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1102,9 +1103,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlIntensityAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1156,9 +1157,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlColdWhiteAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1210,9 +1211,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1264,9 +1265,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlRedAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1318,9 +1319,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlGreenAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1372,9 +1373,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetRGBControlBlueAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -1426,9 +1427,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlIntensity({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1479,9 +1480,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlColdWhite({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1532,9 +1533,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlWarmWhite({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1585,9 +1586,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlRed({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1638,9 +1639,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlGreen({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1691,9 +1692,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlBlue({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1744,9 +1745,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlRGB({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;
@@ -1802,9 +1803,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"SetRGBControlRGBW({index}, {value})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Devices.RGBControls.Count;

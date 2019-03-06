@@ -70,7 +70,7 @@ namespace BControlWeb.Services
             {
                 _logger?.LogDebug("BControlMonitor: DoStart...");
 
-                await _bcontrol?.ReadBlockAsync();
+                await _bcontrol?.ReadBlockAllAsync();
                 await _hub.Clients.All.SendAsync("UpdateData", _bcontrol.Data);
                 await _hub.Clients.All.SendAsync("UpdateInternal", _bcontrol.InternalData);
                 await _hub.Clients.All.SendAsync("UpdateEnergy", _bcontrol.EnergyData);
@@ -91,7 +91,7 @@ namespace BControlWeb.Services
             try
             {
                 _logger?.LogDebug("BControlMonitor: DoWork...");
-                await _bcontrol?.ReadBlockAsync();
+                await _bcontrol?.ReadBlockAllAsync();
                 await _hub.Clients.All.SendAsync("UpdateData", _bcontrol.Data);
                 await _hub.Clients.All.SendAsync("UpdateInternal", _bcontrol.InternalData);
                 await _hub.Clients.All.SendAsync("UpdateEnergy", _bcontrol.EnergyData);

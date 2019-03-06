@@ -64,9 +64,9 @@ namespace KWLEC200Lib
         public OverviewData OverviewData { get; } = new OverviewData();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the lock.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        public bool IsLocked { get => Monitor.IsEntered(_lock); }
 
         /// <summary>
         /// Gets or sets the Modbus TCP/IP master options.
@@ -143,11 +143,6 @@ namespace KWLEC200Lib
                             Data.Refresh(data);
                             OverviewData.Refresh(data);
 
-                            if (IsInitialized == false)
-                            {
-                                IsInitialized = true;
-                            }
-
                             _logger?.LogDebug("ReadAllAsync OK.");
                         }
                         else
@@ -189,7 +184,7 @@ namespace KWLEC200Lib
             lock (_lock)
             {
                 _logger?.LogDebug("ReadOverviewData() starting.");
-                status = ReadData(OverviewData.GetProperties());
+                status = ReadProperties(OverviewData.GetProperties());
 
                 if (status.IsGood)
                 {
@@ -207,7 +202,7 @@ namespace KWLEC200Lib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public DataStatus ReadData(string property)
+        public DataStatus ReadProperty(string property)
         {
             DataStatus status = Good;
 
@@ -269,7 +264,7 @@ namespace KWLEC200Lib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public DataStatus ReadData(List<string> properties)
+        public DataStatus ReadProperties(List<string> properties)
         {
             DataStatus status = Good;
 
@@ -390,7 +385,7 @@ namespace KWLEC200Lib
         /// <param name="property">The name of the property.</param>
         /// <param name="data">The data value of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public DataStatus WriteData(string property, string data)
+        public DataStatus WriteProperty(string property, string data)
         {
             DataStatus status = Good;
 
@@ -406,111 +401,111 @@ namespace KWLEC200Lib
                         {
                             case bool b when bool.TryParse(data, out bool boolData):
                                 Data.SetPropertyValue(property, boolData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case int i when int.TryParse(data, out int intData):
                                 Data.SetPropertyValue(property, intData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case double d when double.TryParse(data, out double doubleData):
                                 Data.SetPropertyValue(property, doubleData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case DateTime d when DateTime.TryParse(data, new CultureInfo("de-DE"), DateTimeStyles.AssumeLocal, out DateTime dateData):
                                 Data.SetPropertyValue(property, dateData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case TimeSpan t when TimeSpan.TryParse(data, out TimeSpan timeData):
                                 Data.SetPropertyValue(property, timeData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case AutoSoftwareUpdates autosoftwareupdates when Enum.TryParse<AutoSoftwareUpdates>(data, true, out AutoSoftwareUpdates enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case ConfigOptions configoptions when Enum.TryParse<ConfigOptions>(data, true, out ConfigOptions enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case ContactTypes contacttypes when Enum.TryParse<ContactTypes>(data, true, out ContactTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case DateFormats dateformats when Enum.TryParse<DateFormats>(data, true, out DateFormats enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case DaylightSaving daylightsaving when Enum.TryParse<DaylightSaving>(data, true, out DaylightSaving enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case FanLevelConfig fanlevelconfig when Enum.TryParse<FanLevelConfig>(data, true, out FanLevelConfig enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case FanLevels fanlevels when Enum.TryParse<FanLevels>(data, true, out FanLevels enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case FaultTypes faulttypes when Enum.TryParse<FaultTypes>(data, true, out FaultTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case FunctionTypes functiontypes when Enum.TryParse<FunctionTypes>(data, true, out FunctionTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case GlobalUpdates globalupdates when Enum.TryParse<GlobalUpdates>(data, true, out GlobalUpdates enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case HeatExchangerTypes heatexchangertypes when Enum.TryParse<HeatExchangerTypes>(data, true, out HeatExchangerTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case HeliosPortalAccess heliosportalaccess when Enum.TryParse<HeliosPortalAccess>(data, true, out HeliosPortalAccess enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case KwlFTFConfig kwlftfconfig when Enum.TryParse<KwlFTFConfig>(data, true, out KwlFTFConfig enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case KwlSensorConfig kwlsensorconfig when Enum.TryParse<KwlSensorConfig>(data, true, out KwlSensorConfig enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case MinimumFanLevels minimumfanlevels when Enum.TryParse<MinimumFanLevels>(data, true, out MinimumFanLevels enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case OperationModes operationmodes when Enum.TryParse<OperationModes>(data, true, out OperationModes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case PreheaterTypes preheatertypes when Enum.TryParse<PreheaterTypes>(data, true, out PreheaterTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case SensorStatus sensorstatus when Enum.TryParse<SensorStatus>(data, true, out SensorStatus enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case StatusTypes statustypes when Enum.TryParse<StatusTypes>(data, true, out StatusTypes enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case VacationOperations vacationoperations when Enum.TryParse<VacationOperations>(data, true, out VacationOperations enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case WeeklyProfiles weeklyprofiles when Enum.TryParse<WeeklyProfiles>(data, true, out WeeklyProfiles enumData):
                                 Data.SetPropertyValue(property, enumData);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             case string s:
                                 Data.SetPropertyValue(property, data);
-                                status = WriteData(property);
+                                status = WriteProperty(property);
                                 break;
                             default:
                                 _logger?.LogDebug($"WriteAsync {data} to '{property}' not OK.");
@@ -559,7 +554,7 @@ namespace KWLEC200Lib
         /// </summary>
         /// <param name="property">The name of the property.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public DataStatus WriteData(string property)
+        public DataStatus WriteProperty(string property)
         {
             DataStatus status = Good;
 
@@ -612,7 +607,7 @@ namespace KWLEC200Lib
         /// </summary>
         /// <param name="properties">The list of the property names.</param>
         /// <returns>The status indicating success or failure.</returns>
-        public DataStatus WriteData(List<string> properties)
+        public DataStatus WriteProperties(List<string> properties)
         {
             DataStatus status = Good;
 

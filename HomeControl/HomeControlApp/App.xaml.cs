@@ -20,7 +20,6 @@ namespace HomeControlApp
     using Windows.UI.Xaml.Navigation;
 
     using Serilog;
-    using HomeControlApp.Models;
     using Syncfusion.Licensing;
     using Windows.ApplicationModel.Resources;
 

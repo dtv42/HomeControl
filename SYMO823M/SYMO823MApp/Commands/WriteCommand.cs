@@ -110,7 +110,7 @@ namespace SYMO823MApp.Commands
                 if (CheckOptions(app))
                 {
                     Console.WriteLine($"Writing value '{Value}' to property '{Property}' at SYMO823M symo");
-                    var status = await _symo823m.WriteDataAsync(Property, Value);
+                    var status = await _symo823m.WritePropertyAsync(Property, Value);
 
                     if (status.IsGood)
                     {
@@ -118,7 +118,7 @@ namespace SYMO823MApp.Commands
 
                         if (OptionB)
                         {
-                            await _symo823m.ReadBlockAsync();
+                            await _symo823m.ReadBlockAllAsync();
                         }
                         else
                         {

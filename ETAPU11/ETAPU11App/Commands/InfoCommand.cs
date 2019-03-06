@@ -119,7 +119,7 @@ namespace ETAPU11App.Commands
                     _etapu11.TcpSlave.Port = Parent.Port;
                     _etapu11.TcpSlave.ID = Parent.SlaveID;
 
-                    await _etapu11.ReadBlockAsync();
+                    await _etapu11.ReadBlockAllAsync();
 
                     if (OptionA)
                     {

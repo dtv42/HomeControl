@@ -6,6 +6,7 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
+[assembly: Microsoft.AspNetCore.Mvc.ApiConventionType(typeof(Microsoft.AspNetCore.Mvc.DefaultApiConventions))]
 namespace KWLEC200Web
 {
     #region Using Directives
@@ -75,6 +76,10 @@ namespace KWLEC200Web
             services.AddSingleton<IKWLEC200, KWLEC200>();
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, KWLEC200Monitor>();
 
+            // Adding Healthchecks.
+            services.AddHealthChecks()
+                .AddCheck<HealthCheck>("health");
+
             // Adding SignalR support.
             services.AddSignalR();
 
@@ -120,6 +125,10 @@ namespace KWLEC200Web
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration["Syncfusion:LicenseKey"]);
 
+            // Display health check status at the specified endpoint.
+            app.UseHealthChecks("/health");
+
+            // Enable static files.
             app.UseStaticFiles();
 
             // Use SignalR and setup the route to the hubs.

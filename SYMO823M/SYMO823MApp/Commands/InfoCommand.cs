@@ -132,7 +132,7 @@ namespace SYMO823MApp.Commands
                     _symo823m.Slave.Port = Parent.Port;
                     _symo823m.Slave.ID = Parent.SlaveID;
 
-                    await _symo823m.ReadBlockAsync();
+                    await _symo823m.ReadBlockAllAsync();
 
                     if (OptionA)
                     {

@@ -1,4 +1,4 @@
-namespace BControlTest
+﻿namespace BControlTest
 {
     #region Using Directives
 
@@ -52,7 +52,6 @@ namespace BControlTest
         public void TestBControlData()
         {
             Assert.True(_bcontrol.Data.IsGood);
-            Assert.True(_bcontrol.IsInitialized);
             Assert.Equal(21043, _bcontrol.PnPData.ManufacturerID);
             Assert.Equal(18498, _bcontrol.PnPData.ProductID);
             Assert.Equal("Energy Manager 300", _bcontrol.PnPData.ProductName);
@@ -69,7 +68,6 @@ namespace BControlTest
             await _bcontrol.ReadAllAsync();
 
             Assert.True(_bcontrol.Data.IsGood);
-            Assert.True(_bcontrol.IsInitialized);
             Assert.Equal(21043, _bcontrol.PnPData.ManufacturerID);
             Assert.Equal(18498, _bcontrol.PnPData.ProductID);
             Assert.Equal("Energy Manager 300", _bcontrol.PnPData.ProductName);

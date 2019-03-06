@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
     <Description>A .NET core 2.2 console application.</Description>
     <Copyright>Copyright (c) 2018 Dr. Peter Trimmel - All rights reserved.</Copyright>
     <UserSecretsId>b642fc75-c093-4783-bf3f-a6bfea5ede5c</UserSecretsId>

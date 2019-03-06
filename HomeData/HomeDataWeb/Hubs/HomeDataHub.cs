@@ -42,8 +42,8 @@ namespace HomeDataWeb.Hubs
         /// <param name="logger">The application logger.</param>
         /// <param name="options">The application options.</param>
         public HomeDataHub(IHomeData homedata,
-                          ILogger<HomeDataHub> logger,
-                          IOptions<AppSettings> options)
+                           ILogger<HomeDataHub> logger,
+                           IOptions<AppSettings> options)
             : base(logger, options)
         {
             _homedata = homedata;

@@ -20,9 +20,11 @@ namespace NetatmoLib
     public interface INetatmo : IHttpClientSettings, ISettingsData
     {
         NetatmoData Station { get; }
-        bool IsInitialized { get; }
 
-        Task<bool> CheckAccess();
+        bool IsLocked { get; }
+        bool CheckAccess();
+
+        DataStatus ReadAll();
         Task<DataStatus> ReadAllAsync();
 
         object GetPropertyValue(string property);

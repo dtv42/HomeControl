@@ -77,9 +77,10 @@ namespace ZipatoLib
         public ZipatoSensors Sensors { get; private set; } = new ZipatoSensors();
 
         /// <summary>
-        /// Flag indicating that the first update has been sucessful.
+        /// Returns true if no tasks can enter the semaphore.
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        [JsonIgnore]
+        public bool IsLocked { get => !(_semaphore.CurrentCount == 0); }
 
         /// <summary>
         /// Flag indicating that a session is active (logged in).
@@ -465,6 +466,13 @@ namespace ZipatoLib
         #region Public Methods
 
         /// <summary>
+        /// Synchronous methods.
+        /// </summary>
+        public DataStatus ReadAll() => ReadAllAsync().Result;
+        public DataStatus ReadAllData() => ReadAllDataAsync().Result;
+        public DataStatus ReadAllValues() => ReadAllValuesAsync().Result;
+
+        /// <summary>
         /// Starts a Zipato sessions (logging in).
         /// </summary>
         public ZipatoSession StartSession() => ZipatoSession.StartSession(_logger, _client, _settings);
@@ -521,11 +529,6 @@ namespace ZipatoLib
 
                     if (Data.Status.IsGood)
                     {
-                        if (!IsInitialized)
-                        {
-                            IsInitialized = true;
-                        }
-
                         Others.Update();
                         Devices.Update();
                         Sensors.Update();

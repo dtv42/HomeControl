@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Startup.cs" company="DTV-Online">
 //   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -6,6 +6,7 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
+[assembly: Microsoft.AspNetCore.Mvc.ApiConventionType(typeof(Microsoft.AspNetCore.Mvc.DefaultApiConventions))]
 namespace WallboxWeb
 {
     #region Using Directives
@@ -77,6 +78,10 @@ namespace WallboxWeb
             services.AddSingleton<IWallbox, Wallbox>();
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, WallboxMonitor>();
 
+            // Adding Healthchecks.
+            services.AddHealthChecks()
+                .AddCheck<HealthCheck>("health");
+
             // Adding SignalR support.
             services.AddSignalR();
 
@@ -122,6 +127,10 @@ namespace WallboxWeb
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration["Syncfusion:LicenseKey"]);
 
+            // Display health check status at the specified endpoint.
+            app.UseHealthChecks("/health");
+
+            // Enable static files.
             app.UseStaticFiles();
 
             // Use SignalR and setup the route to the hubs.

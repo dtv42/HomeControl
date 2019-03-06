@@ -24,9 +24,12 @@ namespace EM300LRLib
         Phase1Data Phase1Data { get; }
         Phase2Data Phase2Data { get; }
         Phase3Data Phase3Data { get; }
-        bool IsInitialized { get; }
+
+        bool IsLocked { get; }
 
         Task<bool> CheckAccess();
+        DataStatus ReadAll();
+
         Task<DataStatus> ReadAllAsync();
 
         object GetPropertyValue(string property);

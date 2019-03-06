@@ -6,7 +6,7 @@
 // Licensed under the MIT license. See the LICENSE file in the project root for more information.
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
-namespace ZipatoLib.Models.Others
+namespace HomeControlLib.Zipato.Models.Others
 {
     #region Using Directives
 

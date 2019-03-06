@@ -69,7 +69,7 @@ namespace ETAPU11Web.Services
             try
             {
                 _logger?.LogDebug("ETAPU11Monitor: DoWork...");
-                await _etapu11?.ReadBlockAsync();
+                await _etapu11?.ReadBlockAllAsync();
                 await _hub?.Clients.All.SendAsync("UpdateData", _etapu11.Data);
                 await _hub?.Clients.All.SendAsync("UpdateBoiler", _etapu11.BoilerData);
                 await _hub?.Clients.All.SendAsync("UpdateHeating", _etapu11.HeatingData);

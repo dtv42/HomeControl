@@ -32,6 +32,7 @@ namespace FroniusWeb.Controllers
     /// <summary>
     /// The Fronius controller for reading Fronius data items.
     /// </summary>
+    [ApiController]
     [Route("api/fronius")]
     [Produces("application/json")]
     public class FroniusController : BaseController<AppSettings>
@@ -63,20 +64,6 @@ namespace FroniusWeb.Controllers
         #region REST Methods
 
         /// <summary>
-        /// Returns flag indicating that the data have been sucessfully initialized.
-        /// </summary>
-        /// <returns>The action method result.</returns>
-        /// <response code="200">Returns the requested data.</response>
-        [HttpGet("/api/isinitialized")]
-        [SwaggerOperation(Tags = new[] { "Fronius API" })]
-        [ProducesResponseType(typeof(bool), 200)]
-        public IActionResult GetIsInitialized()
-        {
-            _logger?.LogDebug("GetIsInitialized()...");
-            return Ok(_fronius?.IsInitialized);
-        }
-
-        /// <summary>
         /// Returns all Fronius related data.
         /// </summary>
         /// <param name="update">Indicates if an update is requested.</param>
@@ -97,9 +84,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("GetFroniusData()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -141,9 +128,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("GetCommonData()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -185,9 +172,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("InverterInfo()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -229,9 +216,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("GetLoggerInfo()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -273,9 +260,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("GetMinMaxData()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -317,9 +304,9 @@ namespace FroniusWeb.Controllers
             {
                 _logger?.LogDebug("GetPhaseData()...");
 
-                if (!_fronius.IsInitialized)
+                if (!_fronius.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 if (update)
@@ -375,9 +362,9 @@ namespace FroniusWeb.Controllers
 
                 if (Fronius.IsProperty(name))
                 {
-                    if (!_fronius.IsInitialized)
+                    if (!_fronius.IsLocked)
                     {
-                        return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                        return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                     }
 
                     if (update)

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.2</RuntimeFrameworkVersion>
     <IsPackable>false</IsPackable>
     <UserSecretsId>db8a0213-84be-45cc-837c-03f5b8659cb6</UserSecretsId>
   </PropertyGroup>

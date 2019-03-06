@@ -103,29 +103,21 @@ namespace HomeDataApp.Commands
 
                     await _homedata.ReadAllAsync(OptionU);
 
-                    if (_homedata.IsInitialized)
+                    if (_homedata.Data.IsGood)
                     {
-                        if (_homedata.Data.IsGood)
+                        if (Property.Length > 0)
                         {
-                            if (Property.Length > 0)
-                            {
-                                Console.WriteLine($"Reading property '{Property}' from home control system.");
-                                Console.WriteLine($"Value of property '{Property}' = {JsonConvert.SerializeObject(_homedata.GetPropertyValue(Property), Formatting.Indented)}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"HomeData: {JsonConvert.SerializeObject(_homedata.Data, Formatting.Indented)}");
-                            }
+                            Console.WriteLine($"Reading property '{Property}' from home control system.");
+                            Console.WriteLine($"Value of property '{Property}' = {JsonConvert.SerializeObject(_homedata.GetPropertyValue(Property), Formatting.Indented)}");
                         }
                         else
                         {
-                            Console.WriteLine($"Error getting updated data from home control system.");
-                            Console.WriteLine($"Reason: {_homedata.Data.Status.Explanation}.");
+                            Console.WriteLine($"HomeData: {JsonConvert.SerializeObject(_homedata.Data, Formatting.Indented)}");
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Error initializing data from home control system.");
+                        Console.WriteLine($"Error getting updated data from home control system.");
                         Console.WriteLine($"Reason: {_homedata.Data.Status.Explanation}.");
                     }
                 }

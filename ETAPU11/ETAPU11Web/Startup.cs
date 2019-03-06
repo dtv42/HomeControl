@@ -1,10 +1,18 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Startup.cs" company="DTV-Online">
+//   Copyright(c) 2019 Dr. Peter Trimmel. All rights reserved.
+// </copyright>
+// <license>
+// Licensed under the MIT license. See the LICENSE file in the project root for more information.
+// </license>
+// --------------------------------------------------------------------------------------------------------------------
+[assembly: Microsoft.AspNetCore.Mvc.ApiConventionType(typeof(Microsoft.AspNetCore.Mvc.DefaultApiConventions))]
 namespace ETAPU11Web
 {
     #region Using Directives
 
     using System;
     using System.IO;
-    using System.Net.Http;
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
@@ -69,6 +77,10 @@ namespace ETAPU11Web
             services.AddSingleton<IETAPU11, ETAPU11>();
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, ETAPU11Monitor>();
 
+            // Adding Healthchecks.
+            services.AddHealthChecks()
+                .AddCheck<HealthCheck>("health");
+
             // Adding SignalR support.
             services.AddSignalR();
 
@@ -114,6 +126,10 @@ namespace ETAPU11Web
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration["Syncfusion:LicenseKey"]);
 
+            // Display health check status at the specified endpoint.
+            app.UseHealthChecks("/health");
+
+            // Enable static files.
             app.UseStaticFiles();
 
             // Use SignalR and setup the route to the hubs.

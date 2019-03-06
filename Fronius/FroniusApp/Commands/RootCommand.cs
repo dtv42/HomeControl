@@ -117,7 +117,7 @@ namespace FroniusApp.Commands
         /// Method to run when the root command is executed.
         /// </summary>
         /// <returns>Zero if ok.</returns>
-        public async Task<int> OnExecuteAsync(CommandLineApplication app)
+        public int OnExecute(CommandLineApplication app)
         {
             Console.WriteLine($"Settings: {JsonConvert.SerializeObject(this, Formatting.Indented)}");
 
@@ -130,7 +130,7 @@ namespace FroniusApp.Commands
                     _fronius.Timeout = Timeout;
                     _fronius.DeviceID = DeviceID;
 
-                    if (await _fronius.CheckAccess())
+                    if (_fronius.CheckAccess())
                     {
                         Console.WriteLine($"Fronius web service with version '{_fronius.VersionInfo.APIVersion}' found at {BaseAddress}.");
                     }

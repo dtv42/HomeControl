@@ -110,7 +110,7 @@ namespace ETAPU11App.Commands
                     _etapu11.TcpSlave.ID = Parent.SlaveID;
 
                     Console.WriteLine($"Writing value '{Value}' to property '{Property}' at ETAPU11 boiler");
-                    var status = await _etapu11.WriteDataAsync(Property, Value);
+                    var status = await _etapu11.WritePropertyAsync(Property, Value);
 
                     if (status.IsGood)
                     {
@@ -118,7 +118,7 @@ namespace ETAPU11App.Commands
 
                         if (OptionB)
                         {
-                            await _etapu11.ReadBlockAsync();
+                            await _etapu11.ReadBlockAllAsync();
                         }
                         else
                         {

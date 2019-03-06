@@ -36,6 +36,7 @@ namespace ZipatoWeb.Controllers
     /// <summary>
     /// The Zipato controller for reading other Zipato data.
     /// </summary>
+    [ApiController]
     [Route("api/others")]
     [Produces("application/json")]
     public class ZipatoOthersController : BaseController<AppSettings>
@@ -86,9 +87,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetOthers()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 return Ok(_zipato.Others);
@@ -119,9 +120,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetCameras()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 return Ok(_zipato.Sensors.VirtualMeters);
@@ -155,9 +156,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetCamera()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Scenes.Count;
@@ -198,9 +199,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetCameraFiles()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -244,9 +245,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetCameraFile()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -295,9 +296,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"DeleteSavedFile({index})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -357,9 +358,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug($"DeleteSavedFile({index}, {file})...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -418,9 +419,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTakeSnapshotAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -461,9 +462,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetTakeRecordAsync()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Cameras.Count;
@@ -501,9 +502,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetScenes()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 return Ok(_zipato.Others.Scenes);
@@ -537,9 +538,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetScene()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Scenes.Count;
@@ -580,9 +581,9 @@ namespace ZipatoWeb.Controllers
             {
                 _logger?.LogDebug("GetSceneRun()...");
 
-                if (!_zipato.IsInitialized)
+                if (!_zipato.IsLocked)
                 {
-                    return StatusCode(StatusCodes.Status406NotAcceptable, "Initialization not yet finished.");
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "Locked: update not yet finished.");
                 }
 
                 var count = _zipato.Others.Scenes.Count;

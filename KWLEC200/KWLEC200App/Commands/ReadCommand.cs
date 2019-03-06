@@ -117,7 +117,7 @@ namespace KWLEC200App.Commands
                     else
                     {
                         Console.WriteLine($"Reading property '{Property}' from KWLEC200 _kwlec200.");
-                        var status = _kwlec200.ReadData(Property);
+                        var status = _kwlec200.ReadProperty(Property);
 
                         if (status.IsGood)
                         {

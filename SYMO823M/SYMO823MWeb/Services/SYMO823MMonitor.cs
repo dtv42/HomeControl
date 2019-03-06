@@ -92,7 +92,7 @@ namespace SYMO823MWeb.Services
             try
             {
                 _logger?.LogDebug("SYMO823MMonitor: DoUpdateAsync...");
-                var status = await _symo823m?.ReadBlockAsync();
+                var status = await _symo823m?.ReadBlockAllAsync();
 
                 if (status.IsGood)
                 {

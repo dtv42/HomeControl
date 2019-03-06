@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestReadWrite.cs" company="DTV-Online">
 //   Copyright(c) 2018 Dr. Peter Trimmel. All rights reserved.
 // </copyright>
@@ -61,10 +61,10 @@ namespace SYMO823MTest
         [InlineData("VArMaxPct", 0)]
         public async Task TestSYMO823MReadWriteSunSpecInt16(string property, short data)
         {
-            var status = await _symo823m.WriteDataAsync(property, data.ToString());
+            var status = await _symo823m.WritePropertyAsync(property, data.ToString());
             Assert.True(status.IsGood);
             _symo823m.Data = new SYMO823MData();
-            status = await _symo823m.ReadDataAsync(property);
+            status = await _symo823m.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, (short)(int16)_symo823m.Data.GetPropertyValue(property));
         }
@@ -76,10 +76,10 @@ namespace SYMO823MTest
         [InlineData("ModelType", 0)]
         public async Task TestSYMO823MReadWriteUShort(string property, ushort data)
         {
-            var status = await _symo823m.WriteDataAsync(property, data.ToString());
+            var status = await _symo823m.WritePropertyAsync(property, data.ToString());
             Assert.True(status.IsGood);
             _symo823m.Data = new SYMO823MData();
-            status = await _symo823m.ReadDataAsync(property);
+            status = await _symo823m.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, (ushort)_symo823m.Data.GetPropertyValue(property));
         }
@@ -102,10 +102,10 @@ namespace SYMO823MTest
         [InlineData("VArPctEna", 0)]
         public async Task TestSYMO823MReadWriteSunSpecUInt16(string property, ushort data)
         {
-            var status = await _symo823m.WriteDataAsync(property, data.ToString());
+            var status = await _symo823m.WritePropertyAsync(property, data.ToString());
             Assert.True(status.IsGood);
             _symo823m.Data = new SYMO823MData();
-            status = await _symo823m.ReadDataAsync(property);
+            status = await _symo823m.ReadPropertyAsync(property);
             Assert.True(status.IsGood);
             Assert.Equal(data, (ushort)(uint16)_symo823m.Data.GetPropertyValue(property));
         }
